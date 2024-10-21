@@ -1,0 +1,80 @@
+[
+  {
+    "Name": "Oil Change",
+    "Description": "Routine oil and filter change for the vehicle.",
+    "IsActive": true,
+    "GroupCode": "VEH-MAINT"
+  },
+  {
+    "Name": "Brake Service",
+    "Description": "Inspection and replacement of brake pads and rotors.",
+    "IsActive": true,
+    "GroupCode": "VEH-MAINT"
+  },
+  {
+    "Name": "Full Service",
+    "Description": "Complete inspection and service including fluids, brakes, and engine check.",
+    "IsActive": true,
+    "GroupCode": "VEH-MAINT"
+  },
+  {
+    "Name": "Transmission Service",
+    "Description": "Replacement of transmission fluid and inspection of transmission components.",
+    "IsActive": true,
+    "GroupCode": "VEH-MAINT"
+  },
+  {
+    "Name": "Suspension Check",
+    "Description": "Inspection and maintenance of vehicle suspension system.",
+    "IsActive": true,
+    "GroupCode": "VEH-MAINT"
+  },
+  {
+    "Name": "Funeral Service",
+    "Description": "A traditional service that includes a formal ceremony for the deceased.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Cremation Service",
+    "Description": "Service related to the cremation of the deceased.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Graveside Service",
+    "Description": "A brief service held at the gravesite before burial.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Memorial Service",
+    "Description": "A service to remember the deceased, usually held after the burial or cremation.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Viewing Service",
+    "Description": "A service where family and friends can view the deceased prior to the funeral.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Transportation Service",
+    "Description": "Transportation of the deceased or attendees to and from the funeral event.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Embalming Service",
+    "Description": "Preparation and preservation of the deceased body for viewing.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  },
+  {
+    "Name": "Grief Counseling",
+    "Description": "Support and counseling services for grieving family members.",
+    "IsActive": true,
+    "GroupCode": "FUNERAL"
+  }
+]

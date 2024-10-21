@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Basic Plan",
+    "Description": "This plan provides basic funeral services with a minimum coverage.",
+    "Amount": 100.00,
+    "CoverAmount": 5000.00,
+    "IActive": true,
+    "CreatedDate": "2024-10-01T00:00:00"
+  },
+  {
+    "Name": "Standard Plan",
+    "Description": "This plan covers standard funeral services with medium coverage.",
+    "Amount": 250.00,
+    "CoverAmount": 15000.00,
+    "IActive": true,
+    "CreatedDate": "2024-10-01T00:00:00"
+  },
+  {
+    "Name": "Premium Plan",
+    "Description": "Premium coverage that offers comprehensive funeral services.",
+    "Amount": 500.00,
+    "CoverAmount": 30000.00,
+    "IActive": true,
+    "CreatedDate": "2024-10-01T00:00:00"
+  }
+]

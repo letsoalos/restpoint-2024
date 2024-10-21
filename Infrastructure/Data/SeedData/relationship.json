@@ -1,0 +1,34 @@
+[
+  {
+    "Name": "Parent",
+    "Description": "The deceased's mother or father."
+  },
+  {
+    "Name": "Sibling",
+    "Description": "The deceased's brother or sister."
+  },
+  {
+    "Name": "Spouse",
+    "Description": "The deceased's husband or wife."
+  },
+  {
+    "Name": "Child",
+    "Description": "The deceased's son or daughter."
+  },
+  {
+    "Name": "Relative",
+    "Description": "Any other family member related to the deceased."
+  },
+  {
+    "Name": "Friend",
+    "Description": "A close friend of the deceased."
+  },
+  {
+    "Name": "Colleague",
+    "Description": "A work colleague of the deceased."
+  },
+  {
+    "Name": "Guardian",
+    "Description": "The legal guardian of the deceased."
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "Name": "Scheduled",
+    "Description": "The event has been scheduled and is confirmed.",
+    "GroupCode": "EVNT",
+    "IsActive": true
+  },
+  {
+    "Name": "In Progress",
+    "Description": "The event is currently taking place.",
+    "GroupCode": "EVNT",
+    "IsActive": true
+  },
+  {
+    "Name": "Completed",
+    "Description": "The event has concluded.",
+    "GroupCode": "EVNT",
+    "IsActive": false
+  },
+  {
+    "Name": "Cancelled",
+    "Description": "The event has been cancelled.",
+    "GroupCode": "EVNT",
+    "IsActive": false
+  },
+  {
+    "Name": "Postponed",
+    "Description": "The event has been postponed to a later date.",
+    "GroupCode": "EVNT",
+    "IsActive": true
+  },
+  {
+    "Name": "Pending Payment",
+    "Description": "Awaiting payment confirmation.",
+    "GroupCode": "PAYM",
+    "IsActive": true
+  },
+  {
+    "Name": "Paid",
+    "Description": "Payment has been confirmed.",
+    "GroupCode": "PAYM",
+    "IsActive": false
+  },
+  {
+    "Name": "Overdue",
+    "Description": "Payment is past the due date.",
+    "GroupCode": "PAYM",
+    "IsActive": false
+  },
+  {
+    "Name": "Pending",
+    "Description": "Client registration is pending.",
+    "GroupCode": "CRGS",
+    "IsActive": true
+  },
+  {
+    "Name": "Registered",
+    "Description": "Client registration has been approved.",
+    "GroupCode": "CRGS",
+    "IsActive": true
+  },
+  {
+    "Name": "Rejected",
+    "Description": "Client registration has been rejected.",
+    "GroupCode": "CRGS",
+    "IsActive": false
+  },
+  {
+    "Name": "Available",
+    "Description": "Vehicle is available for use.",
+    "GroupCode": "VAS",
+    "IsActive": true
+  },
+  {
+    "Name": "Unavailable",
+    "Description": "Vehicle is currently unavailable.",
+    "GroupCode": "VAS",
+    "IsActive": false
+  },
+  {
+    "Name": "In Use",
+    "Description": "Vehicle is currently in use.",
+    "GroupCode": "VAS",
+    "IsActive": true
+  },
+  {
+    "Name": "Reported",
+    "Description": "The incident has been reported and logged.",
+    "GroupCode": "INCR",
+    "IsActive": true
+  },
+  {
+    "Name": "Under Investigation",
+    "Description": "The incident is currently being investigated.",
+    "GroupCode": "INCR",
+    "IsActive": true
+  },
+  {
+    "Name": "Resolved",
+    "Description": "The incident has been resolved.",
+    "GroupCode": "INCR",
+    "IsActive": true
+  },
+  {
+    "Name": "Staff",
+    "Description": "A member of staff assigned to provide services during the event.",
+    "GroupCode": "STFF",
+    "IsActive": true
+  }
+  
+]

@@ -1,0 +1,11 @@
+D:\Sello\workspace\restpoint\Core\bin\Debug\net8.0\Core.deps.json
+D:\Sello\workspace\restpoint\Core\bin\Debug\net8.0\Core.dll
+D:\Sello\workspace\restpoint\Core\bin\Debug\net8.0\Core.pdb
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.AssemblyInfoInputs.cache
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.AssemblyInfo.cs
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.csproj.CoreCompileInputs.cache
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.dll
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\refint\Core.dll
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.pdb
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\ref\Core.dll

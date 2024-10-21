@@ -1,0 +1,72 @@
+[
+  {
+    "VehicleId": 1,
+    "DateFilled": "2024-10-10",
+    "FuelAmount": 50.75,
+    "OdometerReading": 15200,
+    "FuelStation": "Shell Pretoria"
+  },
+  {
+    "VehicleId": 2,
+    "DateFilled": "2024-10-09",
+    "FuelAmount": 45.20,
+    "OdometerReading": 24850,
+    "FuelStation": "BP Johannesburg"
+  },
+  {
+    "VehicleId": 3,
+    "DateFilled": "2024-10-08",
+    "FuelAmount": 60.00,
+    "OdometerReading": 5000,
+    "FuelStation": "Caltex Cape Town"
+  },
+  {
+    "VehicleId": 4,
+    "DateFilled": "2024-10-07",
+    "FuelAmount": 55.30,
+    "OdometerReading": 30000,
+    "FuelStation": "Engen Durban"
+  },
+  {
+    "VehicleId": 5,
+    "DateFilled": "2024-10-06",
+    "FuelAmount": 40.50,
+    "OdometerReading": 41000,
+    "FuelStation": "Total Bloemfontein"
+  },
+  {
+    "VehicleId": 6,
+    "DateFilled": "2024-10-05",
+    "FuelAmount": 47.80,
+    "OdometerReading": 7000,
+    "FuelStation": "Shell East London"
+  },
+  {
+    "VehicleId": 7,
+    "DateFilled": "2024-10-04",
+    "FuelAmount": 52.65,
+    "OdometerReading": 8500,
+    "FuelStation": "BP Port Elizabeth"
+  },
+  {
+    "VehicleId": 8,
+    "DateFilled": "2024-10-03",
+    "FuelAmount": 38.90,
+    "OdometerReading": 22000,
+    "FuelStation": "Caltex Kimberley"
+  },
+  {
+    "VehicleId": 9,
+    "DateFilled": "2024-10-02",
+    "FuelAmount": 65.00,
+    "OdometerReading": 12500,
+    "FuelStation": "Engen Polokwane"
+  },
+  {
+    "VehicleId": 10,
+    "DateFilled": "2024-10-01",
+    "FuelAmount": 42.30,
+    "OdometerReading": 5050,
+    "FuelStation": "Total Nelspruit"
+  }
+]

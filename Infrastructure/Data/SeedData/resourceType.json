@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Vehicle",
+    "Description": "Vehicles used for transporting the deceased, such as hearses or vans."
+  },
+  {
+    "Name": "Chapel",
+    "Description": "Chapel or funeral venue for services."
+  },
+  {
+    "Name": "Casket",
+    "Description": "Caskets or coffins available for funerals."
+  },
+  {
+    "Name": "Flowers",
+    "Description": "Floral arrangements and decorations for the funeral."
+  },
+  {
+    "Name": "Staff",
+    "Description": "Funeral service staff including drivers, ushers, and coordinators."
+  },
+  {
+    "Name": "Grave Plot",
+    "Description": "Grave plots reserved for burial services."
+  }
+]

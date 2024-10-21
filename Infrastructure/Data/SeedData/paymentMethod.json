@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Cash"
+  },
+  {
+    "Name": "Credit Card"
+  },
+  {
+    "Name": "Debit Card"
+  },
+  {
+    "Name": "Bank Transfer"
+  },
+  {
+    "Name": "Mobile Payment"
+  },
+  {
+    "Name": "Cheque"
+  }
+]

@@ -1,0 +1,41 @@
+[
+  {
+    "ClientId": 1,
+    "PaymentDate": "2024-10-01T10:30:00",
+    "TotalAmountPaid": 100.00,
+    "PaymentMethodId": 1,
+    "ReferenceNumber": "REF123456",
+    "Description": "Payment for funeral service",
+    "StatusId": 6,
+    "CreatedDate": "2024-10-01T10:30:00",
+    "CreatedByUserId": 1,
+    "ModifiedDate": null,
+    "ModifiedByUserId": null
+  },
+  {
+    "ClientId": 2,
+    "PaymentDate": "2024-10-05T14:00:00",
+    "TotalAmountPaid": 250.00,
+    "PaymentMethodId": 2,
+    "ReferenceNumber": "REF123457",
+    "Description": "Payment for cremation service",
+    "StatusId": 6,
+    "CreatedDate": "2024-10-05T14:00:00",
+    "CreatedByUserId": 2,
+    "ModifiedDate": null,
+    "ModifiedByUserId": null
+  },
+  {
+    "ClientId": 3,
+    "PaymentDate": "2024-10-10T09:15:00",
+    "TotalAmountPaid": 150.00,
+    "PaymentMethodId": 3,
+    "ReferenceNumber": "REF123458",
+    "Description": "Payment for memorial service",
+    "StatusId": 6,
+    "CreatedDate": "2024-10-10T09:15:00",
+    "CreatedByUserId": 3,
+    "ModifiedDate": null,
+    "ModifiedByUserId": null
+  }
+]

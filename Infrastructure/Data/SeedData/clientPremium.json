@@ -1,0 +1,34 @@
+[
+  {
+    "ClientId": 1,
+    "PremiumPlanId": 1,
+    "TotalAmountPaid": 1500.00,
+    "StartDate": "2023-06-01T00:00:00",
+    "PaymentFrequencyId": 2,
+    "IsActive": true
+  },
+  {
+    "ClientId": 2,
+    "PremiumPlanId": 3,
+    "TotalAmountPaid": 2500.00,
+    "StartDate": "2022-01-15T00:00:00",
+    "PaymentFrequencyId": 1,
+    "IsActive": true
+  },
+  {
+    "ClientId": 3,
+    "PremiumPlanId": 2,
+    "TotalAmountPaid": 1000.00,
+    "StartDate": "2023-09-10T00:00:00",
+    "PaymentFrequencyId": 3,
+    "IsActive": false
+  },
+  {
+    "ClientId": 4,
+    "PremiumPlanId": 3,
+    "TotalAmountPaid": 3000.00,
+    "StartDate": "2021-11-20T00:00:00",
+    "PaymentFrequencyId": 1,
+    "IsActive": true
+  }
+]

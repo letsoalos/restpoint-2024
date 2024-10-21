@@ -1,0 +1,34 @@
+[
+  {
+    "Name": "Early Bird Discount",
+    "Description": "5% off for bookings made 3 months in advance.",
+    "PercentageOff": 5.00,
+    "IsActive": true,
+    "StartDate": "2024-01-01T00:00:00",
+    "EndDate": "2024-12-31T23:59:59"
+  },
+  {
+    "Name": "Loyalty Discount",
+    "Description": "10% off for clients who have used our services for over 5 years.",
+    "PercentageOff": 10.00,
+    "IsActive": true,
+    "StartDate": "2024-01-01T00:00:00",
+    "EndDate": "2024-12-31T23:59:59"
+  },
+  {
+    "Name": "Family Discount",
+    "Description": "15% off on all services when booking for two or more family members.",
+    "PercentageOff": 15.00,
+    "IsActive": true,
+    "StartDate": "2024-01-01T00:00:00",
+    "EndDate": "2024-12-31T23:59:59"
+  },
+  {
+    "Name": "Special Funeral Discount",
+    "Description": "20% off for veterans and essential workers.",
+    "PercentageOff": 20.00,
+    "IsActive": true,
+    "StartDate": "2024-01-01T00:00:00",
+    "EndDate": "2025-01-01T00:00:00"
+  }
+]

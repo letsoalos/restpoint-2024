@@ -1,0 +1,38 @@
+[
+  {
+    "VehicleId": 1,
+    "AssignedDriverUserId": 101,
+    "IncidentDate": "2024-09-25T09:15:00",
+    "Description": "Front collision with minor damage to the bumper.",
+    "DamageAssesment": "Minor dent on the front bumper and scratches on the headlights.",
+    "StatusId": 15,
+    "InsuranceClaimNumber": "CLM123456789"
+  },
+  {
+    "VehicleId": 2,
+    "AssignedDriverUserId": 102,
+    "IncidentDate": "2024-10-05T16:00:00",
+    "Description": "Side collision at a traffic light.",
+    "DamageAssesment": "Significant damage to the passenger-side door and mirror.",
+    "StatusId": 2,
+    "InsuranceClaimNumber": "CLM987654321"
+  },
+  {
+    "VehicleId": 3,
+    "AssignedDriverUserId": 103,
+    "IncidentDate": "2024-08-15T13:30:00",
+    "Description": "Rear-end collision during traffic.",
+    "DamageAssesment": "Severe damage to the rear bumper and tailgate.",
+    "StatusId": 15,
+    "InsuranceClaimNumber": null
+  },
+  {
+    "VehicleId": 4,
+    "AssignedDriverUserId": 104,
+    "IncidentDate": "2024-07-10T10:45:00",
+    "Description": "Minor collision in a parking lot.",
+    "DamageAssesment": "Small dent on the rear fender.",
+    "StatusId": 16,
+    "InsuranceClaimNumber": null
+  }
+]

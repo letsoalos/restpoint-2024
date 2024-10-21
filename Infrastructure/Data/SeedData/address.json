@@ -1,0 +1,62 @@
+[
+    {
+        "StreetName": "123 Main Street",
+        "Suburb": "Wembley",
+        "City": "Pietermaritzburg",
+        "PostalCode": "3201"
+    },
+    {
+        "StreetName": "456 Oak Avenue",
+        "Suburb": "Morningside",
+        "City": "Durban",
+        "PostalCode": "4001"
+    },
+    {
+        "StreetName": "789 Pine Road",
+        "Suburb": "Greenside",
+        "City": "Johannesburg",
+        "PostalCode": "2193"
+    },
+    {
+        "StreetName": "101 River Street",
+        "Suburb": "Rivonia",
+        "City": "Sandton",
+        "PostalCode": "2191"
+    },
+    {
+        "StreetName": "202 Maple Drive",
+        "Suburb": "Claremont",
+        "City": "Cape Town",
+        "PostalCode": "7708"
+    },
+    {
+        "StreetName": "303 Cedar Lane",
+        "Suburb": "Mfuleni",
+        "City": "Cape Town",
+        "PostalCode": "7490"
+    },
+    {
+        "StreetName": "404 Elm Street",
+        "Suburb": "Newlands",
+        "City": "Cape Town",
+        "PostalCode": "7700"
+    },
+    {
+        "StreetName": "505 Birch Way",
+        "Suburb": "Vanderbijlpark",
+        "City": "Vaal Triangle",
+        "PostalCode": "1900"
+    },
+    {
+        "StreetName": "606 Cherry Crescent",
+        "Suburb": "Centurion",
+        "City": "Pretoria",
+        "PostalCode": "0157"
+    },
+    {
+        "StreetName": "707 Willow Avenue",
+        "Suburb": "Burgersfort",
+        "City": "Limpopo",
+        "PostalCode": "1150"
+    }
+]

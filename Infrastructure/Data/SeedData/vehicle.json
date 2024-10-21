@@ -1,0 +1,112 @@
+[
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "ABC123",
+    "Make": "Toyota",
+    "Model": "Corolla",
+    "Year": "2020",
+    "StatusId": 12,
+    "OwnershipCategoryId": 1,
+    "Mileage": 15000,
+    "AssignedDriverUserId": 1
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "XYZ456",
+    "Make": "Ford",
+    "Model": "Focus",
+    "Year": "2019",
+    "StatusId": 12,
+    "OwnershipCategoryId": 1,
+    "Mileage": 25000,
+    "AssignedDriverUserId": 2
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "LMN789",
+    "Make": "Volkswagen",
+    "Model": "Golf",
+    "Year": "2021",
+    "StatusId": 12,
+    "OwnershipCategoryId": 2,
+    "Mileage": 5000,
+    "AssignedDriverUserId": 3
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "DEF123",
+    "Make": "Honda",
+    "Model": "Civic",
+    "Year": "2018",
+    "StatusId": 13,
+    "OwnershipCategoryId": 1,
+    "Mileage": 30000,
+    "AssignedDriverUserId": 4
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "GHI456",
+    "Make": "Nissan",
+    "Model": "Sentra",
+    "Year": "2017",
+    "StatusId": 2,
+    "OwnershipCategoryId": 2,
+    "Mileage": 40000,
+    "AssignedDriverUserId": 5
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "JKL789",
+    "Make": "Mazda",
+    "Model": "Mazda3",
+    "Year": "2022",
+    "StatusId": 13,
+    "OwnershipCategoryId": 1,
+    "Mileage": 2000,
+    "AssignedDriverUserId": 6
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "MNO123",
+    "Make": "Hyundai",
+    "Model": "Elantra",
+    "Year": "2021",
+    "StatusId": 13,
+    "OwnershipCategoryId": 1,
+    "Mileage": 8000,
+    "AssignedDriverUserId": 7
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "PQR456",
+    "Make": "Chevrolet",
+    "Model": "Malibu",
+    "Year": "2019",
+    "StatusId": 14,
+    "OwnershipCategoryId": 2,
+    "Mileage": 22000,
+    "AssignedDriverUserId": 8
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "STU789",
+    "Make": "Subaru",
+    "Model": "Impreza",
+    "Year": "2020",
+    "StatusId": 14,
+    "OwnershipCategoryId": 1,
+    "Mileage": 12000,
+    "AssignedDriverUserId": 9
+  },
+  {
+    "AssetTypeId": 1,
+    "RegistrationNumber": "VWX123",
+    "Make": "Kia",
+    "Model": "Forte",
+    "Year": "2022",
+    "StatusId": 12,
+    "OwnershipCategoryId": 1,
+    "Mileage": 5000,
+    "AssignedDriverUserId": 10
+  }
+]

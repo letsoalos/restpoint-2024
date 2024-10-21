@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Private",
+    "Description": "Privately owned asset.",
+    "IsActive": true
+  },
+  {
+    "Name": "Company Owned",
+    "Description": "Asset owned by a company or organization.",
+    "IsActive": true
+  },
+  {
+    "Name": "Rented",
+    "Description": "Asset is being rented.",
+    "IsActive": true
+  },
+  {
+    "Name": "Leased",
+    "Description": "Asset is leased from another party.",
+    "IsActive": true
+  }
+]

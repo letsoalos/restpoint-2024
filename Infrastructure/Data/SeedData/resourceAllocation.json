@@ -1,0 +1,10 @@
+[
+  {
+    "FuneralEventId": 1,
+    "ResourceTypeId": 2,
+    "ResourceId": 5,
+    "AssignedDate": "2024-10-19T10:30:00",
+    "StatusId": 18,
+    "Notes": "Resource allocated for the upcoming funeral service."
+  }
+]

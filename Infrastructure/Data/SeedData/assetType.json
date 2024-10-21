@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Vehicle",
+    "Description": "Assets that are categorized as vehicles, including cars, trucks, and bikes.",
+    "Capacity": null,
+    "IActive": true
+  },
+  {
+    "Name": "Equipment",
+    "Description": "Assets such as heavy machinery, computers, or specialized equipment.",
+    "Capacity": null,
+    "IActive": true
+  },
+  {
+    "Name": "Building",
+    "Description": "Assets that include properties and buildings used by the organization.",
+    "Capacity": 100,
+    "IActive": true
+  },
+  {
+    "Name": "Furniture",
+    "Description": "Assets like tables, chairs, and office furniture.",
+    "Capacity": null,
+    "IActive": false
+  },
+  {
+    "Name": "IT Equipment",
+    "Description": "Laptops, desktops, servers, and other IT infrastructure.",
+    "Capacity": null,
+    "IActive": true
+  }
+]

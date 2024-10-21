@@ -1,0 +1,44 @@
+[
+  {
+    "Name": "Death Certificate",
+    "Description": "Official document issued by the government certifying the person's death.",
+    "GroupCode": "DOCS",
+    "IsActive": true
+  },
+  {
+    "Name": "Burial Permit",
+    "Description": "Permit issued by authorities allowing the burial of a deceased person.",
+    "GroupCode": "DOCS",
+    "IsActive": true
+  },
+  {
+    "Name": "Cremation Authorization",
+    "Description": "Authorization form required to cremate a deceased person.",
+    "GroupCode": "DOCS",
+    "IsActive": true
+  },
+  {
+    "Name": "Funeral Service Agreement",
+    "Description": "Agreement outlining the terms and services for the funeral event.",
+    "GroupCode": "DOCS",
+    "IsActive": true
+  },
+  {
+    "Name": "ID Copy",
+    "Description": "Copy of the deceased or next of kin's identification document.",
+    "GroupCode": "IDPT",
+    "IsActive": true
+  },
+  {
+    "Name": "Passport",
+    "Description": "Official passport document of the deceased or next of kin.",
+    "GroupCode": "IDPT",
+    "IsActive": true
+  },
+  {
+    "Name": "Insurance Policy",
+    "Description": "Insurance policy document related to the funeral arrangement.",
+    "GroupCode": "INSR",
+    "IsActive": true
+  }
+]

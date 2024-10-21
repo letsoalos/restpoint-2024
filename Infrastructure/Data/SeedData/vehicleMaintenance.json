@@ -1,0 +1,42 @@
+[
+  {
+    "VehicleId": 1,
+    "OdometerReading": 50000,
+    "ServiceTypeId": 2,
+    "ServiceDate": "2023-06-15T00:00:00",
+    "ServiceCost": 4500.50,
+    "NextServiceDate": "2024-06-15T00:00:00",
+    "ServiceProvider": "AutoWorks",
+    "Notes": "Engine oil and filter replaced."
+  },
+  {
+    "VehicleId": 2,
+    "OdometerReading": 75000,
+    "ServiceTypeId": 1,
+    "ServiceDate": "2023-03-10T00:00:00",
+    "ServiceCost": 2500.00,
+    "NextServiceDate": "2024-03-10T00:00:00",
+    "ServiceProvider": "QuickFix Garage",
+    "Notes": "Brake pads replaced."
+  },
+  {
+    "VehicleId": 3,
+    "OdometerReading": 120000,
+    "ServiceTypeId": 3,
+    "ServiceDate": "2023-09-05T00:00:00",
+    "ServiceCost": 8500.75,
+    "NextServiceDate": "2024-09-05T00:00:00",
+    "ServiceProvider": "Master Mechanics",
+    "Notes": "Full service and suspension check."
+  },
+  {
+    "VehicleId": 4,
+    "OdometerReading": 98000,
+    "ServiceTypeId": 2,
+    "ServiceDate": "2023-08-20T00:00:00",
+    "ServiceCost": 3900.30,
+    "NextServiceDate": "2024-08-20T00:00:00",
+    "ServiceProvider": "SpeedyFix Auto",
+    "Notes": "Transmission fluid replaced."
+  }
+]
