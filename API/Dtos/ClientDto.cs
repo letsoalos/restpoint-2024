@@ -1,10 +1,11 @@
+using System;
 using System.ComponentModel.DataAnnotations;
-using Core.Enteties._LookUps;
 
-namespace Core.Enteties;
+namespace API.Dtos;
 
-public class Client : BaseEntity
+public class ClientDto
 {
+    public int Id { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
@@ -18,10 +19,10 @@ public class Client : BaseEntity
             return age;
         }
     }
-    public int DocumentTypeId { get; set; }
+    public required string DocumentType { get; set; }
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
-    public int GenderId { get; set; }
+    public required string Gender { get; set; }
     [Phone]
     public required string PhoneNumber { get; set; }
     [EmailAddress]
@@ -29,19 +30,16 @@ public class Client : BaseEntity
     public required string EmergencyContactName { get; set; }
     [Phone]
     public required string EmergencyContactNumber { get; set; }
-    public int AddressId { get; set; }
-    public int StatusId { get; set; }
-    public int? BurialSocietyId { get; set; }
+    public required string StreetName { get; set; }
+    public required string Suburb { get; set; }
+    public required string City { get; set; }
+    public required string PostalCode { get; set; }
+    public required string Status { get; set; }
+    public string? BurialSociety { get; set; }
     public required string ReferenceNumber { get; set; }
     public bool Consent { get; set; }
     public DateTime CreatedDate { get; set; }
     public int CreatedByUserId { get; set; }
     public DateTime? ModifiedDate { get; set; }
     public int? ModifiedByUserId { get; set; }
-
-    public required Gender Gender { get; set; }
-    public required DocumentType DocumentType { get; set; }
-    public required Status Status { get; set; }
-    public BurialSociety? BurialSociety { get; set; }
-    public required Address Address { get; set; }
 }

@@ -1,36 +1,46 @@
+using API.Dtos;
+using AutoMapper;
 using Core.Enteties;
-using Infrastructure.Data;
+using Core.Enteties._LookUps;
+using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class ClientsController(DataContext context) : BaseApiController
+public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+    public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClients(string? documentType, string? status)
     {
-        return await context.Clients.ToListAsync();
+        var spec = new ClientSpecification(documentType, status);
+
+        var clients = await repo.ListAsync(spec);
+
+        return Ok(mapper.Map<IReadOnlyList<Client>, IReadOnlyList<ClientDto>>(clients));
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Client>> GetClient(int id)
+    public async Task<ActionResult<ClientDto>> GetClient(int id)
     {
-        var client = await context.Clients.FindAsync(id);
+        var client = await repo.GetByIdAsync(id);
 
         if (client == null) return NotFound();
 
-        return client;
+        return Ok(mapper.Map<Client, ClientDto>(client));
     }
 
     [HttpPost]
     public async Task<ActionResult<Client>> CreateClient(Client client)
     {
-        context.Clients.Add(client);
+        repo.Add(client);
 
-        await context.SaveChangesAsync();
+        if (await repo.SaveAllAsync())
+        {
+            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+        }
 
-        return client;
+        return BadRequest("Problem creating client");
     }
 
     [HttpPut("{id:int}")]
@@ -38,15 +48,26 @@ public class ClientsController(DataContext context) : BaseApiController
     {
         if (client.Id != id || !ClientExists(id)) return BadRequest("Cannot update this client");
 
-        context.Entry(client).State = EntityState.Modified;
+        repo.Update(client);
 
-        await context.SaveChangesAsync();
+        if (await repo.SaveAllAsync())
+        {
+            return NoContent();
+        }
 
-        return NoContent();
+        return BadRequest("Problem updating the client");
+    }
+
+    [HttpGet("document-types")]
+    public async Task<ActionResult<IReadOnlyList<DocumentType>>> GetDocumentTypes()
+    {
+        // TODO: Implement method
+
+        return Ok();
     }
 
     private bool ClientExists(int id)
     {
-        return context.Clients.Any(x => x.Id == id);
+        return repo.Exists(id);
     }
 }
