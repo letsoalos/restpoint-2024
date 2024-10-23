@@ -11,9 +11,9 @@ namespace API.Controllers;
 public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClients(string? documentType, string? status)
+    public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClients(string? burialSociety, string? status, string? sort)
     {
-        var spec = new ClientSpecification(documentType, status);
+        var spec = new ClientSpecification(burialSociety, status, sort);
 
         var clients = await repo.ListAsync(spec);
 
@@ -23,7 +23,9 @@ public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) 
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ClientDto>> GetClient(int id)
     {
-        var client = await repo.GetByIdAsync(id);
+        var spec = new ClientSpecification(id);
+
+        var client = await repo.GetEntityWithSpec(spec);
 
         if (client == null) return NotFound();
 
@@ -58,13 +60,13 @@ public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) 
         return BadRequest("Problem updating the client");
     }
 
-    [HttpGet("document-types")]
-    public async Task<ActionResult<IReadOnlyList<DocumentType>>> GetDocumentTypes()
-    {
-        // TODO: Implement method
+    // [HttpGet("document-types")]
+    // public async Task<ActionResult<IReadOnlyList<DocumentType>>> GetDocumentTypes()
+    // {
+    //     // TODO: Implement method
 
-        return Ok();
-    }
+    //     return Ok();
+    // }
 
     private bool ClientExists(int id)
     {
