@@ -13,18 +13,24 @@ public class ClientSpecification : BaseSpecification<Client>
         AddInclude(x => x.BurialSociety!);
     }
 
-    public ClientSpecification(string? burialSociety, string? status, string? sort) : base(x =>
-        (string.IsNullOrWhiteSpace(burialSociety) || x.BurialSociety!.Name == burialSociety) &&
-        (string.IsNullOrWhiteSpace(status) || x.Status.Name == status)
+    public ClientSpecification(ClientSpecParams specParams) : base(x =>
+        (string.IsNullOrEmpty(specParams.Search) || x.IdentityNumber!.ToLower().Contains(specParams.Search)) ||
+        (string.IsNullOrEmpty(specParams.Search) || x.Passport!.ToLower().Contains(specParams.Search)) ||
+        (string.IsNullOrEmpty(specParams.Search) || x.FirstName.ToLower().Contains(specParams.Search)) ||
+        (string.IsNullOrEmpty(specParams.Search) || x.LastName.ToLower().Contains(specParams.Search)) &&
+        (specParams.BurialSocieties.Count == 0 || specParams.BurialSocieties.Contains(x.BurialSociety!.Name)) &&
+        (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name))
     )
     {
+        ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
+
         AddInclude(x => x.DocumentType);
         AddInclude(x => x.Status);
         AddInclude(x => x.Gender);
         AddInclude(x => x.Address);
         AddInclude(x => x.BurialSociety!);
 
-        switch (sort)
+        switch (specParams.Sort)
         {
             case "dateCreatedAsc":
                 AddOrderBy(x => x.CreatedDate);

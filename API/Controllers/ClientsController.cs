@@ -1,7 +1,7 @@
 using API.Dtos;
+using API.RequestHelpers;
 using AutoMapper;
 using Core.Enteties;
-using Core.Enteties._LookUps;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +11,11 @@ namespace API.Controllers;
 public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClients(string? burialSociety, string? status, string? sort)
+    public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClients([FromQuery] ClientSpecParams specParams)
     {
-        var spec = new ClientSpecification(burialSociety, status, sort);
+        var spec = new ClientSpecification(specParams);
 
-        var clients = await repo.ListAsync(spec);
-
-        return Ok(mapper.Map<IReadOnlyList<Client>, IReadOnlyList<ClientDto>>(clients));
+        return await CreatePagedResult<Client, ClientDto>(repo, spec, specParams.PageIndex, specParams.PageSize, mapper);
     }
 
     [HttpGet("{id:int}")]
@@ -33,7 +31,7 @@ public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) 
     }
 
     [HttpPost]
-    public async Task<ActionResult<Client>> CreateClient(Client client)
+    public async Task<ActionResult<ClientDto>> CreateClient(Client client)
     {
         repo.Add(client);
 

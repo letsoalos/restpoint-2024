@@ -2,7 +2,7 @@ using API.Dtos;
 using AutoMapper;
 using Core.Enteties;
 
-namespace API.Helpers;
+namespace API.RequestHelpers;
 
 public class MappingProfiles : Profile
 {
