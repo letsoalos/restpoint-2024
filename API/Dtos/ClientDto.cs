@@ -6,8 +6,10 @@ namespace API.Dtos;
 public class ClientDto
 {
     public int Id { get; set; }
-    public required string FirstName { get; set; }
-    public required string LastName { get; set; }
+    [Required]
+    public string FirstName { get; set; } = string.Empty;
+    [Required]
+    public string LastName { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
     public int Age
     {
@@ -19,24 +21,33 @@ public class ClientDto
             return age;
         }
     }
-    public required string DocumentType { get; set; }
+    [Required]
+    public string DocumentType { get; set; } = string.Empty;
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
-    public required string Gender { get; set; }
+    [Required]
+    public string Gender { get; set; } = string.Empty;
     [Phone]
-    public required string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
     [EmailAddress]
     public string? Email { get; set; }
-    public required string EmergencyContactName { get; set; }
+    [Required]
+    public string EmergencyContactName { get; set; } = string.Empty;
     [Phone]
-    public required string EmergencyContactNumber { get; set; }
-    public required string StreetName { get; set; }
-    public required string Suburb { get; set; }
-    public required string City { get; set; }
-    public required string PostalCode { get; set; }
-    public required string Status { get; set; }
+    public string EmergencyContactNumber { get; set; } = string.Empty;
+    [Required]
+    public string StreetName { get; set; } = string.Empty;
+    [Required]
+    public string Suburb { get; set; } = string.Empty;
+    [Required]
+    public string City { get; set; } = string.Empty;
+    [Required]
+    public string PostalCode { get; set; } = string.Empty;
+    [Required]
+    public string Status { get; set; } = string.Empty;
     public string? BurialSociety { get; set; }
-    public required string ReferenceNumber { get; set; }
+    [Required]
+    public string ReferenceNumber { get; set; } = string.Empty;
     public bool Consent { get; set; }
     public DateTime CreatedDate { get; set; }
     public int CreatedByUserId { get; set; }
