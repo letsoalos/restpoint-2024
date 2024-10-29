@@ -1,1 +1,10 @@
-<h2 class="text-3xl font-bold underline">Welcome to {{title}}</h2>
+<app-header></app-header>
+
+<div class="container mt-12">
+  <h2 class="text-3xl font-bold underline">Welcome to {{title}}</h2>
+  <ul>
+    @for (client of clients; track client.id) {
+    <li>{{client.firstName}} - {{client.lastName}}</li>
+    }
+  </ul>
+</div>

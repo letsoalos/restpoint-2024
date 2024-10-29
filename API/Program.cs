@@ -25,6 +25,7 @@ builder.Services.AddDbContext<DataContext>(x =>
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,13 +40,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-
-app.UseMiddleware<ExceptionMiddleware>();
+// app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
+
 
 try
 {

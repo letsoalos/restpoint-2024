@@ -1,0 +1,39 @@
+/* Logo container styling */
+.logo-container {
+  display: flex;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: 600;
+  color: #B8860B; /* Muted gold color */
+}
+
+/* Icon circle styling */
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #B8860B, #D4AF37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Dove icon (SVG) */
+.logo-icon svg {
+  width: 70%;
+  height: 70%;
+  fill: #fff;
+}
+
+/* Text styling */
+.logo-text {
+  display: flex;
+  font-size: 1.08em;
+  color: #4B4B4B;
+}
+
+.logo-text span {
+  color: #B8860B; /* Muted gold for accent */
+}
