@@ -8,7 +8,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-client',
@@ -21,14 +23,17 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSortModule,
     MatPaginatorModule,
     MatIcon,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    RouterLink
   ],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
 export class ClientComponent implements OnInit {
   private clientService = inject(ClientService);
-  clients: Client[] = [];
+  private dialog = inject(MatDialog);
+  client: Client[] = [];
   displayedColumns: string[] = [
     'firstName',
     'lastName',
@@ -66,4 +71,18 @@ export class ClientComponent implements OnInit {
     }
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(EditClientComponent, {
+
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        // this.animal.set(result);
+      }
+    });
+
+  }
 }

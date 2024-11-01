@@ -37,3 +37,9 @@
 .logo-text span {
   color: #B8860B; /* Muted gold for accent */
 }
+
+a {
+  &.active  {
+    color: #B8860B
+  }
+}

@@ -13,4 +13,8 @@ export class ClientService {
   getClients() {
     return this.http.get<Pagination<Client>>(this.baseUrl + 'clients')
   }
+
+  getClient(id: number) {
+    return this.http.get<Client>(this.baseUrl + 'clients/' + id);
+  }
 }
