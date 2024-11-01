@@ -5,6 +5,7 @@ export type Client = {
   dateOfBirth: Date;
   documentType: string;
   identityNumber: string;
+  age: number;
   passport: string;
   gender: string;
   phoneNumber: string;
