@@ -71,18 +71,12 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(EditClientComponent, {
-
+  openDialog(data: any) {
+    this.dialog.open(EditClientComponent, {
+      data,
+      width: '130%',
+      height: '80%',
       disableClose: true
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        // this.animal.set(result);
-      }
-    });
-
   }
 }

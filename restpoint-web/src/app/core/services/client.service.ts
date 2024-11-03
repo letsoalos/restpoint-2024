@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Client } from '../../shared/models/client';
+import { BurialSociety, Client, Gender } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 
 @Injectable({
@@ -14,7 +14,23 @@ export class ClientService {
     return this.http.get<Pagination<Client>>(this.baseUrl + 'clients')
   }
 
+  getGenderList() {
+    return this.http.get<Gender>(this.baseUrl + 'genders/gender-list')
+  }
+
+  getDocumentTypes() {
+    return this.http.get<DocumentType[]>(this.baseUrl + 'documenttypes/document-types')
+  }
+
+  getBurialSocieties() {
+    return this.http.get<BurialSociety[]>(this.baseUrl + 'burialsocieties/burial-societies')
+  }
+
   getClient(id: number) {
-    return this.http.get<Client>(this.baseUrl + 'clients/' + id);
+    return this.http.get<Client>(this.baseUrl + `clients/${id}`);
+  }
+
+  updateClient(id: number, data: any) {
+    return this.http.put<Client>(this.baseUrl + `clients/${id}`, data);
   }
 }

@@ -26,3 +26,24 @@ export type Client = {
   modifiedByUserId?: number;
 }
 
+export type Gender = {
+  id: number;
+  name: string
+}
+
+export type DocumentType = {
+  id: number;
+  name: string;
+  description: string;
+  groupCode: string;
+  isActive: boolean;
+}
+
+export type BurialSociety = {
+  id: number;
+  name: string;
+  contactPerson: string;
+  phoneNumber: string;
+  email: string;
+  createdDate: Date;
+}

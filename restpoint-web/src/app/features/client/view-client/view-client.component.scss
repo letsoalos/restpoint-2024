@@ -2,12 +2,12 @@
   margin: 20px auto;
   border-radius: 8px;
   padding: 16px;
-  position: relative; // Ensures absolute positioning works within the card
+  position: relative;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
 
   .member-since-badge {
     position: absolute;
-    top: -14px; // Adjusts the overlap
+    top: -14px;
     left: 0;
     background-color: #D4AF37;
     color: white;
@@ -16,7 +16,7 @@
     font-weight: bold;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    transform: translateX(-7px); // Adjusts the badge slightly to create a "lip"
+    transform: translateX(-7px);
     z-index: 1;
   }
 
@@ -43,13 +43,22 @@
 
       strong {
         color: #212121;
-        width: 180px; // Adjust the width as needed to align all labels
-        display: inline-block; // Ensures labels align
+        width: 180px;
+        display: inline-block;
       }
 
       span {
-        flex: 1; // Allows value to take remaining space
+        flex: 1;
       }
     }
   }
+}
+
+.buttonCustomColor  {
+  background-color: #B8860B !important;
+}
+
+.backButtonCustomColor {
+  background-color: #424242;
+  color: white;
 }

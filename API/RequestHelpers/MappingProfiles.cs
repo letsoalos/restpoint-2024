@@ -1,6 +1,7 @@
 using API.Dtos;
 using AutoMapper;
 using Core.Enteties;
+using Core.Enteties._LookUps;
 
 namespace API.RequestHelpers;
 
@@ -17,5 +18,9 @@ public class MappingProfiles : Profile
             .ForMember(d => d.PostalCode, o => o.MapFrom(s => s.Address.PostalCode))
             .ForMember(d => d.City, o => o.MapFrom(s => s.Address.City))
             .ForMember(d => d.BurialSociety, o => o.MapFrom(s => s.BurialSociety!.Name));
+
+        CreateMap<DocumentType, DocumentTypeDto>();
+
+
     }
 }

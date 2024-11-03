@@ -16,4 +16,49 @@
   flex: 1 !important;
 }
 
+.text-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #424242;
+}
+
+button {
+  display: flex; /* Ensure flex display in buttons */
+  align-items: center; /* Vertically center icon and text */
+  justify-content: center; /* Horizontally center content */
+  flex: 1; /* Makes buttons take equal space, optional */
+  padding: 8px 16px; /* Padding for better click area */
+}
+
+.buttonCustomColor {
+  background-color: #424242 !important; /* A lighter shade of yellow/gold */
+  color: white; /* Text color */
+  border-radius: 0 8px 8px 0; /* Rounded on the left side */
+  display: flex; /* Ensure flex display in buttons */
+  align-items: center; /* Vertically center icon and text */
+  justify-content: center; /* Horizontally center content */
+  padding: 8px 16px; /* Padding for better click area */
+}
+
+.backButtonCustomColor {
+  background-color: #E53935; /* A slightly lighter red */
+  color: white; /* Text color */
+  border-radius: 8px 0 0 8px; /* Rounded on the right side */
+  display: flex; /* Ensure flex display in buttons */
+  align-items: center; /* Vertically center icon and text */
+  justify-content: center; /* Horizontally center content */
+  padding: 8px 16px; /* Padding for better click area */
+}
+
+.mat-icon {
+  margin-right: 8px; /* Add space between the icon and the text */
+}
+
+
+.mat-dialog-actions {
+  display: flex; /* Ensure flex display */
+  justify-content: space-between; /* Space out the buttons */
+  align-items: center; /* Vertically align items to the center */
+  gap: 0; /* No gap needed between buttons */
+}
 

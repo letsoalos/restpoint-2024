@@ -1,5 +1,4 @@
 using API.Dtos;
-using API.RequestHelpers;
 using AutoMapper;
 using Core.Enteties;
 using Core.Interfaces;
@@ -57,14 +56,6 @@ public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) 
 
         return BadRequest("Problem updating the client");
     }
-
-    // [HttpGet("document-types")]
-    // public async Task<ActionResult<IReadOnlyList<DocumentType>>> GetDocumentTypes()
-    // {
-    //     // TODO: Implement method
-
-    //     return Ok();
-    // }
 
     private bool ClientExists(int id)
     {
