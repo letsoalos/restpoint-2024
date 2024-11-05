@@ -13,3 +13,27 @@
     width: 100%;
   }
 }
+
+.status-icon {
+  font-size: 20px; /* Adjust the size of the icon */
+  vertical-align: middle; /* Ensure vertical alignment if not using Flexbox */
+}
+
+.status-active {
+  color: #2196f3; 
+}
+
+.status-pending {
+  color: #FFD700; 
+}
+
+.status-inactive {
+  color: #f44336; 
+}
+
+.status-default {
+  color: gray; 
+}
+
+
+

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, Gender } from '../../shared/models/client';
+import { BurialSociety, Client, Gender, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 
 @Injectable({
@@ -10,20 +10,38 @@ export class ClientService {
   baseUrl = 'https://localhost:5001/api/'
   private http = inject(HttpClient);
 
-  getClients() {
-    return this.http.get<Pagination<Client>>(this.baseUrl + 'clients')
+  getClients(burialSocieties?: string[], clientStatues?: string[]) {
+    let params = new HttpParams();
+
+    if (burialSocieties && burialSocieties.length > 0) {
+      params = params.append('burialSocieties', burialSocieties.join(','));
+    }
+
+    if (burialSocieties && burialSocieties.length > 0) {
+      params = params.append('burialSocieties', burialSocieties.join(','));
+    }
+
+    if (clientStatues && clientStatues.length > 0) {
+      params = params.append('clientStatues', clientStatues.join(','));
+    }
+
+    return this.http.get<Pagination<Client>>(this.baseUrl + 'clients', { params });
   }
 
   getGenderList() {
-    return this.http.get<Gender>(this.baseUrl + 'genders/gender-list')
+    return this.http.get<Gender>(this.baseUrl + 'genders/gender-list');
   }
 
   getDocumentTypes() {
-    return this.http.get<DocumentType[]>(this.baseUrl + 'documenttypes/document-types')
+    return this.http.get<DocumentType[]>(this.baseUrl + 'documenttypes/document-types');
+  }
+
+  getStatuses() {
+    return this.http.get<Status[]>(this.baseUrl + 'statuses/status-list');
   }
 
   getBurialSocieties() {
-    return this.http.get<BurialSociety[]>(this.baseUrl + 'burialsocieties/burial-societies')
+    return this.http.get<BurialSociety[]>(this.baseUrl + 'burialsocieties/burial-societies');
   }
 
   getClient(id: number) {

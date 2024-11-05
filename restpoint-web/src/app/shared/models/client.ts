@@ -47,3 +47,11 @@ export type BurialSociety = {
   email: string;
   createdDate: Date;
 }
+
+export type Status = {
+  id: number;
+  name: string;
+  description: string;
+  groupCode: string;
+  isActive: boolean
+}

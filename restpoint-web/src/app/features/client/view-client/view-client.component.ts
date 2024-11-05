@@ -15,7 +15,7 @@ import { MatIcon } from '@angular/material/icon';
     MatCardModule,
     MatButton,
     MatIcon,
-    RouterLink
+    RouterLink    
   ],
   templateUrl: './view-client.component.html',
   styleUrl: './view-client.component.scss'
