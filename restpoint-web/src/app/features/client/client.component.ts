@@ -103,14 +103,14 @@ export class ClientComponent implements OnInit {
     this.dialog.open(EditClientComponent, {
       data,
       width: '130%',
-      height: '80%',
+      height: '85%',
       disableClose: true
     });
   }
 
   openFiltersDialog() {
     const dialogRef = this.dialog.open(FiltersDialogComponent, {
-      width: '165%',
+      width: '130%',
       height: '80%',
       disableClose: true,
       data: {

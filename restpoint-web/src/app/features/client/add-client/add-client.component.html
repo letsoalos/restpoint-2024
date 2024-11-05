@@ -1,3 +1,26 @@
-<div class="mt-8">
-  <p>add-client works!</p>
+<div class="flex mt-32">
+  <div class="w-3/4">
+    <mat-stepper #stepper class="bg-white border border-gray-200 shadow-sm">
+      <mat-step label="Consent">
+        Consent form
+      </mat-step>
+      <mat-step label="Personal Details">
+        Personal details form
+      </mat-step>
+      <mat-step label="Contact Details">
+        Contact details form
+      </mat-step>
+      <mat-step label="Address">
+        Address form
+      </mat-step>
+      <mat-step label="Supporting Documents">
+        Supporting Docs form
+      </mat-step>
+    </mat-stepper>
+  </div>
+  <div class="flex items-start gap-6">
+    <div class="w-1/4 ml-auto">
+      Summary
+    </div>
+  </div>
 </div>

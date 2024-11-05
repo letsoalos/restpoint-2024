@@ -2,12 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BurialSociety, Client, Gender, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  baseUrl = 'https://localhost:5001/api/'
+  baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
   getClients(burialSocieties?: string[], clientStatues?: string[]) {

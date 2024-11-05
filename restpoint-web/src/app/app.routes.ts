@@ -8,8 +8,8 @@ import { AddClientComponent } from './features/client/add-client/add-client.comp
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'client', component: ClientComponent },
+  { path: 'client/add-client', component: AddClientComponent },
   { path: 'client/:id', component: ViewClientComponent },
-  { path: 'add-client', component: AddClientComponent },
   { path: 'family-member', component: FamilyMemberComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
