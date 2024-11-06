@@ -2,19 +2,42 @@
   <div class="w-3/4">
     <mat-stepper #stepper class="bg-white border border-gray-200 shadow-sm">
       <mat-step label="Consent">
-        Consent form
+        <div id="consent-element"></div>
+        <div class="mt-6">
+          <app-consent-form></app-consent-form>
+          <div class="flex justify-between mt-3">
+            <button routerLink="/client" mat-stroked-button>Back to client list</button>
+            <button matStepperNext mat-flat-button>Next</button>
+          </div>
+        </div>
       </mat-step>
       <mat-step label="Personal Details">
-        Personal details form
+        <app-personal-details></app-personal-details>
+        <div class="flex justify-between mt-3">
+          <button matStepperPrevious mat-stroked-button>Back to consent</button>
+          <button matStepperNext mat-flat-button>Next</button>
+        </div>
       </mat-step>
       <mat-step label="Contact Details">
         Contact details form
+        <div class="flex justify-between mt-6">
+          <button matStepperPrevious mat-stroked-button>Back</button>
+          <button matStepperNext mat-flat-button>Next</button>
+        </div>
       </mat-step>
       <mat-step label="Address">
         Address form
+        <div class="flex justify-between mt-6">
+          <button matStepperPrevious mat-stroked-button>Back</button>
+          <button matStepperNext mat-flat-button>Next</button>
+        </div>
       </mat-step>
       <mat-step label="Supporting Documents">
         Supporting Docs form
+        <div class="flex justify-between mt-6">
+          <button matStepperPrevious mat-stroked-button>Back</button>
+          <button matStepperNext mat-flat-button>Submit</button>
+        </div>
       </mat-step>
     </mat-stepper>
   </div>

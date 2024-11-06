@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatButton } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { RouterLink } from '@angular/router';
+import { ConsentFormComponent } from "./consent-form/consent-form.component";
+import { PersonalDetailsComponent } from "./personal-details/personal-details.component";
 
 @Component({
   selector: 'app-add-client',
   standalone: true,
   imports: [
-    MatStepperModule
-  ],
+    MatStepperModule,
+    MatButton,
+    RouterLink,
+    ConsentFormComponent,
+    PersonalDetailsComponent
+],
   templateUrl: './add-client.component.html',
   styleUrl: './add-client.component.scss'
 })
