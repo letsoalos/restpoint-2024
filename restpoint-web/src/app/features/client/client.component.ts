@@ -1,3 +1,5 @@
+//import { jsPDF } from './../../../../node_modules/jspdf/types/index.d';
+import { jsPDF } from 'jspdf';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../core/services/client.service';
@@ -16,6 +18,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatBadge } from '@angular/material/badge';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
 import { MatButton } from '@angular/material/button';
+
+const logoBase64 = "./assets/images/logo.jpeg";
 
 @Component({
   selector: 'app-client',
@@ -42,6 +46,7 @@ import { MatButton } from '@angular/material/button';
 export class ClientComponent implements OnInit {
   private clientService = inject(ClientService);
   private dialog = inject(MatDialog);
+
   client: Client[] = [];
   selectedBurialSocieties: string[] = [];
   selectedclientStatues: string[] = [];
@@ -65,6 +70,10 @@ export class ClientComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.populateTable();
+  }
+
+  populateTable() {
     this.clientService.getClients().subscribe({
       next: (res) => {
         this.dataSource = new MatTableDataSource(res.data);
@@ -170,5 +179,90 @@ export class ClientComponent implements OnInit {
       }
     });
   }
+
+  downloadClientProfile(id: number) {
+    this.clientService.getClient(id).subscribe({
+      next: (client) => {
+        const doc = new jsPDF();
+        const formattedDateOfBirth = client.dateOfBirth ? new Date(client.dateOfBirth).toISOString().split('T')[0] : 'N/A';
+
+        // Add logo to the left
+        doc.addImage(logoBase64, 'PNG', 10, 10, 30, 30);
+
+        // Add business address to the right
+        doc.setFontSize(12);
+        doc.setFont("Aptos", "normal");
+        doc.setTextColor(0);
+        const businessAddress = [
+          "Demo Funerals",
+          "1234 Main Street",
+          "Polokwane",
+          "2195",
+          "Phone: +27 (15) 123-4567",
+          "Email: contact@funeralpolicy.com"
+        ];
+        let addressYPosition = 15; // Initial y position for the address text
+        businessAddress.forEach((line) => {
+          doc.text(line, 140, addressYPosition); // x = 150 to align text on the right
+          addressYPosition += 5; // Adjust line spacing as needed
+        });
+
+        // Adjusted horizontal line closer to address
+        doc.line(10, 45, 200, 45);
+
+        // Client Profile Title
+        doc.setFontSize(18);
+        doc.setFont("Aptos", "bold");
+        doc.text("Client Profile", 20, 55);
+
+        // Basic Information Section
+        doc.setFontSize(16);
+        doc.setFont("Aptos", "bold");
+        doc.text("Basic Information", 20, 75);
+
+        doc.setFontSize(12);
+        doc.setFont("Aptos", "normal");
+        doc.text(`Reference Number: ${client.referenceNumber}`, 20, 85);
+        doc.text(`Full Name: ${client.firstName} ${client.lastName}`, 20, 95);
+        doc.text(`Date of Birth: ${formattedDateOfBirth}`, 20, 105);
+        doc.text(`Age: ${client.age}`, 20, 115);
+        doc.text(`Gender: ${client.gender}`, 20, 125);
+        doc.text(`Phone Number: ${client.phoneNumber}`, 20, 135);
+
+        // Address Section
+        doc.setFontSize(16);
+        doc.setFont("Aptos", "bold");
+        doc.text("Address", 20, 155);
+
+        doc.setFontSize(12);
+        doc.setFont("Aptos", "normal");
+        doc.text(`Street: ${client.streetName}`, 20, 165);
+        doc.text(`Suburb: ${client.suburb}`, 20, 175);
+        doc.text(`City: ${client.city}`, 20, 185);
+        doc.text(`City: ${client.postalCode}`, 20, 195);
+
+        // Status Section
+        doc.setFontSize(16);
+        doc.setFont("Aptos", "bold");
+        doc.text("Status", 20, 215);
+
+        doc.setFontSize(12);
+        doc.setFont("Aptos", "normal");
+        doc.text(`Status: ${client.status}`, 20, 225);
+
+        // Footer with a line above it
+        doc.line(10, 280, 200, 280); // Footer separator line
+        doc.setFontSize(10);
+        doc.setTextColor(150);
+        doc.text("Funeral Policy Management System", 20, 290);
+        doc.text(`Page 1 of 1`, 180, 290);
+
+        // Save the PDF
+        doc.save(`${client.firstName}_${client.lastName}_profile.pdf`);
+      },
+      error: (error) => console.log('Error fetching client profile for download', error)
+    });
+  }
+
 }
 

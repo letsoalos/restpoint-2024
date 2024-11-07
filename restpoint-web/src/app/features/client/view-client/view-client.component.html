@@ -1,63 +1,84 @@
-@if (client){
+@if (client) {
 <section class="py-6">
   <div class="max-w-screen-2xl px-4 mx-auto">
     <div class="grid grid-cols-12 gap-8">
+
       <!-- Main Member Details Card -->
       <div class="col-span-6">
-        <mat-card class="mat-elevation-z3 mat-card fancy-card w-full shadow-lg rounded-lg relative">
-          <span class="member-since-badge absolute top-0 left-0 bg-gray-800 text-white text-sm py-1 px-3 rounded-br-lg">
+        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg relative">
+          <span class="member-since-badge">
             Member Since: {{ client.createdDate | date:'MMMM yyyy' }}
           </span>
-          <mat-card-header class="mat-card-header text-center">
+          <mat-card-header class="mat-card-header">
             <mat-card-title class="text-title">Main Member Details</mat-card-title>
           </mat-card-header>
+
           <mat-card-content>
             <div class="details">
               <p><strong>Full Name:</strong> {{ client.firstName }} {{ client.lastName }}</p>
-              <p><strong>ID/Passport:</strong> {{ client.identityNumber ? client.identityNumber : client.passport }}</p>
+              <p><strong>ID/Passport:</strong> {{ client.identityNumber || client.passport }}</p>
               <p><strong>Date of Birth:</strong> {{ client.dateOfBirth | date }}</p>
               <p><strong>Age:</strong> {{ client.age }}</p>
               <p><strong>Gender:</strong> {{ client.gender }}</p>
               <p><strong>Street Name:</strong> {{ client.streetName }}</p>
               <p><strong>Suburb:</strong> {{ client.suburb }}</p>
               <p><strong>City:</strong> {{ client.city }}</p>
-              <p><strong>Code:</strong> {{ client.postalCode }}</p>
+              <p><strong>Postal Code:</strong> {{ client.postalCode }}</p>
               <p><strong>Contact Number:</strong> {{ client.phoneNumber }}</p>
               <p><strong>Email:</strong> {{ client.email }}</p>
               <p><strong>Registration Status:</strong> {{ client.status }}</p>
-              <p><strong>Burial Society:</strong> {{ client.burialSociety ? client.burialSociety : 'N/A' }}</p>
+              <p><strong>Burial Society:</strong> {{ client.burialSociety || 'N/A' }}</p>
               <p><strong>Emergency Contact:</strong> {{ client.emergencyContactName }}</p>
               <p><strong>Emergency Number:</strong> {{ client.emergencyContactNumber }}</p>
             </div>
+
             <div class="flex gap-4 mt-6">
               <button mat-flat-button routerLink="/family-member"
                 class="flex items-center gap-1 ml-auto buttonCustomColor">
                 <mat-icon>add</mat-icon>
-                Add family member
+                Add Family Member
               </button>
             </div>
           </mat-card-content>
         </mat-card>
+
         <div class="flex gap-4 mt-2">
           <button mat-flat-button routerLink="/client" class="backButtonCustomColor">
             <mat-icon>arrow_back</mat-icon>
-            Back to client list
+            Back to Client List
           </button>
         </div>
       </div>
 
-      <!-- Family Members Details Card -->
-      <div class="col-span-6">
-        <mat-card class="mat-elevation-z3 mat-card fancy-card w-full shadow-lg rounded-lg">
-          <mat-card-header class="mat-card-header text-center">
+      <!-- Right Section Divided into Family Members and Payment History -->
+      <div class="col-span-6 space-y-6">
+
+        <!-- Family Members Details Card (Top Section) -->
+        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
+          <mat-card-header class="mat-card-header">
             <mat-card-title class="text-title">Family Members Details</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="details">
-              <!-- Family member details go here -->
+              <!-- Family member details placeholder -->
+              <p class="text-gray-500 italic">Family member details go here.</p>
             </div>
           </mat-card-content>
         </mat-card>
+
+        <!-- Payment History Card (Bottom Section) -->
+        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
+          <mat-card-header class="mat-card-header">
+            <mat-card-title class="text-title">Payment History</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="details">
+              <!-- Payment history details placeholder -->
+              <p class="text-gray-500 italic">Payment history details go here.</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
       </div>
     </div>
   </div>

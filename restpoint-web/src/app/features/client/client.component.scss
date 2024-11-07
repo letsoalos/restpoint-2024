@@ -1,3 +1,36 @@
+
+$gray-color: gray;
+$bitgold-color: #d4af37;
+$primary-color: #3f51b5;
+$green-color: green;
+
+.download-icon {
+  color: $gray-color;
+}
+
+.upload-icon {
+  color: $bitgold-color;
+}
+
+.edit-icon {
+  color: $primary-color;
+}
+
+.view-icon {
+  color: $green-color;
+}
+
+.action-btn {
+  margin-right: 8px; /* Adjust this value to control the space */
+}
+
+/* Optional: Remove margin from the last button */
+.action-btn:last-child {
+  margin-right: 0;
+}
+
+
+
 .table-container {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -20,19 +53,19 @@
 }
 
 .status-active {
-  color: #2196f3; 
+  color: #2196f3;
 }
 
 .status-pending {
-  color: #FFD700; 
+  color: #FFD700;
 }
 
 .status-inactive {
-  color: #f44336; 
+  color: #f44336;
 }
 
 .status-default {
-  color: gray; 
+  color: gray;
 }
 
 
