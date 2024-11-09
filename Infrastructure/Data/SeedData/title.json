@@ -1,0 +1,30 @@
+[
+  {
+    "Name": "Mr",
+    "Description": "Title for men"
+  },
+  {
+    "Name": "Mrs",
+    "Description": "Title for married women"
+  },
+  {
+    "Name": "Miss",
+    "Description": "Title for unmarried women"
+  },
+  {
+    "Name": "Ms",
+    "Description": "Title for women, regardless of marital status"
+  },
+  {
+    "Name": "Dr",
+    "Description": "Title for medical or academic professionals"
+  },
+  {
+    "Name": "Prof",
+    "Description": "Title for professors and academic experts"
+  },
+  {
+    "Name": "Othet",
+    "Description": "Other for missing titles"
+  }
+]

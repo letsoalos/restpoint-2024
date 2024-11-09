@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, Gender, Status } from '../../shared/models/client';
+import { BurialSociety, Client, ClientTitle, EthnicityGroup, Gender, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 import { environment } from '../../../environments/environment.development';
 
@@ -13,10 +13,6 @@ export class ClientService {
 
   getClients(burialSocieties?: string[], clientStatues?: string[]) {
     let params = new HttpParams();
-
-    if (burialSocieties && burialSocieties.length > 0) {
-      params = params.append('burialSocieties', burialSocieties.join(','));
-    }
 
     if (burialSocieties && burialSocieties.length > 0) {
       params = params.append('burialSocieties', burialSocieties.join(','));
@@ -39,6 +35,14 @@ export class ClientService {
 
   getStatuses() {
     return this.http.get<Status[]>(this.baseUrl + 'statuses/status-list');
+  }
+
+  getTitles() {
+    return this.http.get<ClientTitle>(this.baseUrl + 'titles/title-list');
+  }
+
+  getEthnicityGroups() {
+    return this.http.get<EthnicityGroup>(this.baseUrl + 'ethnicitygroupes/ethnicity-groups');
   }
 
   getBurialSocieties() {

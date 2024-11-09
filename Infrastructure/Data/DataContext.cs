@@ -32,6 +32,8 @@ public class DataContext(DbContextOptions options) : DbContext(options)
     public DbSet<ResourceAllocation> ResourceAllocations { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<VehicleMaintenance> VehicleMaintenances { get; set; }
+    public DbSet<Title> Titles { get; set; }
+    public DbSet<Ethnicity> Ethnicities { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -7,6 +7,8 @@ public class ClientSpecification : BaseSpecification<Client>
     public ClientSpecification(int id) : base(x => x.Id == id)
     {
         AddInclude(x => x.DocumentType);
+        AddInclude(x => x.Title);
+        AddInclude(x => x.Ethnicity);
         AddInclude(x => x.Status);
         AddInclude(x => x.Gender);
         AddInclude(x => x.Address);
@@ -14,9 +16,9 @@ public class ClientSpecification : BaseSpecification<Client>
     }
 
     public ClientSpecification(ClientSpecParams specParams) : base(x =>
-        (string.IsNullOrEmpty(specParams.Search) || x.IdentityNumber!.ToLower().Contains(specParams.Search)) ||
-        (string.IsNullOrEmpty(specParams.Search) || x.Passport!.ToLower().Contains(specParams.Search)) ||
-        (string.IsNullOrEmpty(specParams.Search) || x.FirstName.ToLower().Contains(specParams.Search)) ||
+        string.IsNullOrEmpty(specParams.Search) || x.IdentityNumber!.ToLower().Contains(specParams.Search) ||
+        string.IsNullOrEmpty(specParams.Search) || x.Passport!.ToLower().Contains(specParams.Search) ||
+        string.IsNullOrEmpty(specParams.Search) || x.FirstName.ToLower().Contains(specParams.Search) ||
         (string.IsNullOrEmpty(specParams.Search) || x.LastName.ToLower().Contains(specParams.Search)) &&
         (specParams.BurialSocieties.Count == 0 || specParams.BurialSocieties.Contains(x.BurialSociety!.Name)) &&
         (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name))
@@ -25,6 +27,8 @@ public class ClientSpecification : BaseSpecification<Client>
         ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
 
         AddInclude(x => x.DocumentType);
+        AddInclude(x => x.Title);
+        AddInclude(x => x.Ethnicity);
         AddInclude(x => x.Status);
         AddInclude(x => x.Gender);
         AddInclude(x => x.Address);

@@ -15,11 +15,12 @@
 
           <mat-card-content>
             <div class="details">
-              <p><strong>Full Name:</strong> {{ client.firstName }} {{ client.lastName }}</p>
+              <p><strong>Full Name:</strong> {{ client.title }} {{ client.firstName }} {{ client.lastName }}</p>
               <p><strong>ID/Passport:</strong> {{ client.identityNumber || client.passport }}</p>
               <p><strong>Date of Birth:</strong> {{ client.dateOfBirth | date }}</p>
               <p><strong>Age:</strong> {{ client.age }}</p>
               <p><strong>Gender:</strong> {{ client.gender }}</p>
+              <p><strong>Ethnicity Group:</strong> {{ client.ethnicity }}</p>
               <p><strong>Street Name:</strong> {{ client.streetName }}</p>
               <p><strong>Suburb:</strong> {{ client.suburb }}</p>
               <p><strong>City:</strong> {{ client.city }}</p>

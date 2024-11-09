@@ -191,6 +191,32 @@ public class DataContextSeed
             await context.SaveChangesAsync();
         }
 
+        if (!context.Titles.Any())
+        {
+            var titlesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/title.json");
+
+            var titles = JsonSerializer.Deserialize<List<Title>>(titlesData);
+
+            if (titles == null) return;
+
+            context.Titles.AddRange(titles);
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.Ethnicities.Any())
+        {
+            var ethnicitiesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/ethnicity.json");
+
+            var ethnicities = JsonSerializer.Deserialize<List<Ethnicity>>(ethnicitiesData);
+
+            if (ethnicities == null) return;
+
+            context.Ethnicities.AddRange(ethnicities);
+
+            await context.SaveChangesAsync();
+        }
+
         if (!context.Clients.Any())
         {
             var clientsData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/client.json");

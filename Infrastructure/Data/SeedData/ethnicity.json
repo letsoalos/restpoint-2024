@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "African",
+    "Description": "Individuals with ancestral roots in the African continent. Primarily from South Africa’s native ethnic groups such as Zulu, Xhosa, Sotho, and Tswana."
+  },
+  {
+    "Name": "Coloured",
+    "Description": "Refers to individuals of mixed ancestry, including Khoisan, African, European, and Asian backgrounds, traditionally found in Western and Northern Cape."
+  },
+  {
+    "Name": "Indian/Asian",
+    "Description": "Refers to individuals of Indian or Asian descent, whose ancestors primarily arrived in South Africa in the 19th century."
+  },
+  {
+    "Name": "White",
+    "Description": "Refers to individuals of European descent, predominantly from Afrikaner or English-speaking backgrounds."
+  },
+  {
+    "Name": "Other",
+    "Description": "Any other ethnic groups, including immigrants from various regions outside of South Africa."
+  },
+  {
+    "Name": "Prefer not to say",
+    "Description": "Used for individuals who prefer not to disclose their ethnicity."
+  }
+]

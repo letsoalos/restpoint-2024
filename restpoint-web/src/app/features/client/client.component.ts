@@ -1,4 +1,3 @@
-//import { jsPDF } from './../../../../node_modules/jspdf/types/index.d';
 import { jsPDF } from 'jspdf';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,9 +14,7 @@ import { EditClientComponent } from './edit-client/edit-client.component';
 import { RouterLink } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatBadge } from '@angular/material/badge';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
-import { MatButton } from '@angular/material/button';
 
 const logoBase64 = "./assets/images/logo.jpeg";
 
@@ -36,9 +33,7 @@ const logoBase64 = "./assets/images/logo.jpeg";
     MatFormFieldModule,
     RouterLink,
     MatMenuModule,
-    MatDividerModule,
-    MatBadge,
-    MatButton
+    MatDividerModule
   ],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -88,7 +83,7 @@ export class ClientComponent implements OnInit {
     switch (status) {
       case 'Active':
         return 'status-active';
-      case 'Pending':
+      case 'In Progress':
         return 'status-pending';
       case 'Inactive':
         return 'status-inactive';

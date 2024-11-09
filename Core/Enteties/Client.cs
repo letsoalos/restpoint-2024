@@ -18,12 +18,16 @@ public class Client : BaseEntity
             return age;
         }
     }
+    public int TitleId { get; set; }
     public int DocumentTypeId { get; set; }
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
     public int GenderId { get; set; }
+    public int EthnicityId { get; set; }
     [Phone]
     public required string PhoneNumber { get; set; }
+    [Phone]
+    public string? AltNumber { get; set; }
     [EmailAddress]
     public string? Email { get; set; }
     public required string EmergencyContactName { get; set; }
@@ -42,6 +46,8 @@ public class Client : BaseEntity
     public required Gender Gender { get; set; }
     public required DocumentType DocumentType { get; set; }
     public required Status Status { get; set; }
-    public BurialSociety? BurialSociety { get; set; }
+    public required BurialSociety BurialSociety { get; set; }
     public required Address Address { get; set; }
+    public required Title Title { get; set; }
+    public required Ethnicity Ethnicity { get; set; }
 }

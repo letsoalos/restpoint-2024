@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.Dtos;
@@ -10,6 +9,7 @@ public class ClientDto
     public string FirstName { get; set; } = string.Empty;
     [Required]
     public string LastName { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
     public int Age
     {
@@ -25,10 +25,12 @@ public class ClientDto
     public string DocumentType { get; set; } = string.Empty;
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
+    public string Ethnicity { get; set; } = string.Empty;
     [Required]
     public string Gender { get; set; } = string.Empty;
     [Phone]
     public string PhoneNumber { get; set; } = string.Empty;
+    public string? AltNumber { get; set; }
     [EmailAddress]
     public string? Email { get; set; }
     [Required]

@@ -1,23 +1,35 @@
 <div mat-dialog-content class="content mt-2">
   <form [formGroup]="form">
-    <div class="row flex gap-4 mb-2">
-      <mat-form-field appearance="outline" class="w-1/2">
+    <div class="grid grid-cols-12 gap-4 mb-2">
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="title">
+          <mat-option *ngFor="let title of titleList" [value]="title.id">{{ title.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-span-5">
         <mat-label>First Name</mat-label>
         <input matInput formControlName="firstName" placeholder="Ex. John">
       </mat-form-field>
-      <mat-form-field appearance="outline" class="w-1/2">
+      <mat-form-field appearance="outline" class="col-span-5">
         <mat-label>Last Name</mat-label>
         <input matInput formControlName="lastName" placeholder="Ex. Doe">
       </mat-form-field>
     </div>
     <div class="row flex gap-4 mb-2">
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Marital Status</mat-label>
+        <mat-select formControlName="maritalStatus">
+          <mat-option *ngFor="let maritalStatus of maritalStatusList" [value]="maritalStatus.id">
+            {{ maritalStatus.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>Document Type</mat-label>
         <mat-select formControlName="documentType">
           <mat-option *ngFor="let o of documentTypes" [value]="o.id">{{ o.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>
           {{ form.get('documentType')?.value === 5 ? 'Identity Number' : 'Passport Number' }}
@@ -40,6 +52,12 @@
       </mat-radio-group>
     </div>
     <div class="row flex gap-4 mb-2">
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Ethnicity Group</mat-label>
+        <mat-select formControlName="ethnicity">
+          <mat-option *ngFor="let o of ethnicityGroupList" [value]="o.id">{{ o.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>Date of Birth</mat-label>
         <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">

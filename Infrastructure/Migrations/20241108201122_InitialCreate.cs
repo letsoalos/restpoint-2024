@@ -87,12 +87,26 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GroupCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    GroupCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DocumentTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ethnicities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ethnicities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,60 +242,17 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clients",
+                name: "Titles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DocumentTypeId = table.Column<int>(type: "int", nullable: false),
-                    IdentityNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Passport = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    GenderId = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    EmergencyContactName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    EmergencyContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    BurialSocietyId = table.Column<int>(type: "int", nullable: true),
-                    ReferenceNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Consent = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clients_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Clients_BurialSocieties_BurialSocietyId",
-                        column: x => x.BurialSocietyId,
-                        principalTable: "BurialSocieties",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Clients_DocumentTypes_DocumentTypeId",
-                        column: x => x.DocumentTypeId,
-                        principalTable: "DocumentTypes",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Clients_Genders_GenderId",
-                        column: x => x.GenderId,
-                        principalTable: "Genders",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Clients_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_Titles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -317,6 +288,157 @@ namespace Infrastructure.Migrations
                         name: "FK_Vehicles_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TitleId = table.Column<int>(type: "int", nullable: false),
+                    DocumentTypeId = table.Column<int>(type: "int", nullable: false),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Passport = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    GenderId = table.Column<int>(type: "int", nullable: false),
+                    EthnicityId = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AltNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    EmergencyContactName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    EmergencyContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    BurialSocietyId = table.Column<int>(type: "int", nullable: true),
+                    ReferenceNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Consent = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clients_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_BurialSocieties_BurialSocietyId",
+                        column: x => x.BurialSocietyId,
+                        principalTable: "BurialSocieties",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_DocumentTypes_DocumentTypeId",
+                        column: x => x.DocumentTypeId,
+                        principalTable: "DocumentTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_Ethnicities_EthnicityId",
+                        column: x => x.EthnicityId,
+                        principalTable: "Ethnicities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_Genders_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Genders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_Titles_TitleId",
+                        column: x => x.TitleId,
+                        principalTable: "Titles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FuelRecords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    DateFilled = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FuelAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OdometerReading = table.Column<int>(type: "int", nullable: false),
+                    FuelStation = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FuelRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FuelRecords_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IncidentRecords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    AssignedDriverUserId = table.Column<int>(type: "int", nullable: false),
+                    IncidentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DamageAssesment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    InsuranceClaimNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IncidentRecords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IncidentRecords_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_IncidentRecords_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleMaintenances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    OdometerReading = table.Column<int>(type: "int", nullable: false),
+                    ServiceTypeId = table.Column<int>(type: "int", nullable: false),
+                    ServiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ServiceCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NextServiceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ServiceProvider = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleMaintenances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleMaintenances_ServiceTypes_ServiceTypeId",
+                        column: x => x.ServiceTypeId,
+                        principalTable: "ServiceTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_VehicleMaintenances_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
                         principalColumn: "Id");
                 });
 
@@ -400,66 +522,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PaymentHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
-                    ReferenceNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentHistories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PaymentHistories_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_PaymentHistories_PaymentMethods_PaymentMethodId",
-                        column: x => x.PaymentMethodId,
-                        principalTable: "PaymentMethods",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_PaymentHistories_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FuelRecords",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    DateFilled = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FuelAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OdometerReading = table.Column<int>(type: "int", nullable: false),
-                    FuelStation = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FuelRecords", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FuelRecords_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FuneralEvents",
                 columns: table => new
                 {
@@ -504,61 +566,40 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IncidentRecords",
+                name: "PaymentHistories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    AssignedDriverUserId = table.Column<int>(type: "int", nullable: false),
-                    IncidentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DamageAssesment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalAmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    ReferenceNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    InsuranceClaimNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedByUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IncidentRecords", x => x.Id);
+                    table.PrimaryKey("PK_PaymentHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IncidentRecords_Statuses_StatusId",
+                        name: "FK_PaymentHistories_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PaymentHistories_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PaymentHistories_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_IncidentRecords_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehicleMaintenances",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    OdometerReading = table.Column<int>(type: "int", nullable: false),
-                    ServiceTypeId = table.Column<int>(type: "int", nullable: false),
-                    ServiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServiceCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    NextServiceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ServiceProvider = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehicleMaintenances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VehicleMaintenances_ServiceTypes_ServiceTypeId",
-                        column: x => x.ServiceTypeId,
-                        principalTable: "ServiceTypes",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_VehicleMaintenances_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
                         principalColumn: "Id");
                 });
 
@@ -668,6 +709,11 @@ namespace Infrastructure.Migrations
                 column: "DocumentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_EthnicityId",
+                table: "Clients",
+                column: "EthnicityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_GenderId",
                 table: "Clients",
                 column: "GenderId");
@@ -676,6 +722,11 @@ namespace Infrastructure.Migrations
                 name: "IX_Clients_StatusId",
                 table: "Clients",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_TitleId",
+                table: "Clients",
+                column: "TitleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FamilyMembers_ClientId",
@@ -870,7 +921,13 @@ namespace Infrastructure.Migrations
                 name: "DocumentTypes");
 
             migrationBuilder.DropTable(
+                name: "Ethnicities");
+
+            migrationBuilder.DropTable(
                 name: "Genders");
+
+            migrationBuilder.DropTable(
+                name: "Titles");
 
             migrationBuilder.DropTable(
                 name: "AssetTypes");

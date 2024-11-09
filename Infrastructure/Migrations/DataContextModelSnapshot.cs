@@ -104,6 +104,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("AltNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int?>("BurialSocietyId")
                         .HasColumnType("int");
 
@@ -134,6 +139,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("EmergencyContactNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EthnicityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -175,6 +183,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TitleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -183,9 +194,13 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("DocumentTypeId");
 
+                    b.HasIndex("EthnicityId");
+
                     b.HasIndex("GenderId");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("TitleId");
 
                     b.ToTable("Clients");
                 });
@@ -757,8 +772,7 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("GroupCode")
                         .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -770,6 +784,29 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DocumentTypes");
+                });
+
+            modelBuilder.Entity("Core.Enteties._LookUps.Ethnicity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ethnicities");
                 });
 
             modelBuilder.Entity("Core.Enteties._LookUps.Gender", b =>
@@ -981,6 +1018,29 @@ namespace Infrastructure.Migrations
                     b.ToTable("Statuses");
                 });
 
+            modelBuilder.Entity("Core.Enteties._LookUps.Title", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Titles");
+                });
+
             modelBuilder.Entity("Core.Enteties.Client", b =>
                 {
                     b.HasOne("Core.Enteties.Address", "Address")
@@ -1000,6 +1060,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Core.Enteties._LookUps.Ethnicity", "Ethnicity")
+                        .WithMany()
+                        .HasForeignKey("EthnicityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Core.Enteties._LookUps.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("GenderId")
@@ -1012,15 +1078,25 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Core.Enteties._LookUps.Title", "Title")
+                        .WithMany()
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Address");
 
                     b.Navigation("BurialSociety");
 
                     b.Navigation("DocumentType");
 
+                    b.Navigation("Ethnicity");
+
                     b.Navigation("Gender");
 
                     b.Navigation("Status");
+
+                    b.Navigation("Title");
                 });
 
             modelBuilder.Entity("Core.Enteties.ClientPremium", b =>

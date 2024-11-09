@@ -1,10 +1,12 @@
 export type Client = {
   id: number;
+  title: string;
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
   documentType: string;
   identityNumber: string;
+  ethnicity: string,
   age: number;
   passport: string;
   gender: string;
@@ -54,4 +56,16 @@ export type Status = {
   description: string;
   groupCode: string;
   isActive: boolean
+}
+
+export type ClientTitle = {
+  id: number;
+  name: string;
+  ddescription: string;
+}
+
+export type EthnicityGroup = {
+  id: number;
+  name: string;
+  ddescription: string;
 }
