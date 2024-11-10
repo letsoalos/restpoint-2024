@@ -12,6 +12,7 @@ public class ClientSpecification : BaseSpecification<Client>
         AddInclude(x => x.Status);
         AddInclude(x => x.Gender);
         AddInclude(x => x.Address);
+        AddInclude(x => x.MaritalStatus);
         AddInclude(x => x.BurialSociety!);
     }
 
@@ -32,6 +33,7 @@ public class ClientSpecification : BaseSpecification<Client>
         AddInclude(x => x.Status);
         AddInclude(x => x.Gender);
         AddInclude(x => x.Address);
+        AddInclude(x => x.MaritalStatus);
         AddInclude(x => x.BurialSociety!);
 
         switch (specParams.Sort)

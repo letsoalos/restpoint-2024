@@ -5,6 +5,7 @@ export type Client = {
   lastName: string;
   dateOfBirth: Date;
   documentType: string;
+  maritalStatus: string,
   identityNumber: string;
   ethnicity: string,
   age: number;
@@ -65,6 +66,12 @@ export type ClientTitle = {
 }
 
 export type EthnicityGroup = {
+  id: number;
+  name: string;
+  ddescription: string;
+}
+
+export type MaritalStatus = {
   id: number;
   name: string;
   ddescription: string;

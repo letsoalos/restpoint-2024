@@ -217,6 +217,19 @@ public class DataContextSeed
             await context.SaveChangesAsync();
         }
 
+        if (!context.MaritalStatuses.Any())
+        {
+            var maritalStatusesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/mStatus.json");
+
+            var maritalStatuses = JsonSerializer.Deserialize<List<MaritalStatus>>(maritalStatusesData);
+
+            if (maritalStatuses == null) return;
+
+            context.MaritalStatuses.AddRange(maritalStatuses);
+
+            await context.SaveChangesAsync();
+        }
+
         if (!context.Clients.Any())
         {
             var clientsData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/client.json");

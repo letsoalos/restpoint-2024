@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241108201122_InitialCreate")]
+    [Migration("20241109175439_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -108,7 +108,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AltNumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -163,6 +162,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("MaritalStatusId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ModifiedByUserId")
                         .HasColumnType("int");
 
@@ -200,6 +202,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("EthnicityId");
 
                     b.HasIndex("GenderId");
+
+                    b.HasIndex("MaritalStatusId");
 
                     b.HasIndex("StatusId");
 
@@ -829,6 +833,27 @@ namespace Infrastructure.Migrations
                     b.ToTable("Genders");
                 });
 
+            modelBuilder.Entity("Core.Enteties._LookUps.MaritalStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MaritalStatuses");
+                });
+
             modelBuilder.Entity("Core.Enteties._LookUps.OwnershipCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -1075,6 +1100,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Core.Enteties._LookUps.MaritalStatus", "MaritalStatus")
+                        .WithMany()
+                        .HasForeignKey("MaritalStatusId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Core.Enteties._LookUps.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
@@ -1096,6 +1127,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Ethnicity");
 
                     b.Navigation("Gender");
+
+                    b.Navigation("MaritalStatus");
 
                     b.Navigation("Status");
 

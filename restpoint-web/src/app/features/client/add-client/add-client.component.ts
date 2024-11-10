@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { ConsentFormComponent } from "./consent-form/consent-form.component";
 import { PersonalDetailsComponent } from "./personal-details/personal-details.component";
 import { AddressComponent } from "./address/address.component";
+import { SupportingDocsComponent } from "./supporting-docs/supporting-docs.component";
 
 @Component({
   selector: 'app-add-client',
@@ -15,7 +16,8 @@ import { AddressComponent } from "./address/address.component";
     RouterLink,
     ConsentFormComponent,
     PersonalDetailsComponent,
-    AddressComponent
+    AddressComponent,
+    SupportingDocsComponent
 ],
   templateUrl: './add-client.component.html',
   styleUrl: './add-client.component.scss'

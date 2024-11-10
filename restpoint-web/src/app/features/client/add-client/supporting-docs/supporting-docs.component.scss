@@ -1,0 +1,55 @@
+// Define custom colors
+$warn-color: #ff5252; // or any desired shade for "warn"
+$primary-color: #1976d2; // or any desired shade for "primary"
+$bitgold-color: #daa520; // color for "bitgold" (e.g., gold color)
+
+// Create classes for custom color styles
+.warn-icon {
+  color: $warn-color;
+}
+.primary-icon {
+  color: $primary-color;
+}
+.bitgold-icon {
+  color: $bitgold-color;
+}
+
+section {
+  .file-input {
+    @apply w-full bg-white;
+  }
+
+  .document-card {
+    @apply p-4 bg-white shadow-md rounded-lg flex items-center justify-between;
+  }
+
+  mat-icon {
+    font-size: 1.5rem;
+    color: inherit;
+  }
+
+  .uploaded-documents {
+    max-height: 400px;
+    overflow-y: auto;
+    @apply space-y-4;
+  }
+}
+
+// Consistent styling for each element in the grid
+.file-input,
+mat-form-field {
+  height: 48px; // Ensures elements are the same height for alignment
+}
+
+// Grid styling with media query for responsive columns
+.grid {
+  display: grid;
+  grid-template-columns: 1fr; // Single column by default
+
+  gap: 1rem; // Space between elements
+
+  @media (min-width: 768px) { // Medium screen and up
+    grid-template-columns: repeat(2, 1fr); // Two equal-width columns on medium screens and up
+  }
+}
+

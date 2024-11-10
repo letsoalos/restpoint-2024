@@ -1,0 +1,26 @@
+[
+    {
+        "Name": "Married",
+        "Description": "Legally married"
+    },
+    {
+        "Name": "Single",
+        "Description": "Not currently married"
+    },
+    {
+        "Name": "Divorced",
+        "Description": "Legally divorced"
+    },
+    {
+        "Name": "Widowed",
+        "Description": "Lost spouse to death"
+    },
+    {
+        "Name": "Separated",
+        "Description": "Separated but not legally divorced"
+    },
+    {
+        "Name": "Engaged",
+        "Description": "Engaged to be married"
+    }
+]

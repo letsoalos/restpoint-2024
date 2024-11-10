@@ -123,6 +123,20 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MaritalStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MaritalStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OwnershipCategories",
                 columns: table => new
                 {
@@ -301,13 +315,14 @@ namespace Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TitleId = table.Column<int>(type: "int", nullable: false),
+                    MaritalStatusId = table.Column<int>(type: "int", nullable: false),
                     DocumentTypeId = table.Column<int>(type: "int", nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Passport = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     GenderId = table.Column<int>(type: "int", nullable: false),
                     EthnicityId = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    AltNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AltNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     EmergencyContactName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     EmergencyContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -348,6 +363,11 @@ namespace Infrastructure.Migrations
                         name: "FK_Clients_Genders_GenderId",
                         column: x => x.GenderId,
                         principalTable: "Genders",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Clients_MaritalStatuses_MaritalStatusId",
+                        column: x => x.MaritalStatusId,
+                        principalTable: "MaritalStatuses",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Clients_Statuses_StatusId",
@@ -719,6 +739,11 @@ namespace Infrastructure.Migrations
                 column: "GenderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_MaritalStatusId",
+                table: "Clients",
+                column: "MaritalStatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_StatusId",
                 table: "Clients",
                 column: "StatusId");
@@ -925,6 +950,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genders");
+
+            migrationBuilder.DropTable(
+                name: "MaritalStatuses");
 
             migrationBuilder.DropTable(
                 name: "Titles");

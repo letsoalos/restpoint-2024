@@ -19,6 +19,7 @@ public class Client : BaseEntity
         }
     }
     public int TitleId { get; set; }
+    public int MaritalStatusId { get; set; }
     public int DocumentTypeId { get; set; }
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
@@ -50,4 +51,5 @@ public class Client : BaseEntity
     public required Address Address { get; set; }
     public required Title Title { get; set; }
     public required Ethnicity Ethnicity { get; set; }
+    public required MaritalStatus MaritalStatus { get; set; }
 }

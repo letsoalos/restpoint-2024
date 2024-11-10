@@ -1,1 +1,48 @@
-<p>supporting-docs works!</p>
+<section class="p-6 bg-gray-100 rounded-lg shadow-md">
+  <h2 class="text-lg font-semibold mb-4">Supporting Documents</h2>
+
+  <div class="grid grid-cols-12 gap-4 items-center mb-6">
+    <!-- Document Type Dropdown -->
+    <mat-form-field appearance="outline" class="col-span-12 md:col-span-6 w-full">
+      <mat-label>Document Type</mat-label>
+      <mat-select [(ngModel)]="selectedDocumentTypeId">
+        <mat-option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- File Input -->
+    <div class="col-span-12 md:col-span-6 w-full">
+      <input type="file" (change)="onFileSelected($event)"
+        class="file-input p-2 border border-gray-300 rounded w-full" />
+    </div>
+  </div>
+
+  <div *ngIf="uploadedDocuments.length > 0" class="uploaded-documents mt-6 space-y-4">
+    <div *ngFor="let document of uploadedDocuments"
+      class="document-card p-4 bg-white shadow rounded-lg flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <mat-icon class="text-gray-500">description</mat-icon>
+        <div>
+          <p class="font-semibold text-sm">{{ document.typeName }}</p>
+          <p class="text-xs text-gray-600">{{ document.fileName }}</p>
+        </div>
+      </div>
+
+      <div class="flex space-x-2">
+        <button mat-icon-button class="primary-icon" (click)="viewDocument(document)" matTooltip="View Document">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button class="bitgold-icon" (click)="reAttachDocument(document)"
+          matTooltip="Re-attach Document">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <button mat-icon-button class="warn-icon" (click)="deleteDocument(document)" matTooltip="Delete Document">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input for re-attachment -->
+  <input type="file" #fileInput hidden />
+</section>

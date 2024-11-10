@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../../core/services/client.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Client } from '../../../shared/models/client';
+import { Client, Status } from '../../../shared/models/client';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { MatIcon } from '@angular/material/icon';
     MatCardModule,
     MatButton,
     MatIcon,
-    RouterLink    
+    RouterLink
   ],
   templateUrl: './view-client.component.html',
   styleUrl: './view-client.component.scss'
@@ -23,10 +23,17 @@ import { MatIcon } from '@angular/material/icon';
 export class ViewClientComponent implements OnInit {
   private clientService = inject(ClientService);
   private activatedRoute = inject(ActivatedRoute);
+
   client?: Client;
+  maritalStatus: Status | any;
 
   ngOnInit(): void {
+    this.loadClientData();
+  }
+
+  private loadClientData(): void {
     this.loadClient();
+    this.loadMaritalStatus();
   }
 
   loadClient() {
@@ -35,6 +42,13 @@ export class ViewClientComponent implements OnInit {
     this.clientService.getClient(+id).subscribe({
       next: client => this.client = client,
       error: error => console.log(error)
+    })
+  }
+
+  loadMaritalStatus() {
+    this.clientService.getMaritalStatus().subscribe({
+      next: maritalStatus => this.maritalStatus = maritalStatus,
+      error: error => console.log('Error fetching marital status:', error)
     })
   }
 

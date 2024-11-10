@@ -28,6 +28,8 @@ public class ClientDto
     public string Ethnicity { get; set; } = string.Empty;
     [Required]
     public string Gender { get; set; } = string.Empty;
+
+    public required string MaritalStatus { get; set; }
     [Phone]
     public string PhoneNumber { get; set; } = string.Empty;
     public string? AltNumber { get; set; }

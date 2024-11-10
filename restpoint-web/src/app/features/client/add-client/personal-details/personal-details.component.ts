@@ -38,7 +38,7 @@ export class PersonalDetailsComponent implements OnInit {
   genderList: Gender | any;
   titleList: ClientTitle | any;
   ethnicityGroupList: EthnicityGroup | any;
-  maritalStatusList: Status[] = [];
+  maritalStatuses: Status | any;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -91,12 +91,8 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   loadMaritalStatus() {
-    this.clientService.getStatuses().subscribe({
-      next: (maritalStatusList: any) => {
-        this.maritalStatusList = Array.isArray(maritalStatusList)
-          ? maritalStatusList.filter(m => m.groupCode == 'MARS')
-          : [];
-      },
+    this.clientService.getMaritalStatus().subscribe({
+      next: maritalStatuses => this.maritalStatuses = maritalStatuses,
       error: error => console.log('Error fetching marital status:', error)
     })
   }

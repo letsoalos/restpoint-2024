@@ -34,6 +34,7 @@ public class DataContext(DbContextOptions options) : DbContext(options)
     public DbSet<VehicleMaintenance> VehicleMaintenances { get; set; }
     public DbSet<Title> Titles { get; set; }
     public DbSet<Ethnicity> Ethnicities { get; set; }
+    public DbSet<MaritalStatus> MaritalStatuses { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

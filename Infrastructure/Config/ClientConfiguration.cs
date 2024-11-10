@@ -45,5 +45,9 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
                     .WithMany()
                     .HasForeignKey(x => x.TitleId)
                     .OnDelete(DeleteBehavior.NoAction);
+              builder.HasOne(x => x.MaritalStatus)
+                   .WithMany()
+                   .HasForeignKey(x => x.MaritalStatusId)
+                   .OnDelete(DeleteBehavior.NoAction);
        }
 }
