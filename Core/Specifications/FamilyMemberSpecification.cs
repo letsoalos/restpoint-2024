@@ -12,10 +12,11 @@ public class FamilyMemberSpecification : BaseSpecification<FamilyMember>
         AddInclude(x => x.Relationship);
     }
 
-    public FamilyMemberSpecification(FamilyMemberSpecParams specParams) : base(x =>
+    public FamilyMemberSpecification(FamilyMemberSpecParams specParams, int? clientId = null) : base(x =>
         (string.IsNullOrEmpty(specParams.Search) || x.LastName.ToLower().Contains(specParams.Search)) &&
         (specParams.PhoneNumber.Count == 0 || specParams.PhoneNumber.Contains(x.PhoneNumber)) &&
-        (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name))
+        (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name)) &&
+        (!clientId.HasValue || x.ClientId == clientId)
     )
     {
         ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);

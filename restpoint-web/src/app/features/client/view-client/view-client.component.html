@@ -54,20 +54,50 @@
 
       <!-- Right Section Divided into Family Members and Payment History -->
       <div class="col-span-6 space-y-6">
-
         <!-- Family Members Details Card (Top Section) -->
         <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
           <mat-card-header class="mat-card-header">
             <mat-card-title class="text-title">Family Members Details</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="details">
-              <!-- Family member details placeholder -->
-              <p class="text-gray-500 italic">Family member details go here.</p>
+            <div *ngIf="familyMembers && familyMembers.length > 0; else noFamilyMembers">
+              <div class="overflow-y-auto max-h-96">
+                <table class="w-full bg-gray-100 rounded-lg shadow-sm">
+                  <thead>
+                    <tr class="bg-gray-200">
+                      <th class="p-2 text-left">Full Name</th>
+                      <th class="p-2 text-left">Relationship</th>
+                      <th class="p-2 text-left">Date of Birth</th>
+                      <th class="p-2 text-left">Gender</th>
+                      <th class="p-2 text-left">Contact Number</th>
+                      <th class="p-2 text-left">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let member of familyMembers" class="border-b">
+                      <td class="p-2">{{ member.firstName }} {{ member.lastName }}</td>
+                      <td class="p-2">{{ member.relationship }}</td>
+                      <td class="p-2">{{ member.dateOfBirth | date }}</td>
+                      <td class="p-2">{{ member.gender }}</td>
+                      <td class="p-2">{{ member.phoneNumber }}</td>
+                      <td class="p-2">
+                        <button mat-icon-button>
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn">
+                          <mat-icon>block</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <ng-template #noFamilyMembers>
+              <p class="text-gray-500 italic">No family members added yet.</p>
+            </ng-template>
           </mat-card-content>
         </mat-card>
-
         <!-- Payment History Card (Bottom Section) -->
         <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
           <mat-card-header class="mat-card-header">

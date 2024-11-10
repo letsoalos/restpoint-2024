@@ -76,3 +76,23 @@ export type MaritalStatus = {
   name: string;
   ddescription: string;
 }
+
+export type FamilyMember = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  age: number;
+  phoneNumber: string;
+  email: string;
+  isBeneficiary: boolean;
+  createdDate: Date;
+  createdByUserId: number;
+  modifiedDate: Date;
+  modifiedByUserId: number;
+  clientId: number;
+  client: string,
+  gender: string,
+  relationship: string,
+  status: string;
+}

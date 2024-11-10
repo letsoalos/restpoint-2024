@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, ClientTitle, EthnicityGroup, Gender, MaritalStatus, Status } from '../../shared/models/client';
+import { BurialSociety, Client, ClientTitle, EthnicityGroup, FamilyMember, Gender, MaritalStatus, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 import { environment } from '../../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,11 @@ export class ClientService {
     }
 
     return this.http.get<Pagination<Client>>(this.baseUrl + 'clients', { params });
+  }
+
+  getFamilyMembersByClientId(clientId: number): Observable<Pagination<FamilyMember>> {
+    const params = new HttpParams().set('clientId', clientId.toString());
+    return this.http.get<Pagination<FamilyMember>>(`${this.baseUrl}familymembers/family-members`, { params });
   }
 
   getGenderList() {
