@@ -63,25 +63,25 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  uploadDocuments(): void {
-    if (this.uploadedDocuments.length === 0) {
-      console.log('No document selected for upload.');
-      return;
-    }
+  // uploadDocuments(): void {
+  //   if (this.uploadedDocuments.length === 0) {
+  //     console.log('No document selected for upload.');
+  //     return;
+  //   }
 
-    const documentToUpload = this.uploadedDocuments[0];
-    const formData = new FormData();
-    formData.append('file', documentToUpload.file);
-    formData.append('typeName', documentToUpload.typeName);
+  //   const documentToUpload = this.uploadedDocuments[0];
+  //   const formData = new FormData();
+  //   formData.append('file', documentToUpload.file);
+  //   formData.append('typeName', documentToUpload.typeName);
 
-    // this.clientService.uploadDocument(formData).subscribe({
-    //   next: response => {
-    //     console.log('Upload successful:', response);
-    //     // Optionally, remove the uploaded document from the list or update the UI as needed
-    //   },
-    //   error: error => console.error('Upload failed:', error)
-    // });
-  }
+  //   // this.clientService.uploadDocument(formData).subscribe({
+  //   //   next: response => {
+  //   //     console.log('Upload successful:', response);
+  //   //     // Optionally, remove the uploaded document from the list or update the UI as needed
+  //   //   },
+  //   //   error: error => console.error('Upload failed:', error)
+  //   // });
+  // }
 
   viewDocument(document: { file: File }): void {
     const fileURL = URL.createObjectURL(document.file);
