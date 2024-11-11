@@ -3,88 +3,93 @@
   <div class="max-w-screen-2xl px-4 mx-auto">
     <div class="grid grid-cols-12 gap-8">
 
-      <!-- Main Member Details Card -->
-      <div class="col-span-6">
-        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg relative">
-          <span class="member-since-badge">
-            Member Since: {{ client.createdDate | date:'MMMM yyyy' }}
-          </span>
-          <mat-card-header class="mat-card-header">
-            <mat-card-title class="text-title">Main Member Details</mat-card-title>
+      <!-- Left Section: Main Member Details Card -->
+      <div class="col-span-12 md:col-span-6 space-y-6">
+        <mat-card class="fancy-card mat-elevation-z3 w-full relative">
+          <mat-card-header class="header">
+            <mat-card-title class="header-title">Main Member Details</mat-card-title>
+            <span class="member-since-badge">
+              <mat-icon class="badge-icon">calendar_today</mat-icon>
+              Member Since: {{ client.createdDate | date:'MMMM yyyy' }}
+            </span>
           </mat-card-header>
 
-          <mat-card-content>
-            <div class="details">
+          <mat-card-content class="content">
+            <!-- Section 1: Personal Information -->
+            <section class="info-section">
+              <h3 class="section-title">Personal Information</h3>
               <p><strong>Full Name:</strong> {{ client.title }} {{ client.firstName }} {{ client.lastName }}</p>
               <p><strong>ID/Passport:</strong> {{ client.identityNumber || client.passport }}</p>
               <p><strong>Date of Birth:</strong> {{ client.dateOfBirth | date }}</p>
               <p><strong>Age:</strong> {{ client.age }}</p>
-              <p><strong>Gender:</strong> {{ client.gender }}</p>
+            </section>
+
+            <!-- Section 2: Contact Information -->
+            <section class="info-section">
+              <h3 class="section-title">Contact Information</h3>
+              <p><strong>Phone Number:</strong> {{ client.phoneNumber }}</p>
+              <p><strong>Email:</strong> {{ client.email }}</p>
+              <p><strong>Street Name:</strong> {{ client.streetName }}</p>
+              <p><strong>City:</strong> {{ client.city }}, {{ client.postalCode }}</p>
+            </section>
+
+            <!-- Section 3: Additional Information -->
+            <section class="info-section">
+              <h3 class="section-title">Additional Information</h3>
               <p><strong>Marital Status:</strong> {{ client.maritalStatus }}</p>
               <p><strong>Ethnicity Group:</strong> {{ client.ethnicity }}</p>
-              <p><strong>Street Name:</strong> {{ client.streetName }}</p>
-              <p><strong>Suburb:</strong> {{ client.suburb }}</p>
-              <p><strong>City:</strong> {{ client.city }}</p>
-              <p><strong>Postal Code:</strong> {{ client.postalCode }}</p>
-              <p><strong>Contact Number:</strong> {{ client.phoneNumber }}</p>
-              <p><strong>Email:</strong> {{ client.email }}</p>
-              <p><strong>Registration Status:</strong> {{ client.status }}</p>
               <p><strong>Burial Society:</strong> {{ client.burialSociety || 'N/A' }}</p>
-              <p><strong>Emergency Contact:</strong> {{ client.emergencyContactName }}</p>
-              <p><strong>Emergency Number:</strong> {{ client.emergencyContactNumber }}</p>
-            </div>
-
-            <div class="flex gap-4 mt-6">
-              <button mat-flat-button routerLink="/family-member"
-                class="flex items-center gap-1 ml-auto buttonCustomColor">
-                <mat-icon>add</mat-icon>
-                Add Family Member
-              </button>
-            </div>
+            </section>
           </mat-card-content>
-        </mat-card>
 
-        <div class="flex gap-4 mt-2">
-          <button mat-flat-button routerLink="/client" class="backButtonCustomColor">
-            <mat-icon>arrow_back</mat-icon>
-            Back to Client List
-          </button>
-        </div>
+          <mat-card-actions class="actions">
+            <button mat-flat-button routerLink="/client" class="backButtonCustomColor">
+              <mat-icon>arrow_back</mat-icon> Back to Client List
+            </button>
+            <div class="spacer"></div> <!-- Spacer div to push the second button to the right -->
+            <button mat-flat-button routerLink="/family-member" class="buttonCustomColor">
+              <mat-icon>add</mat-icon> Add Family Member
+            </button>
+          </mat-card-actions>
+
+        </mat-card>
       </div>
 
-      <!-- Right Section Divided into Family Members and Payment History -->
-      <div class="col-span-6 space-y-6">
-        <!-- Family Members Details Card (Top Section) -->
-        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
+      <!-- Right Section: Family Members and Payment History -->
+      <div class="col-span-12 md:col-span-6 space-y-6">
+        <!-- Family Members Section -->
+        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg max-w-full">
           <mat-card-header class="mat-card-header">
-            <mat-card-title class="text-title">Family Members Details</mat-card-title>
+            <mat-card-title class="text-lg font-semibold text-gray-700">Family Members</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="familyMembers && familyMembers.length > 0; else noFamilyMembers">
-              <div class="overflow-y-auto max-h-96">
-                <table class="w-full bg-gray-100 rounded-lg shadow-sm">
+              <div class="overflow-x-auto max-h-96">
+                <table class="min-w-full bg-gray-50 rounded-lg shadow-md mt-4">
                   <thead>
                     <tr class="bg-gray-200">
-                      <th class="p-2 text-left">Full Name</th>
-                      <th class="p-2 text-left">Relationship</th>
-                      <th class="p-2 text-left">Date of Birth</th>
-                      <th class="p-2 text-left">Gender</th>
-                      <th class="p-2 text-left">Contact Number</th>
-                      <th class="p-2 text-left">Actions</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">#</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Full Name</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Relationship</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Date of Birth</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Age</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Gender</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let member of familyMembers" class="border-b">
-                      <td class="p-2">{{ member.firstName }} {{ member.lastName }}</td>
-                      <td class="p-2">{{ member.relationship }}</td>
-                      <td class="p-2">{{ member.dateOfBirth | date }}</td>
-                      <td class="p-2">{{ member.gender }}</td>
-                      <td class="p-2">{{ member.phoneNumber }}</td>
-                      <td class="p-2">
-                        <button mat-icon-button>
+                    <tr *ngFor="let member of familyMembers; let i = index" class="border-b hover:bg-gray-100">
+                      <td class="p-3 text-sm text-gray-700">{{ i + 1 }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ member.firstName }} {{ member.lastName }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ member.relationship }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ member.dateOfBirth | date }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ member.age }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ member.gender }}</td>
+                      <td class="p-3">
+                        <button mat-icon-button class="mr-2 text-blue-600 hover:text-blue-800">
                           <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn">
+                        <button mat-icon-button color="warn" class="text-red-600 hover:text-red-800">
                           <mat-icon>block</mat-icon>
                         </button>
                       </td>
@@ -98,10 +103,11 @@
             </ng-template>
           </mat-card-content>
         </mat-card>
-        <!-- Payment History Card (Bottom Section) -->
+
+        <!-- Payment History Section -->
         <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
           <mat-card-header class="mat-card-header">
-            <mat-card-title class="text-title">Payment History</mat-card-title>
+            <mat-card-title class="text-lg font-semibold text-gray-700">Payment History</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="details">
@@ -110,7 +116,6 @@
             </div>
           </mat-card-content>
         </mat-card>
-
       </div>
     </div>
   </div>
