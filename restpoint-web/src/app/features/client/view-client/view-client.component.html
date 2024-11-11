@@ -51,12 +51,12 @@
               <mat-icon>add</mat-icon> Add Family Member
             </button>
           </mat-card-actions>
-
         </mat-card>
       </div>
 
       <!-- Right Section: Family Members and Payment History -->
       <div class="col-span-12 md:col-span-6 space-y-6">
+
         <!-- Family Members Section -->
         <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg max-w-full">
           <mat-card-header class="mat-card-header">
@@ -64,7 +64,8 @@
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="familyMembers && familyMembers.length > 0; else noFamilyMembers">
-              <div class="overflow-x-auto max-h-96">
+              <div class="overflow-x-auto overflow-y-auto max-h-60">
+                <!-- Set a max height for scrolling -->
                 <table class="min-w-full bg-gray-50 rounded-lg shadow-md mt-4">
                   <thead>
                     <tr class="bg-gray-200">
@@ -90,7 +91,7 @@
                           <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" class="text-red-600 hover:text-red-800">
-                          <mat-icon>block</mat-icon>
+                          <mat-icon>delete</mat-icon>
                         </button>
                       </td>
                     </tr>
@@ -105,15 +106,45 @@
         </mat-card>
 
         <!-- Payment History Section -->
-        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg">
+        <mat-card class="mat-elevation-z3 fancy-card w-full shadow-lg rounded-lg max-w-full">
           <mat-card-header class="mat-card-header">
             <mat-card-title class="text-lg font-semibold text-gray-700">Payment History</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="details">
-              <!-- Payment history details placeholder -->
-              <p class="text-gray-500 italic">Payment history details go here.</p>
+            <div *ngIf="paymentHistories && paymentHistories.length > 0; else noPaymentHistory">
+              <div class="overflow-x-auto overflow-y-auto max-h-60">
+                <!-- Set a max height for scrolling -->
+                <table class="min-w-full bg-gray-50 rounded-lg shadow-md mt-4">
+                  <thead>
+                    <tr class="bg-gray-200">
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">#</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Reference No</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Payment Date</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Amount Paid</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Payment Type</th>
+                      <th class="p-3 text-left text-sm font-medium text-gray-700">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let payment of paymentHistories; let i = index" class="border-b hover:bg-gray-100">
+                      <td class="p-3 text-sm text-gray-700">{{ i + 1 }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ payment.referenceNumber }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ payment.paymentDate | date }}</td>
+                      <td class="p-3 text-sm text-gray-700">R{{ payment.totalAmountPaid }}</td>
+                      <td class="p-3 text-sm text-gray-700">{{ payment.status }}</td>
+                      <td class="p-3">
+                        <button mat-icon-button class="mr-2 text-blue-600 hover:text-blue-800">
+                          <mat-icon>file_download</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <ng-template #noPaymentHistory>
+              <p class="text-gray-500 italic">No payment history available.</p>
+            </ng-template>
           </mat-card-content>
         </mat-card>
       </div>

@@ -27,5 +27,11 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.Name))
             .ForMember(d => d.Relationship, o => o.MapFrom(s => s.Relationship.Name))
             .ForMember(d => d.Gender, o => o.MapFrom(s => s.Gender.Name));
+
+        CreateMap<PaymentHistory, PaymentHistoryDto>()
+            .ForMember(d => d.Client, o => o.MapFrom(s => s.Client.FirstName))
+            .ForMember(d => d.Client, o => o.MapFrom(s => s.Client.LastName))
+            .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.Name))
+            .ForMember(d => d.PaymentMethod, o => o.MapFrom(s => s.PaymentMethod.Name));
     }
 }

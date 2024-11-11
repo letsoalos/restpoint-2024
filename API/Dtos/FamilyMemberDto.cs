@@ -27,7 +27,6 @@ public class FamilyMemberDto
     public int CreatedByUserId { get; set; }
     public DateTime? ModifiedDate { get; set; }
     public int? ModifiedByUserId { get; set; }
-    public int ClientId { get; set; }
 
 
     public required string Client { get; set; }

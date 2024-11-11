@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, ClientTitle, EthnicityGroup, FamilyMember, Gender, MaritalStatus, Status } from '../../shared/models/client';
+import { BurialSociety, Client, ClientTitle, EthnicityGroup, FamilyMember, Gender, MaritalStatus, PaymentHistory, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -29,6 +29,11 @@ export class ClientService {
   getFamilyMembersByClientId(clientId: number): Observable<Pagination<FamilyMember>> {
     const params = new HttpParams().set('clientId', clientId.toString());
     return this.http.get<Pagination<FamilyMember>>(`${this.baseUrl}familymembers/family-members`, { params });
+  }
+
+  getPaymentHistoriesByClientId(clientId: number): Observable<Pagination<PaymentHistory>> {
+    const params = new HttpParams().set('clientId', clientId.toString());
+    return this.http.get<Pagination<PaymentHistory>>(`${this.baseUrl}paymenthistories/payment-histories`, { params });
   }
 
   getGenderList() {

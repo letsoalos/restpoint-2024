@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../../core/services/client.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Client, FamilyMember, Status } from '../../../shared/models/client';
+import { Client, FamilyMember, PaymentHistory, Status } from '../../../shared/models/client';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -27,6 +27,7 @@ export class ViewClientComponent implements OnInit {
   client?: Client;
   maritalStatus: Status | any;
   familyMembers: FamilyMember[] = [];
+  paymentHistories: PaymentHistory[] = [];
 
   ngOnInit(): void {
     this.loadClientData();
@@ -44,6 +45,7 @@ export class ViewClientComponent implements OnInit {
       next: client => {
         this.client = client;
         this.loadFamilyMembers(client.id);
+        this.loadPaymentHistories(client.id);
       },
       error: error => console.log(error)
     })
@@ -54,6 +56,13 @@ export class ViewClientComponent implements OnInit {
       next: response => this.familyMembers = response.data,
       error: error => console.log(error)
     });
+  }
+
+  loadPaymentHistories(clientId: number): void {
+    this.clientService.getPaymentHistoriesByClientId(clientId).subscribe({
+      next: response => this.paymentHistories = response.data,
+      error: error => console.log(error)
+    })
   }
 
   loadMaritalStatus() {

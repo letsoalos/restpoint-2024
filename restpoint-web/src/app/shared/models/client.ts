@@ -96,3 +96,18 @@ export type FamilyMember = {
   relationship: string,
   status: string;
 }
+
+export type PaymentHistory = {
+  id: number,
+  paymentDate: string,
+  totalAmountPaid: number,
+  referenceNumber: string,
+  description: string,
+  createdDate: string,
+  createdByUserId: number,
+  modifiedDate: Date,
+  modifiedByUserId: number,
+  client: string,
+  paymentMethod: string,
+  status: string
+}
