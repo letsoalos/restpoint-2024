@@ -1,3 +1,68 @@
+
+$gray-color: gray;
+$bitgold-color: #d4af37;
+$primary-color: #3f51b5;
+$green-color: green;
+
+.download-icon {
+  color: $primary-color;
+}
+
+.upload-icon {
+  color: $bitgold-color;
+}
+
+.edit-icon {
+  color: $primary-color;
+}
+
+.view-icon {
+  color: $green-color;
+}
+
+.action-btn {
+  margin-right: 8px; /* Adjust this value to control the space */
+}
+
+/* Optional: Remove margin from the last button */
+.action-btn:last-child {
+  margin-right: 0;
+}
+
+/* Custom style for table headers */
+.mat-header-row {
+  background-color: #1E88E5;
+  color: white;
+  font-weight: bold;
+}
+
+/* Custom style for table rows */
+.mat-row {
+  background-color: #f9f9f9;
+}
+
+/* Style for paginator */
+.mat-paginator-range-actions {
+  font-size: 14px;
+  color: #777;
+}
+
+.mat-paginator-page-size {
+  font-size: 14px;
+}
+
+/* Styling table actions (e.g. buttons) */
+.mat-icon-button {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+.mat-icon-button:hover {
+  background-color: #ccc;
+}
+
+
+
 .fancy-card {
   margin: 20px auto;
   border-radius: 8px;

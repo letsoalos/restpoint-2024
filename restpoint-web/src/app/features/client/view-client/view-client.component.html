@@ -63,40 +63,59 @@
             <mat-card-title class="text-lg font-semibold text-gray-700">Family Members</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div *ngIf="familyMembers && familyMembers.length > 0; else noFamilyMembers">
+            <div *ngIf="familyMembers; else noFamilyMembers">
               <div class="overflow-x-auto overflow-y-auto max-h-60">
-                <!-- Set a max height for scrolling -->
-                <table class="min-w-full bg-gray-50 rounded-lg shadow-md mt-4">
-                  <thead>
-                    <tr class="bg-gray-200">
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">#</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Full Name</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Relationship</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Date of Birth</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Age</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Gender</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let member of familyMembers; let i = index" class="border-b hover:bg-gray-100">
-                      <td class="p-3 text-sm text-gray-700">{{ i + 1 }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ member.firstName }} {{ member.lastName }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ member.relationship }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ member.dateOfBirth | date }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ member.age }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ member.gender }}</td>
-                      <td class="p-3">
-                        <button mat-icon-button class="mr-2 text-blue-600 hover:text-blue-800">
-                          <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="warn" class="text-red-600 hover:text-red-800">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
+                <table mat-table [dataSource]="familyDataSource" matSort class="table">
+                  <!-- Record Number Column -->
+                  <ng-container matColumnDef="recordNumber">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+                    <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+                    <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="relationship">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Relationship</th>
+                    <td mat-cell *matCellDef="let row">{{ row.relationship }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dateOfBirth">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</th>
+                    <td mat-cell *matCellDef="let row">{{ row.dateOfBirth | date }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+                    <td mat-cell *matCellDef="let row">{{ row.age }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let row">
+                      <!-- Edit Button -->
+                      <button mat-icon-button>
+                        <mat-icon color="primary">edit</mat-icon>
+                      </button>
+                      <!-- Soft Delete Button -->
+                      <button mat-icon-button class="text-red-600 hover:text-red-800">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedFamilyColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedFamilyColumns;"></tr>
                 </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page of family members">
+                </mat-paginator>
               </div>
             </div>
             <ng-template #noFamilyMembers>
@@ -111,35 +130,47 @@
             <mat-card-title class="text-lg font-semibold text-gray-700">Payment History</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div *ngIf="paymentHistories && paymentHistories.length > 0; else noPaymentHistory">
+            <div *ngIf="paymentDataSource; else noPaymentHistory">
               <div class="overflow-x-auto overflow-y-auto max-h-60">
-                <!-- Set a max height for scrolling -->
-                <table class="min-w-full bg-gray-50 rounded-lg shadow-md mt-4">
-                  <thead>
-                    <tr class="bg-gray-200">
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">#</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Reference No</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Payment Date</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Amount Paid</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Payment Type</th>
-                      <th class="p-3 text-left text-sm font-medium text-gray-700">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let payment of paymentHistories; let i = index" class="border-b hover:bg-gray-100">
-                      <td class="p-3 text-sm text-gray-700">{{ i + 1 }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ payment.referenceNumber }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ payment.paymentDate | date }}</td>
-                      <td class="p-3 text-sm text-gray-700">R{{ payment.totalAmountPaid }}</td>
-                      <td class="p-3 text-sm text-gray-700">{{ payment.status }}</td>
-                      <td class="p-3">
-                        <button mat-icon-button class="mr-2 text-blue-600 hover:text-blue-800">
-                          <mat-icon>file_download</mat-icon>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
+                <table mat-table [dataSource]="paymentDataSource" class="table" matSort>
+                  <!-- Record Number Column -->
+                  <ng-container matColumnDef="recordNumber">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="paymentDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Date</th>
+                    <td mat-cell *matCellDef="let row">{{ row.paymentDate | date }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalAmountPaid">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+                    <td mat-cell *matCellDef="let row">{{ row.totalAmountPaid | currency:'R' }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                      <button mat-icon-button class="action-btn">
+                        <mat-icon class="download-icon">arrow_circle_down</mat-icon>
+                      </button>
+                      <button mat-icon-button class="action-btn">
+                        <mat-icon class="upload-icon">arrow_circle_up</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedPaymentColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedPaymentColumns;"></tr>
                 </table>
+                <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of payments">
+                </mat-paginator>
               </div>
             </div>
             <ng-template #noPaymentHistory>

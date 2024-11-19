@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../core/services/client.service';
-import { Client } from '../../shared/models/client';
+import { Client, FamilyMember, PaymentHistory } from '../../shared/models/client';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -15,8 +15,9 @@ import { RouterLink } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
+import { Observable, map, catchError, of } from 'rxjs';
 
-const logoBase64 = "./assets/images/logo.jpeg";
+const logoBase64 = "./assets/images/logo.jpg";
 
 @Component({
   selector: 'app-client',
@@ -36,13 +37,19 @@ const logoBase64 = "./assets/images/logo.jpeg";
     MatDividerModule
   ],
   templateUrl: './client.component.html',
-  styleUrl: './client.component.scss'
+  styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
   private clientService = inject(ClientService);
   private dialog = inject(MatDialog);
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   client: Client[] = [];
+  familyMembers: FamilyMember[] = [];
+  paymentHistory: PaymentHistory[] = [];
+
   selectedBurialSocieties: string[] = [];
   selectedclientStatues: string[] = [];
   searchInput: string = '';
@@ -60,10 +67,6 @@ export class ClientComponent implements OnInit {
   ];
   dataSource!: MatTableDataSource<Client>;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-
   ngOnInit(): void {
     this.populateTable();
   }
@@ -76,8 +79,41 @@ export class ClientComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       },
       error: error => console.log(error)
-    })
+    });
   }
+
+  loadFamilyMembers(clientId: number): Observable<FamilyMember[]> {
+    return this.clientService.getFamilyMembersByClientId(clientId).pipe(
+      map((res) => {
+        if (res && Array.isArray(res.data)) {
+          return res.data;
+        } else {
+          return [];
+        }
+      }),
+      catchError((error) => {
+        console.error('Error fetching family members:', error);
+        return of([]); // Return an empty array in case of an error
+      })
+    );
+  }
+
+  loadPaymentHistories(clientId: number): Observable<PaymentHistory[]> {
+    return this.clientService.getPaymentHistoriesByClientId(clientId).pipe(
+      map((res) => {
+        if (Array.isArray(res.data)) {
+          return res.data; // Return the array if it's valid
+        } else {
+          return [];
+        }
+      }),
+      catchError((error) => {
+        console.error('Error fetching payment history:', error);
+        return of([]);
+      })
+    );
+  }
+
 
   getStatusIconColor(status: string): string {
     switch (status) {
@@ -178,86 +214,178 @@ export class ClientComponent implements OnInit {
   downloadClientProfile(id: number) {
     this.clientService.getClient(id).subscribe({
       next: (client) => {
-        const doc = new jsPDF();
-        const formattedDateOfBirth = client.dateOfBirth ? new Date(client.dateOfBirth).toISOString().split('T')[0] : 'N/A';
+        this.loadFamilyMembers(id).subscribe({
+          next: (familyMembers: any[]) => {
+            this.loadPaymentHistories(id).subscribe({
+              next: (paymentHistory) => {
+                const doc = new jsPDF();
+                const formattedDateOfBirth = client.dateOfBirth
+                  ? new Date(client.dateOfBirth).toISOString().split('T')[0]
+                  : 'N/A';
 
-        // Add logo to the left
-        doc.addImage(logoBase64, 'PNG', 10, 10, 30, 30);
+                const systemName = "Rest Point";
+                const today = new Date();
+                const printedDate = today.toISOString().split('T')[0];
+                const footerLineY = doc.internal.pageSize.height - 20;
+                const usablePageHeight = doc.internal.pageSize.height - 40;
 
-        // Add business address to the right
-        doc.setFontSize(12);
-        doc.setFont("Aptos", "normal");
-        doc.setTextColor(0);
-        const businessAddress = [
-          "Demo Funerals",
-          "1234 Main Street",
-          "Polokwane",
-          "2195",
-          "Phone: +27 (15) 123-4567",
-          "Email: contact@funeralpolicy.com"
-        ];
-        let addressYPosition = 15; // Initial y position for the address text
-        businessAddress.forEach((line) => {
-          doc.text(line, 140, addressYPosition); // x = 150 to align text on the right
-          addressYPosition += 5; // Adjust line spacing as needed
+                // Footer function
+                const addFooter = () => {
+                  const totalPages = doc.getNumberOfPages();
+                  for (let page = 1; page <= totalPages; page++) {
+                    doc.setPage(page);
+
+                    // Draw line above footer
+                    doc.line(10, footerLineY - 5, 200, footerLineY - 5);
+
+                    // Add printed date and system name
+                    doc.setFontSize(10);
+                    doc.setFont("Helvetica", "normal");
+                    doc.text(
+                      `Printed Date: ${printedDate} | ${systemName}`,
+                      10,
+                      footerLineY
+                    );
+                  }
+                };
+
+                let yPosition = 70;
+
+                // Header: Logo and Business Address
+                doc.addImage(logoBase64, "PNG", 10, 10, 30, 30);
+                const businessAddress = [
+                  "Demo Funerals",
+                  "1234 Main Street",
+                  "Polokwane",
+                  "2195",
+                  "Phone: +27 (15) 123-4567",
+                  "Email: contact@funeralpolicy.com",
+                ];
+                doc.setFontSize(12);
+                doc.setFont("Helvetica", "normal");
+                businessAddress.forEach((line, index) => {
+                  doc.text(line, 200, 15 + index * 5, { align: "right" });
+                });
+
+                // Divider Line
+                doc.line(10, 45, 200, 45);
+
+                // Title
+                doc.setFontSize(18);
+                doc.setFont("Helvetica", "bold");
+                doc.text("Client Profile", 105, 55, { align: "center" });
+
+                // Section: Basic Information
+                yPosition = this.addSection(doc, "Basic Information", yPosition);
+                const basicInfo = [
+                  `Reference Number: ${client.referenceNumber}`,
+                  `Full Name: ${client.firstName} ${client.lastName}`,
+                  `Date of Birth: ${formattedDateOfBirth}`,
+                  `Age: ${client.age}`,
+                  `Gender: ${client.gender}`,
+                  `Phone Number: ${client.phoneNumber}`,
+                ];
+                yPosition = this.addContent(doc, basicInfo, yPosition, usablePageHeight, () => {
+                  doc.addPage();
+                  yPosition = 20;
+                });
+
+                // Section: Address
+                yPosition = this.addSection(doc, "Address", yPosition + 10);
+                const addressInfo = [
+                  `Street: ${client.streetName}`,
+                  `Suburb: ${client.suburb}`,
+                  `City: ${client.city}`,
+                  `Postal Code: ${client.postalCode}`,
+                ];
+                yPosition = this.addContent(doc, addressInfo, yPosition, usablePageHeight, () => {
+                  doc.addPage();
+                  yPosition = 20;
+                });
+
+                // Section: Family Members
+                yPosition = this.addSection(doc, "Family Members", yPosition + 10);
+                familyMembers.forEach((member) => {
+                  if (yPosition + 10 > usablePageHeight) {
+                    doc.addPage();
+                    yPosition = 20;
+                  }
+                  doc.setFontSize(12);
+                  doc.setFont("Helvetica", "normal");
+                  doc.text(
+                    `${member.firstName} ${member.lastName} - ${member.relationship}`,
+                    25,
+                    yPosition
+                  );
+                  yPosition += 10;
+                });
+
+                // Section: Payment History
+                yPosition = this.addSection(doc, "Payment History", yPosition + 10);
+                paymentHistory.forEach((payment) => {
+                  if (yPosition + 10 > usablePageHeight) {
+                    doc.addPage();
+                    yPosition = 20;
+                  }
+
+                  // Format the amount to include ZAR currency
+                  const formattedAmount = `R ${payment.totalAmountPaid.toFixed(2)}`;
+
+                  // Extract the date part from paymentDate
+                  const formattedDate = new Date(payment.paymentDate).toISOString().split('T')[0];
+
+                  // Set consistent font size and style
+                  doc.setFontSize(12);
+                  doc.setFont("Helvetica", "normal");
+
+                  // Add payment details
+                  doc.text(`Amount Paid: ${formattedAmount}`, 25, yPosition);
+                  doc.text(`Date: ${formattedDate}`, 120, yPosition);
+
+                  yPosition += 10; // Adjust vertical spacing
+                });
+
+                // Add footer to all pages
+                addFooter();
+
+                // Save the document
+                doc.save(`${client.firstName}_${client.lastName}_Profile.pdf`);
+              },
+              error: (error) =>
+                console.error("Error loading payment history:", error),
+            });
+          },
+          error: (error) =>
+            console.error("Error loading family members:", error),
         });
-
-        // Adjusted horizontal line closer to address
-        doc.line(10, 45, 200, 45);
-
-        // Client Profile Title
-        doc.setFontSize(18);
-        doc.setFont("Aptos", "bold");
-        doc.text("Client Profile", 20, 55);
-
-        // Basic Information Section
-        doc.setFontSize(16);
-        doc.setFont("Aptos", "bold");
-        doc.text("Basic Information", 20, 75);
-
-        doc.setFontSize(12);
-        doc.setFont("Aptos", "normal");
-        doc.text(`Reference Number: ${client.referenceNumber}`, 20, 85);
-        doc.text(`Full Name: ${client.firstName} ${client.lastName}`, 20, 95);
-        doc.text(`Date of Birth: ${formattedDateOfBirth}`, 20, 105);
-        doc.text(`Age: ${client.age}`, 20, 115);
-        doc.text(`Gender: ${client.gender}`, 20, 125);
-        doc.text(`Phone Number: ${client.phoneNumber}`, 20, 135);
-
-        // Address Section
-        doc.setFontSize(16);
-        doc.setFont("Aptos", "bold");
-        doc.text("Address", 20, 155);
-
-        doc.setFontSize(12);
-        doc.setFont("Aptos", "normal");
-        doc.text(`Street: ${client.streetName}`, 20, 165);
-        doc.text(`Suburb: ${client.suburb}`, 20, 175);
-        doc.text(`City: ${client.city}`, 20, 185);
-        doc.text(`City: ${client.postalCode}`, 20, 195);
-
-        // Status Section
-        doc.setFontSize(16);
-        doc.setFont("Aptos", "bold");
-        doc.text("Status", 20, 215);
-
-        doc.setFontSize(12);
-        doc.setFont("Aptos", "normal");
-        doc.text(`Status: ${client.status}`, 20, 225);
-
-        // Footer with a line above it
-        doc.line(10, 280, 200, 280); // Footer separator line
-        doc.setFontSize(10);
-        doc.setTextColor(150);
-        doc.text("Funeral Policy Management System", 20, 290);
-        doc.text(`Page 1 of 1`, 180, 290);
-
-        // Save the PDF
-        doc.save(`${client.firstName}_${client.lastName}_profile.pdf`);
       },
-      error: (error) => console.log('Error fetching client profile for download', error)
+      error: (error) => console.error("Error loading client:", error),
     });
   }
 
-}
+  /**
+   * Add a section header with a background.
+   */
+  private addSection(doc: jsPDF, title: string, y: number): number {
+    doc.setFillColor(220, 220, 220);
+    doc.rect(10, y, 190, 10, 'F'); // Filled rectangle for section header
+    doc.setFontSize(14);
+    doc.setFont('Helvetica', 'bold');
+    doc.text(title, 15, y + 7);
+    return y + 15; // Return new y-position
+  }
 
+  /**
+   * Add content lines to the PDF.
+   */
+  private addContent(doc: jsPDF, lines: string[], y: number, usablePageHeight: number, p0: () => void): number {
+    doc.setFontSize(12);
+    doc.setFont('Helvetica', 'normal');
+    lines.forEach((line) => {
+      doc.text(line, 25, y);
+      y += 10;
+    });
+    return y;
+  }
+
+}

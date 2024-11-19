@@ -81,7 +81,7 @@
             <mat-icon class="edit-icon">mode_edit</mat-icon>
           </button>
           <button mat-icon-button (click)="downloadClientProfile(row.id)" class="action-btn">
-            <mat-icon class="download-icon">arrow_circle_down</mat-icon>
+            <mat-icon class="pdf-icon">picture_as_pdf</mat-icon>
           </button>
           <button mat-icon-button class="action-btn">
             <mat-icon class="upload-icon">arrow_circle_up</mat-icon>
@@ -96,7 +96,7 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page of users"></mat-paginator>
   </div>
 </div>
 }

@@ -3,6 +3,8 @@ $gray-color: gray;
 $bitgold-color: #d4af37;
 $primary-color: #3f51b5;
 $green-color: green;
+$red-color: #ff0000; // Bright red
+
 
 .download-icon {
   color: $gray-color;
@@ -19,6 +21,11 @@ $green-color: green;
 .view-icon {
   color: $green-color;
 }
+
+.mat-icon.pdf-icon {
+  color: $red-color; // Use the red variable for consistent styling
+}
+
 
 .action-btn {
   margin-right: 8px; /* Adjust this value to control the space */
