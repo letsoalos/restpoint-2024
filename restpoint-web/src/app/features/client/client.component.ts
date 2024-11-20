@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import * as Papa from 'papaparse';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../core/services/client.service';
@@ -15,7 +16,7 @@ import { RouterLink } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, of, forkJoin, switchMap } from 'rxjs';
 
 const logoBase64 = "./assets/images/logo.jpg";
 
@@ -34,7 +35,7 @@ const logoBase64 = "./assets/images/logo.jpg";
     MatFormFieldModule,
     RouterLink,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
@@ -360,6 +361,120 @@ export class ClientComponent implements OnInit {
         });
       },
       error: (error) => console.error("Error loading client:", error),
+    });
+  }
+
+  downloadClientProfileAsCSV(id: number): void {
+    this.clientService.getClient(id).pipe(
+      switchMap(client =>
+        forkJoin({
+          familyMembers: this.loadFamilyMembers(id),
+          paymentHistory: this.loadPaymentHistories(id),
+          client: of(client),
+        })
+      )
+    ).subscribe({
+      next: ({ client, familyMembers, paymentHistory }) => {
+        const data = [];
+
+        // Add Basic Info to CSV
+        data.push({
+          Section: 'Basic Information',
+          'Reference Number': client.referenceNumber,
+          'Full Name': `${client.firstName} ${client.lastName}`,
+          'Date of Birth': client.dateOfBirth ? new Date(client.dateOfBirth).toISOString().split('T')[0] : 'N/A',
+          Age: client.age,
+          Gender: client.gender,
+          'Phone Number': client.phoneNumber,
+          Street: client.streetName || 'N/A',
+          Suburb: client.suburb || 'N/A',
+          City: client.city || 'N/A',
+          'Postal Code': client.postalCode || 'N/A'
+        });
+
+        // Add Family Members to CSV
+        familyMembers.forEach((member: any) => {
+          data.push({
+            Section: 'Family Member',
+            'Reference Number': '',
+            'Full Name': `${member.firstName} ${member.lastName}`,
+            'Date of Birth': member.dateOfBirth ? new Date(member.dateOfBirth).toISOString().split('T')[0] : 'N/A',
+            Age: member.age || 'N/A',
+            Gender: member.gender || 'N/A',
+            'Phone Number': member.phoneNumber || 'N/A',
+            Street: member.address?.street || 'N/A',
+            Suburb: member.address?.suburb || 'N/A',
+            City: member.address?.city || 'N/A',
+            'Postal Code': member.address?.postalCode || 'N/A',
+            'Family Member Relationship': member.relationship || 'N/A',
+            'Payment Amount': '',
+            'Payment Date': ''
+          });
+        });
+
+        // Add Payment History to CSV
+        const handleEmptyFields = (field: any) => {
+          return field === '' ? 'N/A' : field;
+        };
+
+        paymentHistory.forEach((payment: any) => {
+          data.push({
+            Section: 'Payment History',
+            'Reference Number': payment.referenceNumber || 'N/A',
+            'Full Name': handleEmptyFields(''),
+            'Date of Birth': handleEmptyFields(''),
+            Age: handleEmptyFields(''),
+            Gender: handleEmptyFields(''),
+            'Phone Number': handleEmptyFields(''),
+            Street: handleEmptyFields(''),
+            Suburb: handleEmptyFields(''),
+            City: handleEmptyFields(''),
+            'Postal Code': handleEmptyFields(''),
+            'Family Member Name': handleEmptyFields(''),
+            'Family Member Relationship': handleEmptyFields(''),
+            'Payment Amount': payment.totalAmountPaid || 'N/A',
+            'Payment Date': payment.paymentDate
+              ? new Date(payment.paymentDate).toISOString().split('T')[0]
+              : 'N/A'
+          });
+        });
+
+        // Convert data to CSV and trigger download
+        const csv = Papa.unparse(data, {
+          header: true, // Ensure headers are included
+          columns: [
+            'Section',
+            'Reference Number',
+            'Full Name',
+            'Date of Birth',
+            'Age',
+            'Gender',
+            'Phone Number',
+            'Street',
+            'Suburb',
+            'City',
+            'Postal Code',
+            'Family Member Name',
+            'Family Member Relationship',
+            'Payment Amount',
+            'Payment Date',
+          ],
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const filename = `${client.firstName}_${client.lastName}_Profile.csv`;
+        if (link.download !== undefined) {
+          const url = URL.createObjectURL(blob);
+          link.setAttribute('href', url);
+          link.setAttribute('download', filename);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      },
+      error: (error) => console.error('Error downloading client profile:', error),
     });
   }
 
