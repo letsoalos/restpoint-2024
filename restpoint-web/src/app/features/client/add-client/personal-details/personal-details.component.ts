@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-details',
@@ -29,11 +31,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss']
 })
-export class PersonalDetailsComponent implements OnInit {
+export class PersonalDetailsComponent implements OnInit, OnDestroy {
+  @Output() formData = new EventEmitter<any>();
+
   private clientService = inject(ClientService);
   private fb = inject(FormBuilder);
+  private destroy$ = new Subject<void>();
 
-  form: FormGroup | any;
+  form!: FormGroup;
   documentTypes: DocumentType[] = [];
   genderList: Gender | any;
   titleList: ClientTitle | any;
@@ -43,31 +48,31 @@ export class PersonalDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.loadClientData();
+
+    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+      this.formData.emit(value);
+    });
   }
 
-  initializeForm() {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  initializeForm(): void {
     this.form = this.fb.group({
       firstName: [''],
       lastName: [''],
-      title: [''],
-      maritalStatus: [''],
-      ethnicity: [''],
+      title: [null],
+      maritalStatus: [null],
+      ethnicity: [null],
       dateOfBirth: [''],
-      documentType: [''],
+      documentType: [null],
       identityNumber: [''],
       passport: [''],
-      gender: [''],
-      phoneNumber: [''],
-      email: [''],
-      emergencyContactName: [''],
-      emergencyContactNumber: [''],
-      streetName: [''],
-      suburb: [''],
-      city: [''],
-      postalCode: [''],
-      burialSociety: [''],
+      gender: [null],
       age: [''],
-      consent: ['']
+      race: ['']
     });
   }
 
@@ -90,32 +95,31 @@ export class PersonalDetailsComponent implements OnInit {
     });
   }
 
-  loadMaritalStatus() {
-    this.clientService.getMaritalStatus().subscribe({
-      next: maritalStatuses => this.maritalStatuses = maritalStatuses,
-      error: error => console.log('Error fetching marital status:', error)
-    })
-  }
-
-  loadGenders() {
-    this.clientService.getGenderList().subscribe({
-      next: genderList => this.genderList = genderList,
-      error: error => console.log(error)
+  private loadMaritalStatus(): void {
+    this.clientService.getMaritalStatus().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (maritalStatuses) => (this.maritalStatuses = maritalStatuses),
+      error: (error) => console.error('Error fetching marital status:', error)
     });
   }
 
-  loadTitles() {
-    this.clientService.getTitles().subscribe({
-      next: titleList => this.titleList = titleList,
-      error: error => console.log(error)
+  private loadGenders(): void {
+    this.clientService.getGenderList().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (genderList) => (this.genderList = genderList),
+      error: (error) => console.error('Error fetching gender list:', error)
     });
   }
 
-  loadEthnicityGroups() {
-    this.clientService.getEthnicityGroups().subscribe({
-      next: ethnicityGroupList => this.ethnicityGroupList = ethnicityGroupList,
-      error: error => console.log(error)
+  private loadTitles(): void {
+    this.clientService.getTitles().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (titleList) => (this.titleList = titleList),
+      error: (error) => console.error('Error fetching titles:', error)
     });
   }
 
+  private loadEthnicityGroups(): void {
+    this.clientService.getEthnicityGroups().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (ethnicityGroupList) => (this.ethnicityGroupList = ethnicityGroupList),
+      error: (error) => console.error('Error fetching ethnicity groups:', error)
+    });
+  }
 }

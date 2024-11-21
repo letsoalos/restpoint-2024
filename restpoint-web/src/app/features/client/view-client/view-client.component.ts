@@ -8,7 +8,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-view-client',
@@ -20,7 +20,8 @@ import { MatSort } from '@angular/material/sort';
     MatIcon,
     RouterLink,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './view-client.component.html',
   styleUrls: ['./view-client.component.scss']
@@ -66,9 +67,9 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.familyDataSource.paginator = this.familyPaginator;
-    this.familyDataSource.sort = this.familySort;
+
     this.paymentDataSource.paginator = this.paymentPaginator;
-    this.paymentDataSource.sort = this.paymentSort;
+
   }
 
   private loadClientData(): void {
@@ -93,6 +94,7 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
     this.clientService.getFamilyMembersByClientId(clientId).subscribe({
       next: (res) => {
         this.familyDataSource.data = res.data;
+        this.familyDataSource.sort = this.familySort;
       },
       error: (error) => console.log(error),
     });
@@ -102,6 +104,7 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
     this.clientService.getPaymentHistoriesByClientId(clientId).subscribe({
       next: res => {
         this.paymentDataSource.data = res.data;
+        this.paymentDataSource.sort = this.paymentSort;
       },
       error: error => console.log(error),
     });

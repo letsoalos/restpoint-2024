@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { DocumentType } from '../../../../shared/models/client';
@@ -23,8 +23,10 @@ import { DeleteConfirmationDialogComponent } from '../../../delete-confirmation-
 })
 export class SupportingDocsComponent implements OnInit, AfterViewInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @Output() formData = new EventEmitter<{ typeName: string; fileName: string; file: File }[]>();
+
   private clientService = inject(ClientService);
-  private dialog = inject(MatDialog)
+  private dialog = inject(MatDialog);
 
   documentTypes: DocumentType[] = [];
   uploadedDocuments: { typeName: string; fileName: string; file: File }[] = [];
@@ -47,7 +49,7 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
           ? documentTypes.filter(dt => dt.groupCode == 'IDPT')
           : [];
       },
-      error: error => console.log(error)
+      error: error => console.error('Error loading document types:', error)
     });
   }
 
@@ -55,8 +57,8 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      const documentType = this.documentTypes.find((type: DocumentType) =>
-        type.id === this.selectedDocumentTypeId
+      const documentType = this.documentTypes.find(
+        (type: DocumentType) => type.id === this.selectedDocumentTypeId
       );
       if (documentType) {
         this.uploadedDocuments.push({
@@ -64,6 +66,7 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
           fileName: file.name,
           file,
         });
+        this.formData.emit(this.uploadedDocuments);
       }
     }
   }
@@ -81,12 +84,12 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.uploadedDocuments = this.uploadedDocuments.filter((doc) => doc !== document);
+        this.formData.emit(this.uploadedDocuments); // Emit updated documents
       }
     });
   }
 
   reAttachDocument(document: any): void {
-    // Check if fileInput is defined
     if (this.fileInput) {
       this.fileInput.nativeElement.click();
       this.fileInput.nativeElement.onchange = (event: Event) => {
@@ -103,6 +106,7 @@ export class SupportingDocsComponent implements OnInit, AfterViewInit {
       const newFile = input.files[0];
       document.file = newFile;
       document.fileName = newFile.name;
+      this.formData.emit(this.uploadedDocuments); 
     }
   }
 }

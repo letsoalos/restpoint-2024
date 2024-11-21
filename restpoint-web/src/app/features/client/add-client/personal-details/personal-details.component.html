@@ -53,7 +53,7 @@
     </div>
     <div class="row flex gap-4 mb-2">
       <mat-form-field appearance="outline" class="w-1/2">
-        <mat-label>Ethnicity Group</mat-label>
+        <mat-label>Race</mat-label>
         <mat-select formControlName="ethnicity">
           <mat-option *ngFor="let o of ethnicityGroupList" [value]="o.id">{{ o.name }}</mat-option>
         </mat-select>
@@ -70,22 +70,5 @@
         <input matInput formControlName="age" placeholder="Ex. 32">
       </mat-form-field>
     </div>
-    <div class="row flex gap-4 mb-2">
-      <mat-form-field appearance="outline" class="w-1/2">
-        <mat-label>Cell Number</mat-label>
-        <input matInput formControlName="phoneNumber" placeholder="065-858-6398">
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-1/2">
-        <mat-label>Alt Cell Number</mat-label>
-        <input matInput formControlName="emergencyContactNumber" placeholder="065-858-6398">
-      </mat-form-field>
-    </div>
-    <div class="row flex gap-4 mb-2">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="joh.doe@gmail.com">
-      </mat-form-field>
-    </div>
-
   </form>
 </div>

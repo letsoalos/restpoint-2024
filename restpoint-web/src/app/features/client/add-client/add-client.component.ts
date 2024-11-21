@@ -18,10 +18,40 @@ import { SupportingDocsComponent } from "./supporting-docs/supporting-docs.compo
     PersonalDetailsComponent,
     AddressComponent,
     SupportingDocsComponent
-],
+  ],
   templateUrl: './add-client.component.html',
   styleUrl: './add-client.component.scss'
 })
 export class AddClientComponent {
+  consentData: any = {};
+  personalDetailsData: any = {};
+  addressData: any = {};
+  supportingDocsData: any = [];
 
+  onConsentFormChange(data: any): void {
+    this.consentData = data;
+  }
+
+  onPersonalDetailsChange(data: any): void {
+    this.personalDetailsData = data;
+  }
+
+  onAddressChange(data: any): void {
+    this.addressData = data;
+  }
+
+  onSupportingDocsChange(data: any): void {
+    this.supportingDocsData = data;
+  }
+
+  submitForm(): void {
+    const payload = {
+      consent: this.consentData,
+      personalDetails: this.personalDetailsData,
+      address: this.addressData,
+      supportingDocuments: this.supportingDocsData,
+    };
+    console.log('Form Payload:', payload);
+    // Perform the submission, e.g., call an API
+  }
 }

@@ -16,7 +16,7 @@ import { RouterLink } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
-import { Observable, map, catchError, of, forkJoin, switchMap } from 'rxjs';
+import { Observable, map, catchError, of, forkJoin, switchMap, Subject, takeUntil } from 'rxjs';
 
 const logoBase64 = "./assets/images/logo.jpg";
 
@@ -32,7 +32,6 @@ const logoBase64 = "./assets/images/logo.jpg";
     MatPaginatorModule,
     MatIcon,
     MatDialogModule,
-    MatFormFieldModule,
     RouterLink,
     MatMenuModule,
     MatDividerModule,
@@ -43,6 +42,7 @@ const logoBase64 = "./assets/images/logo.jpg";
 export class ClientComponent implements OnInit {
   private clientService = inject(ClientService);
   private dialog = inject(MatDialog);
+  private destroy$ = new Subject<void>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,14 +72,23 @@ export class ClientComponent implements OnInit {
     this.populateTable();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   populateTable() {
-    this.clientService.getClients().subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: error => console.log(error)
+    this.clientService.getClients().pipe(
+      map(res => res.data),
+      catchError(error => {
+        console.error(error);
+        return of([]);
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      this.dataSource = new MatTableDataSource<Client>(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -94,7 +103,7 @@ export class ClientComponent implements OnInit {
       }),
       catchError((error) => {
         console.error('Error fetching family members:', error);
-        return of([]); // Return an empty array in case of an error
+        return of([]);
       })
     );
   }
@@ -114,7 +123,6 @@ export class ClientComponent implements OnInit {
       })
     );
   }
-
 
   getStatusIconColor(status: string): string {
     switch (status) {
@@ -350,7 +358,8 @@ export class ClientComponent implements OnInit {
                 addFooter();
 
                 // Save the document
-                doc.save(`${client.firstName}_${client.lastName}_Profile.pdf`);
+                //doc.save(`${client.firstName}_${client.lastName}_Profile.pdf`);
+                doc.save(`${client.firstName}_${client.lastName}_${client.referenceNumber}_Profile.pdf`);
               },
               error: (error) =>
                 console.error("Error loading payment history:", error),

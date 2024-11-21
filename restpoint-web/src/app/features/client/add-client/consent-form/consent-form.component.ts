@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, inject, ChangeDetectorRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 declare var PDFViewerApplication: any;
 
@@ -14,15 +15,27 @@ declare var PDFViewerApplication: any;
   templateUrl: './consent-form.component.html',
   styleUrls: ['./consent-form.component.scss']
 })
-export class ConsentFormComponent implements AfterViewInit {
+export class ConsentFormComponent implements OnInit, AfterViewInit {
+  @Output() formData = new EventEmitter<any>();
   @ViewChild('pdfViewerContainer') pdfViewerContainer!: ElementRef;
+
   private cdr = inject(ChangeDetectorRef);
+  private fb = inject(FormBuilder);
+
+  form: FormGroup | any;
+
+  ngOnInit(): void {
+    this.initializeForm();
+    this.form.valueChanges.subscribe((value: any) => {
+      console.log('Emitted form data:', value);
+      this.formData.emit(value);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
     setTimeout(() => {
-      if (this.pdfViewerContainer && this.pdfViewerContainer.nativeElement) {
-
+      if (this.pdfViewerContainer?.nativeElement) {
         const iframe: HTMLIFrameElement = document.createElement('iframe');
         iframe.src = './assets/docs/ConsentForm.pdf';
         iframe.width = '85%';
@@ -42,10 +55,15 @@ export class ConsentFormComponent implements AfterViewInit {
             }
           }
         };
-
       } else {
         console.error('pdfViewerContainer is not available.');
       }
     }, 0);
+  }
+
+  initializeForm(): void {
+    this.form = this.fb.group({
+      consent: [false]
+    });
   }
 }

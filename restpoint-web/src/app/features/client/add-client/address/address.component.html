@@ -2,6 +2,22 @@
   <form [formGroup]="form">
     <div class="row flex gap-4 mb-2">
       <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Cell Number</mat-label>
+        <input matInput formControlName="phoneNumber" placeholder="065-858-6398">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Alt Cell Number</mat-label>
+        <input matInput formControlName="altNumber" placeholder="065-858-6398">
+      </mat-form-field>
+    </div>
+    <div class="row flex gap-4 mb-2">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="joh.doe@gmail.com">
+      </mat-form-field>
+    </div>
+    <div class="row flex gap-4 mb-2">
+      <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>Street Name</mat-label>
         <input matInput formControlName="streetName" placeholder="Ex. John">
       </mat-form-field>

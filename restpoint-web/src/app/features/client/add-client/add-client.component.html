@@ -2,48 +2,55 @@
   <div class="w-3/4">
     <mat-stepper #stepper class="bg-white border border-gray-200 shadow-sm">
       <mat-step label="Consent">
-        <div id="consent-element"></div>
-        <div class="mt-6">
-          <app-consent-form></app-consent-form>
-          <div class="flex justify-between mt-3">
-            <button routerLink="/client" mat-stroked-button>Back to client list</button>
-            <button matStepperNext mat-flat-button>Next</button>
-          </div>
+        <app-consent-form (formData)="onConsentFormChange($event)"></app-consent-form>
+        <div class="flex justify-between mt-3">
+          <button routerLink="/client" mat-stroked-button>Back to client list</button>
+          <button matStepperNext mat-flat-button [disabled]="!consentData">Next</button>
         </div>
       </mat-step>
+
       <mat-step label="Personal Details">
-        <app-personal-details></app-personal-details>
+        <app-personal-details (formData)="onPersonalDetailsChange($event)"></app-personal-details>
         <div class="flex justify-between mt-3">
           <button matStepperPrevious mat-stroked-button>Back to consent</button>
-          <button matStepperNext mat-flat-button>Next</button>
+          <button matStepperNext mat-flat-button [disabled]="!personalDetailsData">Next</button>
         </div>
       </mat-step>
-      <mat-step label="Address">
-        <app-address></app-address>
+
+      <mat-step label="Contact Details">
+        <app-address (formData)="onAddressChange($event)"></app-address>
         <div class="flex justify-between mt-6">
           <button matStepperPrevious mat-stroked-button>Back</button>
-          <button matStepperNext mat-flat-button>Next</button>
+          <button matStepperNext mat-flat-button [disabled]="!addressData">Next</button>
         </div>
       </mat-step>
+
       <mat-step label="Supporting Documents">
-        <app-supporting-docs></app-supporting-docs>
+        <app-supporting-docs (formData)="onSupportingDocsChange($event)"></app-supporting-docs>
         <div class="flex justify-between mt-6">
           <button matStepperPrevious mat-stroked-button>Back</button>
-          <button matStepperNext mat-flat-button>Next</button>
+          <button matStepperNext mat-flat-button [disabled]="!supportingDocsData.length">Next</button>
         </div>
       </mat-step>
+
       <mat-step label="Policy">
         Policy form
         <div class="flex justify-between mt-6">
           <button matStepperPrevious mat-stroked-button>Back</button>
-          <button matStepperNext mat-flat-button>Submit</button>
+          <button matStepperNext mat-flat-button (click)="submitForm()">Submit</button>
         </div>
       </mat-step>
     </mat-stepper>
   </div>
+
   <div class="flex items-start gap-6">
     <div class="w-1/4 ml-auto">
-      Summary
+      <h3>Summary</h3>
+      <p><strong>Consent:</strong> {{ consentData ? consentData.name : 'Not filled' }}</p>
+      <p><strong>Personal Details:</strong> {{ personalDetailsData ? personalDetailsData.firstName : 'Not filled' }}</p>
+      <p><strong>Address:</strong> {{ addressData ? addressData.city : 'Not filled' }}</p>
+      <p><strong>Documents:</strong>
+        {{ supportingDocsData.length > 0 ? supportingDocsData.length + ' document(s)' : 'No documents' }}</p>
     </div>
   </div>
 </div>
