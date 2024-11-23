@@ -34,6 +34,45 @@ public class DataContextSeed
             await context.SaveChangesAsync();
         }
 
+        if (!context.Provinces.Any())
+        {
+            var provincesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/province.json");
+
+            var provinces = JsonSerializer.Deserialize<List<Province>>(provincesData);
+
+            if (provinces == null) return;
+
+            context.Provinces.AddRange(provinces);
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.ContactPeople.Any())
+        {
+            var contactPeopleData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/contactPerson.json");
+
+            var contactPeople = JsonSerializer.Deserialize<List<ContactPerson>>(contactPeopleData);
+
+            if (contactPeople == null) return;
+
+            context.ContactPeople.AddRange(contactPeople);
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.Branches.Any())
+        {
+            var branchesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/branch.json");
+
+            var branches = JsonSerializer.Deserialize<List<Branch>>(branchesData);
+
+            if (branches == null) return;
+
+            context.Branches.AddRange(branches);
+
+            await context.SaveChangesAsync();
+        }
+
         if (!context.DocumentTypes.Any())
         {
             var documentTypesData = await File.ReadAllTextAsync("../Infrastructure/Data/SeedData/documentType.json");

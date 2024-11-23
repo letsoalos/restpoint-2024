@@ -1,16 +1,21 @@
 export type Client = {
   id: number;
-  title: string;
+  title?: string;
+  titleId: number;
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
   documentType: string;
-  maritalStatus: string,
+  documentTypeId: number;
+  maritalStatus?: string,
+  maritalStatusId: number,
   identityNumber: string;
   ethnicity: string,
-  age: number;
+  ethnicityId: number,
+  age?: number;
   passport: string;
   gender: string;
+  genderId: number;
   phoneNumber: string;
   email: string;
   emergencyContactName: string;
@@ -20,12 +25,14 @@ export type Client = {
   city: string;
   postalCode: string;
   status: string;
+  statusId?: number;
   burialSociety: string;
+  burialSocietyId?: number;
   referenceNumber: string;
   consent: boolean;
   createdDate: Date;
   createdByUserId: number;
-  modifiedDate: Date;
+  modifiedDate?: Date;
   modifiedByUserId?: number;
 }
 
@@ -59,22 +66,22 @@ export type Status = {
   isActive: boolean
 }
 
-export type ClientTitle = {
+export type Title = {
   id: number;
   name: string;
-  ddescription: string;
+  description: string;
 }
 
 export type EthnicityGroup = {
   id: number;
   name: string;
-  ddescription: string;
+  description: string;
 }
 
 export type MaritalStatus = {
   id: number;
   name: string;
-  ddescription: string;
+  description: string;
 }
 
 export type FamilyMember = {

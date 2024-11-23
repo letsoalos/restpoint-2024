@@ -1,0 +1,39 @@
+[
+    {
+      "Name": "Eastern Cape",
+      "Code": "EC"
+    },
+    {
+      "Name": "Free State",
+      "Code": "FS"
+    },
+    {
+      "Name": "Gauteng",
+      "Code": "GP"
+    },
+    {
+      "Name": "KwaZulu-Natal",
+      "Code": "KZN"
+    },
+    {
+      "Name": "Limpopo",
+      "Code": "LP"
+    },
+    {
+      "Name": "Mpumalanga",
+      "Code": "MP"
+    },
+    {
+      "Name": "Northern Cape",
+      "Code": "NC"
+    },
+    {
+      "Name": "North West",
+      "Code": "NW"
+    },
+    {
+      "Name": "Western Cape",
+      "Code": "WC"
+    }
+  ]
+  

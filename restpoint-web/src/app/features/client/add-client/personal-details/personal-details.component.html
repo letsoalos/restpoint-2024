@@ -3,7 +3,7 @@
     <div class="grid grid-cols-12 gap-4 mb-2">
       <mat-form-field appearance="outline" class="col-span-2">
         <mat-label>Title</mat-label>
-        <mat-select formControlName="title">
+        <mat-select formControlName="titleId">
           <mat-option *ngFor="let title of titleList" [value]="title.id">{{ title.name }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -19,15 +19,16 @@
     <div class="row flex gap-4 mb-2">
       <mat-form-field appearance="outline" class="col-span-2">
         <mat-label>Marital Status</mat-label>
-        <mat-select formControlName="maritalStatus">
+        <mat-select formControlName="maritalStatusId">
           <mat-option *ngFor="let maritalStatus of maritalStatuses" [value]="maritalStatus.id">
             {{ maritalStatus.name }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>Document Type</mat-label>
-        <mat-select formControlName="documentType">
-          <mat-option *ngFor="let o of documentTypes" [value]="o.id">{{ o.name }}</mat-option>
+        <mat-select formControlName="documentTypeId">
+          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.id">{{ documentType.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-1/2">
@@ -39,7 +40,7 @@
       </mat-form-field>
     </div>
     <div class="w-full mb-4">
-      <mat-radio-group class="flex justify-between w-full">
+      <mat-radio-group formControlName="genderId" class="flex justify-between w-full">
         @for (gender of genderList; track gender.id) {
         <label class="p-3 border border-gray-200 cursor-pointer w-full h-full hover:bg-purple-100">
           <mat-radio-button class="w-full h-full" [value]="gender">
@@ -54,8 +55,9 @@
     <div class="row flex gap-4 mb-2">
       <mat-form-field appearance="outline" class="w-1/2">
         <mat-label>Race</mat-label>
-        <mat-select formControlName="ethnicity">
-          <mat-option *ngFor="let o of ethnicityGroupList" [value]="o.id">{{ o.name }}</mat-option>
+        <mat-select formControlName="ethnicityId">
+          <mat-option *ngFor="let ethnicity of ethnicityGroupList" [value]="ethnicity.id">{{ ethnicity.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-1/2">

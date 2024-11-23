@@ -11,6 +11,13 @@ public class GenericRepository<T>(DataContext context) : IGenericRepository<T> w
         context.Set<T>().Add(entinty);
     }
 
+    public async Task<bool> ClientExist(string? identityNumber, string? passport)
+    {
+        return await context.Clients.AnyAsync(c =>
+                                                (identityNumber != null && c.IdentityNumber == identityNumber) ||
+                                                (passport != null && c.Passport == passport));
+    }
+
     public async Task<int> CountAsync(ISpecification<T> spec)
     {
         var query = context.Set<T>().AsQueryable();

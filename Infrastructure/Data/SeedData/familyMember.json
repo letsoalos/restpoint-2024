@@ -22,9 +22,37 @@
     "DateOfBirth": "1985-08-20",
     "PhoneNumber": "0987654321",
     "Email": "jane.doe@example.com",
-    "IsBeneficiary": true,
+    "IsBeneficiary": false,
     "StatusId": 10,
     "CreatedDate": "2023-01-02T11:00:00",
+    "CreatedByUserId": 1
+  },
+  {
+    "ClientId": 1,
+    "FirstName": "Sarah",
+    "LastName": "Doe",
+    "GenderId": 2,
+    "RelationshipId": 3,
+    "DateOfBirth": "1980-05-15",
+    "PhoneNumber": "0123456789",
+    "Email": "john.doe@example.com",
+    "IsBeneficiary": true,
+    "StatusId": 10,
+    "CreatedDate": "2023-01-01T10:00:00",
+    "CreatedByUserId": 1
+  },
+  {
+    "ClientId": 1,
+    "FirstName": "Raymond",
+    "LastName": "Doe",
+    "GenderId": 2,
+    "RelationshipId": 4,
+    "DateOfBirth": "1980-05-15",
+    "PhoneNumber": "0123456789",
+    "Email": "john.doe@example.com",
+    "IsBeneficiary": true,
+    "StatusId": 10,
+    "CreatedDate": "2023-01-01T10:00:00",
     "CreatedByUserId": 1
   },
   {
@@ -70,7 +98,7 @@
     "CreatedByUserId": 3
   },
   {
-    "ClientId": 6,
+    "ClientId": 2,
     "FirstName": "Sarah",
     "LastName": "Brown",
     "GenderId": 2,
@@ -84,7 +112,7 @@
     "CreatedByUserId": 3
   },
   {
-    "ClientId": 7,
+    "ClientId": 2,
     "FirstName": "David",
     "LastName": "Wilson",
     "GenderId": 1,
@@ -98,7 +126,7 @@
     "CreatedByUserId": 4
   },
   {
-    "ClientId": 8,
+    "ClientId": 2,
     "FirstName": "Jessica",
     "LastName": "Garcia",
     "GenderId": 2,
@@ -112,7 +140,7 @@
     "CreatedByUserId": 4
   },
   {
-    "ClientId": 9,
+    "ClientId": 3,
     "FirstName": "Daniel",
     "LastName": "Martinez",
     "GenderId": 1,
@@ -126,7 +154,7 @@
     "CreatedByUserId": 5
   },
   {
-    "ClientId": 10,
+    "ClientId": 3,
     "FirstName": "Sophie",
     "LastName": "Moloi",
     "GenderId": 2,

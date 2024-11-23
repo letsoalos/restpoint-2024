@@ -13,8 +13,10 @@ public class Vehicle : BaseEntity
     public int OwnershipCategoryId { get; set; }
     public int Mileage { get; set; }
     public int AssignedDriverUserId { get; set; }
+    public int BranchId { get; set; }
 
-    public AssetType? AssetType { get; set; }
-    public Status? Status { get; set; }
-    public OwnershipCategory? OwnershipCategory { get; set; }
+    public required AssetType AssetType { get; set; }
+    public required Status Status { get; set; }
+    public required OwnershipCategory OwnershipCategory { get; set; }
+    public required Branch Branch { get; set; }
 }

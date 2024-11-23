@@ -33,10 +33,6 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
                      .WithMany()
                      .HasForeignKey(x => x.BurialSocietyId)
                      .OnDelete(DeleteBehavior.NoAction);
-              builder.HasOne(x => x.Address)
-                     .WithMany()
-                     .HasForeignKey(x => x.AddressId)
-                     .OnDelete(DeleteBehavior.NoAction);
               builder.HasOne(x => x.Ethnicity)
                     .WithMany()
                     .HasForeignKey(x => x.EthnicityId)
@@ -48,6 +44,10 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
               builder.HasOne(x => x.MaritalStatus)
                    .WithMany()
                    .HasForeignKey(x => x.MaritalStatusId)
+                   .OnDelete(DeleteBehavior.NoAction);
+              builder.HasOne(x => x.Branch)
+                   .WithMany()
+                   .HasForeignKey(x => x.BranchId)
                    .OnDelete(DeleteBehavior.NoAction);
        }
 }

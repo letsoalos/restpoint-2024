@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, ClientTitle, EthnicityGroup, FamilyMember, Gender, MaritalStatus, PaymentHistory, Status } from '../../shared/models/client';
+import { BurialSociety, Client, Title, EthnicityGroup, FamilyMember, Gender, MaritalStatus, PaymentHistory, Status } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -53,7 +53,7 @@ export class ClientService {
   }
 
   getTitles() {
-    return this.http.get<ClientTitle>(this.baseUrl + 'titles/title-list');
+    return this.http.get<Title>(this.baseUrl + 'titles/title-list');
   }
 
   getEthnicityGroups() {
@@ -71,4 +71,9 @@ export class ClientService {
   updateClient(id: number, data: any) {
     return this.http.put<Client>(this.baseUrl + `clients/${id}`, data);
   }
+
+  saveClient(data: any) {
+    return this.http.post<Client>(this.baseUrl + `clients`, data);
+  }
+
 }

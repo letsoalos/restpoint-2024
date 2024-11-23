@@ -1,3 +1,4 @@
+import { BurialSociety } from './../../../../shared/models/client';
 import { Component, EventEmitter, inject, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -5,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ClientService } from '../../../../core/services/client.service';
-import { ClientTitle, DocumentType, EthnicityGroup, Gender, Status } from '../../../../shared/models/client';
+import { Title, DocumentType, EthnicityGroup, Gender, Status } from '../../../../shared/models/client';
 import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -41,7 +42,7 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   documentTypes: DocumentType[] = [];
   genderList: Gender | any;
-  titleList: ClientTitle | any;
+  titleList: Title | any;
   ethnicityGroupList: EthnicityGroup | any;
   maritalStatuses: Status | any;
 
@@ -63,16 +64,17 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       firstName: [''],
       lastName: [''],
-      title: [null],
-      maritalStatus: [null],
-      ethnicity: [null],
+      titleId: [''],
+      maritalStatusId: [''],
       dateOfBirth: [''],
-      documentType: [null],
+      documentTypeId: [''],
       identityNumber: [''],
       passport: [''],
-      gender: [null],
+      genderId: [''],
       age: [''],
-      race: ['']
+      ethnicityId: [''],
+      status: undefined,
+      burialSociety: undefined
     });
   }
 

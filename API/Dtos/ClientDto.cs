@@ -6,10 +6,11 @@ public class ClientDto
 {
     public int Id { get; set; }
     [Required]
-    public string FirstName { get; set; } = string.Empty;
+    public required string FirstName { get; set; }
     [Required]
-    public string LastName { get; set; } = string.Empty;
+    public required string LastName { get; set; }
     public string Title { get; set; } = string.Empty;
+    public int TitleId { get; set; }
     public DateTime DateOfBirth { get; set; }
     public int Age
     {
@@ -21,40 +22,38 @@ public class ClientDto
             return age;
         }
     }
-    [Required]
+
     public string DocumentType { get; set; } = string.Empty;
+    public int DocumentTypeId { get; set; }
     public string? IdentityNumber { get; set; }
     public string? Passport { get; set; }
     public string Ethnicity { get; set; } = string.Empty;
-    [Required]
+    public int EthnicityId { get; set; }
     public string Gender { get; set; } = string.Empty;
-
-    public required string MaritalStatus { get; set; }
+    public int GenderId { get; set; }
+    public string MaritalStatus { get; set; } = string.Empty;
+    public int MaritalStatusId { get; set; }
     [Phone]
     public string PhoneNumber { get; set; } = string.Empty;
+    [Phone]
     public string? AltNumber { get; set; }
     [EmailAddress]
     public string? Email { get; set; }
-    [Required]
     public string EmergencyContactName { get; set; } = string.Empty;
     [Phone]
-    public string EmergencyContactNumber { get; set; } = string.Empty;
-    [Required]
+    public string? EmergencyContactNumber { get; set; }
     public string StreetName { get; set; } = string.Empty;
-    [Required]
     public string Suburb { get; set; } = string.Empty;
-    [Required]
     public string City { get; set; } = string.Empty;
-    [Required]
     public string PostalCode { get; set; } = string.Empty;
-    [Required]
     public string Status { get; set; } = string.Empty;
-    public string? BurialSociety { get; set; }
+    public int StatusId { get; set; }
+    public int BranchId { get; set; }
+    public string BurialSociety { get; set; } = string.Empty;
+    public int? BurialSocietyId { get; set; }
     [Required]
-    public string ReferenceNumber { get; set; } = string.Empty;
+    public required string ReferenceNumber { get; set; }
     public bool Consent { get; set; }
     public DateTime CreatedDate { get; set; }
-    public int CreatedByUserId { get; set; }
-    public DateTime? ModifiedDate { get; set; }
-    public int? ModifiedByUserId { get; set; }
+    public string? Branch { get; set; }
 }

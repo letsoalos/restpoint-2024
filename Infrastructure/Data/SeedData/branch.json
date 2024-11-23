@@ -1,0 +1,48 @@
+[
+    {
+      "Name": "Head Office",
+      "StreetName": "123 Main Street",
+      "Suburb": "Central",
+      "City": "Johannesburg",
+      "Code": "2001",
+      "ProviceId": 1,
+      "ContactPersonId": 1
+    },
+    {
+      "Name": "Cape Town Branch",
+      "StreetName": "45 Long Street",
+      "Suburb": "City Bowl",
+      "City": "Cape Town",
+      "Code": "8001",
+      "ProviceId": 2,
+      "ContactPersonId": 2
+    },
+    {
+      "Name": "Durban Office",
+      "StreetName": "78 Beach Road",
+      "Suburb": "North Beach",
+      "City": "Durban",
+      "Code": "4001",
+      "ProviceId": 3,
+      "ContactPersonId": 3
+    },
+    {
+      "Name": "Pretoria Branch",
+      "StreetName": "10 Church Street",
+      "Suburb": "Arcadia",
+      "City": "Pretoria",
+      "Code": "0083",
+      "ProviceId": 1,
+      "ContactPersonId": 4
+    },
+    {
+      "Name": "Port Elizabeth Office",
+      "StreetName": "5 Marine Drive",
+      "Suburb": "Summerstrand",
+      "City": "Port Elizabeth",
+      "Code": "6001",
+      "ProviceId": 4,
+      "ContactPersonId": 5
+    }
+  ]
+  

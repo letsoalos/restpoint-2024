@@ -8,7 +8,8 @@
     "StatusId": 12,
     "OwnershipCategoryId": 1,
     "Mileage": 15000,
-    "AssignedDriverUserId": 1
+    "AssignedDriverUserId": 1,
+    "BranchId": 1
   },
   {
     "AssetTypeId": 1,
@@ -19,7 +20,8 @@
     "StatusId": 12,
     "OwnershipCategoryId": 1,
     "Mileage": 25000,
-    "AssignedDriverUserId": 2
+    "AssignedDriverUserId": 2,
+    "BranchId": 2
   },
   {
     "AssetTypeId": 1,
@@ -30,7 +32,8 @@
     "StatusId": 12,
     "OwnershipCategoryId": 2,
     "Mileage": 5000,
-    "AssignedDriverUserId": 3
+    "AssignedDriverUserId": 3,
+    "BranchId": 3
   },
   {
     "AssetTypeId": 1,
@@ -41,7 +44,8 @@
     "StatusId": 13,
     "OwnershipCategoryId": 1,
     "Mileage": 30000,
-    "AssignedDriverUserId": 4
+    "AssignedDriverUserId": 4,
+    "BranchId": 4
   },
   {
     "AssetTypeId": 1,
@@ -52,7 +56,8 @@
     "StatusId": 2,
     "OwnershipCategoryId": 2,
     "Mileage": 40000,
-    "AssignedDriverUserId": 5
+    "AssignedDriverUserId": 5,
+    "BranchId": 1
   },
   {
     "AssetTypeId": 1,
@@ -63,7 +68,8 @@
     "StatusId": 13,
     "OwnershipCategoryId": 1,
     "Mileage": 2000,
-    "AssignedDriverUserId": 6
+    "AssignedDriverUserId": 6,
+    "BranchId": 1
   },
   {
     "AssetTypeId": 1,
@@ -74,7 +80,8 @@
     "StatusId": 13,
     "OwnershipCategoryId": 1,
     "Mileage": 8000,
-    "AssignedDriverUserId": 7
+    "AssignedDriverUserId": 7,
+    "BranchId": 2
   },
   {
     "AssetTypeId": 1,
@@ -85,7 +92,8 @@
     "StatusId": 14,
     "OwnershipCategoryId": 2,
     "Mileage": 22000,
-    "AssignedDriverUserId": 8
+    "AssignedDriverUserId": 8,
+    "BranchId": 3
   },
   {
     "AssetTypeId": 1,
@@ -96,7 +104,8 @@
     "StatusId": 14,
     "OwnershipCategoryId": 1,
     "Mileage": 12000,
-    "AssignedDriverUserId": 9
+    "AssignedDriverUserId": 9,
+    "BranchId": 4
   },
   {
     "AssetTypeId": 1,
@@ -107,6 +116,7 @@
     "StatusId": 12,
     "OwnershipCategoryId": 1,
     "Mileage": 5000,
-    "AssignedDriverUserId": 10
+    "AssignedDriverUserId": 10,
+    "BranchId": 5
   }
 ]

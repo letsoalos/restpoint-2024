@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241109175439_InitialCreate")]
+    [Migration("20241123065248_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -104,15 +104,19 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("AltNumber")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("BurialSocietyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Consent")
                         .HasColumnType("bit");
@@ -180,6 +184,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ReferenceNumber")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -188,12 +196,20 @@ namespace Infrastructure.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suburb")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TitleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("BurialSocietyId");
 
@@ -621,6 +637,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AssignedDriverUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -653,6 +672,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssetTypeId");
+
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("OwnershipCategoryId");
 
@@ -730,6 +751,88 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AssetTypes");
+                });
+
+            modelBuilder.Entity("Core.Enteties._LookUps.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("ContactPersonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("ProviceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Suburb")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactPersonId");
+
+                    b.HasIndex("ProviceId");
+
+                    b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("Core.Enteties._LookUps.ContactPerson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactPeople");
                 });
 
             modelBuilder.Entity("Core.Enteties._LookUps.Discount", b =>
@@ -947,6 +1050,27 @@ namespace Infrastructure.Migrations
                     b.ToTable("PremiumPlans");
                 });
 
+            modelBuilder.Entity("Core.Enteties._LookUps.Province", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces");
+                });
+
             modelBuilder.Entity("Core.Enteties._LookUps.Relationship", b =>
                 {
                     b.Property<int>("Id")
@@ -1071,9 +1195,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Enteties.Client", b =>
                 {
-                    b.HasOne("Core.Enteties.Address", "Address")
+                    b.HasOne("Core.Enteties._LookUps.Branch", "Branch")
                         .WithMany()
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -1118,7 +1242,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Address");
+                    b.Navigation("Branch");
 
                     b.Navigation("BurialSociety");
 
@@ -1351,6 +1475,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Core.Enteties._LookUps.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Core.Enteties._LookUps.OwnershipCategory", "OwnershipCategory")
                         .WithMany()
                         .HasForeignKey("OwnershipCategoryId")
@@ -1364,6 +1494,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AssetType");
+
+                    b.Navigation("Branch");
 
                     b.Navigation("OwnershipCategory");
 
@@ -1387,6 +1519,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("ServiceType");
 
                     b.Navigation("Vehiclehicle");
+                });
+
+            modelBuilder.Entity("Core.Enteties._LookUps.Branch", b =>
+                {
+                    b.HasOne("Core.Enteties._LookUps.ContactPerson", "ContactPerson")
+                        .WithMany()
+                        .HasForeignKey("ContactPersonId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Core.Enteties._LookUps.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProviceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ContactPerson");
+
+                    b.Navigation("Province");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,7 +22,6 @@ builder.Services.AddDbContext<DataContext>(x =>
         }
     );
 });
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddCors();

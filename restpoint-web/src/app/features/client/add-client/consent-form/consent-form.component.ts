@@ -27,9 +27,10 @@ export class ConsentFormComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initializeForm();
     this.form.valueChanges.subscribe((value: any) => {
-      console.log('Emitted form data:', value);
       this.formData.emit(value);
     });
+
+    this.form.patchValue({ consent: true });
   }
 
   ngAfterViewInit(): void {

@@ -48,19 +48,19 @@
     "IsActive": false
   },
   {
-    "Name": "Pending",
+    "Name": "In Progress",
     "Description": "Client registration is pending.",
     "GroupCode": "CRGS",
     "IsActive": true
   },
   {
-    "Name": "Registered",
+    "Name": "Active",
     "Description": "Client registration has been approved.",
     "GroupCode": "CRGS",
     "IsActive": true
   },
   {
-    "Name": "Rejected",
+    "Name": "Inactive",
     "Description": "Client registration has been rejected.",
     "GroupCode": "CRGS",
     "IsActive": false

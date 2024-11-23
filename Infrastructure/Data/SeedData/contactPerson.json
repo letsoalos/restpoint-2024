@@ -1,0 +1,43 @@
+[
+    {
+      "FirstName": "John",
+      "LastName": "Doe",
+      "PhoneNumber": "0123456789",
+      "Email": "john.doe@example.com",
+      "JobTitle": "Manager",
+      "Department": "Operations"
+    },
+    {
+      "FirstName": "Jane",
+      "LastName": "Smith",
+      "PhoneNumber": "0987654321",
+      "Email": "jane.smith@example.com",
+      "JobTitle": "Supervisor",
+      "Department": "HR"
+    },
+    {
+      "FirstName": "Michael",
+      "LastName": "Brown",
+      "PhoneNumber": "0112233445",
+      "Email": "michael.brown@example.com",
+      "JobTitle": "Technician",
+      "Department": "Maintenance"
+    },
+    {
+      "FirstName": "Emily",
+      "LastName": "White",
+      "PhoneNumber": "0667788990",
+      "Email": "emily.white@example.com",
+      "JobTitle": "Team Leader",
+      "Department": "Sales"
+    },
+    {
+      "FirstName": "David",
+      "LastName": "Johnson",
+      "PhoneNumber": "0223344556",
+      "Email": "david.johnson@example.com",
+      "JobTitle": "Analyst",
+      "Department": "Finance"
+    }
+  ]
+  
