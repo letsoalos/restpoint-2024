@@ -1,39 +1,39 @@
 export type Client = {
   id: number;
-  title?: string;
-  titleId: number;
   firstName: string;
   lastName: string;
-  dateOfBirth: Date;
+  title: string;
+  titleId: number;
+  dateOfBirth: string;
+  age: number;
   documentType: string;
   documentTypeId: number;
-  maritalStatus?: string,
-  maritalStatusId: number,
-  identityNumber: string;
-  ethnicity: string,
-  ethnicityId: number,
-  age?: number;
-  passport: string;
+  identityNumber: string | null;
+  passport: string | null;
+  ethnicity: string;
+  ethnicityId: number;
   gender: string;
   genderId: number;
+  maritalStatus: string;
+  maritalStatusId: number;
   phoneNumber: string;
-  email: string;
+  altNumber: string | null;
+  email: string | null;
   emergencyContactName: string;
-  emergencyContactNumber: string;
+  emergencyContactNumber: string | null;
   streetName: string;
   suburb: string;
   city: string;
   postalCode: string;
   status: string;
-  statusId?: number;
-  burialSociety: string;
-  burialSocietyId?: number;
+  statusId: number;
+  branchId: number;
   referenceNumber: string;
+  burialSociety: string;
+  burialSocietyId: number | null;
   consent: boolean;
-  createdDate: Date;
-  createdByUserId: number;
-  modifiedDate?: Date;
-  modifiedByUserId?: number;
+  createdDate: string;
+  branch: string | null;
 }
 
 export type Gender = {

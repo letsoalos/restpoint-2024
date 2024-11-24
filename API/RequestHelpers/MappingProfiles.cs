@@ -1,6 +1,7 @@
 using API.Dtos;
 using AutoMapper;
 using Core.Enteties;
+using Core.Enteties._LookUps;
 
 namespace API.RequestHelpers;
 
@@ -26,7 +27,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Ethnicity, o => o.Ignore())
             .ForMember(d => d.MaritalStatus, o => o.Ignore())
             .ForMember(d => d.BurialSociety, o => o.Ignore())
-             .ForMember(d => d.Branch, o => o.Ignore());
+            .ForMember(d => d.Branch, o => o.Ignore());
         // .ForMember(d => d.ReferenceNumber, o => o.MapFrom(s => s.ReferenceNumber))
         // .ForMember(d => d.CreatedDate, o => o.MapFrom(s => DateTime.Now)); 
 
@@ -43,5 +44,14 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Client, o => o.MapFrom(s => s.Client.LastName))
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.Name))
             .ForMember(d => d.PaymentMethod, o => o.MapFrom(s => s.PaymentMethod.Name));
+
+        CreateMap<Branch, BranchDto>()
+            .ForMember(d => d.ContactPerson, o => o.MapFrom(s => s.ContactPerson.FirstName))
+            .ForMember(d => d.ContactPerson, o => o.MapFrom(s => s.ContactPerson.LastName))
+            .ForMember(d => d.Province, o => o.MapFrom(s => s.Province.Name));
+
+        CreateMap<BranchDto, Branch>()
+            .ForMember(d => d.ContactPerson, o => o.Ignore())
+            .ForMember(d => d.Province, o => o.Ignore());
     }
 }

@@ -312,7 +312,7 @@ namespace Infrastructure.Migrations
                     Suburb = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ProviceId = table.Column<int>(type: "int", nullable: false),
+                    ProvinceId = table.Column<int>(type: "int", nullable: false),
                     ContactPersonId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -324,8 +324,8 @@ namespace Infrastructure.Migrations
                         principalTable: "ContactPeople",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Branches_Provinces_ProviceId",
-                        column: x => x.ProviceId,
+                        name: "FK_Branches_Provinces_ProvinceId",
+                        column: x => x.ProvinceId,
                         principalTable: "Provinces",
                         principalColumn: "Id");
                 });
@@ -775,9 +775,9 @@ namespace Infrastructure.Migrations
                 column: "ContactPersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Branches_ProviceId",
+                name: "IX_Branches_ProvinceId",
                 table: "Branches",
-                column: "ProviceId");
+                column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientPremia_ClientId",

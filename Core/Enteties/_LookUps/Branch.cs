@@ -7,7 +7,7 @@ namespace Core.Enteties._LookUps
         public required string Suburb { get; set; }
         public required string City { get; set; }
         public required string Code { get; set; }
-        public int ProviceId { get; set; }
+        public int ProvinceId { get; set; }
         public int ContactPersonId { get; set; }
 
         public required Province Province { get; set; }

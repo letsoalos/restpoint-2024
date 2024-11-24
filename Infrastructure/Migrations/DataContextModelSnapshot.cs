@@ -776,7 +776,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("ProviceId")
+                    b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
                     b.Property<string>("StreetName")
@@ -793,7 +793,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ContactPersonId");
 
-                    b.HasIndex("ProviceId");
+                    b.HasIndex("ProvinceId");
 
                     b.ToTable("Branches");
                 });
@@ -1528,7 +1528,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Core.Enteties._LookUps.Province", "Province")
                         .WithMany()
-                        .HasForeignKey("ProviceId")
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

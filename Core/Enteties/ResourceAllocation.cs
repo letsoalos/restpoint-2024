@@ -11,7 +11,7 @@ public class ResourceAllocation : BaseEntity
     public int StatusId { get; set; }
     public string? Notes { get; set; }
 
-    public FuneralEvent? FuneralEvent { get; set; }
-    public ResourceType? ResourceType { get; set; }
-    public Status? Status { get; set; }
+    public required FuneralEvent FuneralEvent { get; set; }
+    public required ResourceType ResourceType { get; set; }
+    public required Status Status { get; set; }
 }

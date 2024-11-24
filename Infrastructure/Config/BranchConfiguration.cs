@@ -15,7 +15,7 @@ namespace Infrastructure.Config
             builder.Property(x => x.Code).HasMaxLength(50);
             builder.HasOne(x => x.Province)
                     .WithMany()
-                    .HasForeignKey(x => x.ProviceId)
+                    .HasForeignKey(x => x.ProvinceId)
                     .OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.ContactPerson)
                    .WithMany()
