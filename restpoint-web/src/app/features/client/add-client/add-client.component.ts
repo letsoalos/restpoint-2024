@@ -56,67 +56,60 @@ export class AddClientComponent {
       supportingDocuments: this.supportingDocsData,
     };
 
-    console.log('Form Payload:', payload);
-
     // Map the form data to the ClientDto format
-    // const clientDto: Client = {
-    //   id: 0,
-    //   titleId: payload.personalDetails.titleId,
-    //   firstName: payload.personalDetails.firstName,
-    //   lastName: payload.personalDetails.lastName,
-    //   dateOfBirth: payload.personalDetails.dateOfBirth,
-    //   documentTypeId: payload.personalDetails.documentTypeId,
-    //   maritalStatusId: payload.personalDetails.maritalStatusId,
-    //   identityNumber: payload.personalDetails.identityNumber || '',
-    //   ethnicityId: payload.personalDetails.ethnicityId,
-    //   age: this.calculateAge(payload.personalDetails.dateOfBirth),
-    //   passport: payload.personalDetails.passport || '',
-    //   genderId: payload.personalDetails.genderId,
-    //   phoneNumber: payload.personalDetails.phoneNumber || '0712345678',
-    //   email: payload.personalDetails.email || 'test@gmail.com',
-    //   emergencyContactName: payload.personalDetails.emergencyContactName || 'Sello',
-    //   emergencyContactNumber: payload.personalDetails.emergencyContactNumber || '0712345678',
-    //   streetName: payload.address.streetName,
-    //   suburb: payload.address.suburb,
-    //   city: payload.address.city,
-    //   postalCode: payload.address.postalCode,
-    //   statusId: payload.personalDetails.statusId || 10,
-    //   burialSocietyId: payload.personalDetails.burialSocietyId || 1,
-    //   referenceNumber: '20241121REF', // You can replace this with the actual reference number generation logic
-    //   consent: payload.personalDetails.consent || false,
-    //   createdDate: new Date(),
-    //   createdByUserId: 1,
-    //   modifiedDate: undefined,
-    //   modifiedByUserId: undefined,
-    //   status: payload.personalDetails.status || 'Active',  // Provide a default value
-    //   burialSociety: payload.supportingDocuments.burialSociety || 'N/A',
-    // };
+    const clientDto: Client = {
+      id: 0,
+      firstName: payload.personalDetails.firstName,
+      lastName: payload.personalDetails.lastName,
+      titleId: payload.personalDetails.titleId,
+      title: '',
+      dateOfBirth: payload.personalDetails.dateOfBirth,
+      documentTypeId: payload.personalDetails.documentTypeId,
+      documentType: '',
+      maritalStatusId: payload.personalDetails.maritalStatusId,
+      maritalStatus: '',
+      identityNumber: payload.personalDetails.identityNumber || null,
+      ethnicityId: payload.personalDetails.ethnicityId,
+      ethnicity: '',
+      age: this.calculateAge(payload.personalDetails.dateOfBirth),
+      passport: payload.personalDetails.passport || null,
+      genderId: payload.personalDetails.genderId.id,
+      gender: '',
+      phoneNumber: payload.address.phoneNumber,
+      altNumber: payload.address.altNumber || '',
+      email: payload.address.email || 'test@gmail.com',
+      emergencyContactName: 'Sello',
+      emergencyContactNumber: '0712345678',
+      streetName: payload.address.streetName,
+      suburb: payload.address.suburb,
+      city: payload.address.city,
+      postalCode: payload.address.postalCode,
+      statusId: 9,
+      burialSocietyId: 1,
+      referenceNumber: '',
+      branch: '',
+      branchId: 1,
+      consent: payload.consent.consent || false,
+      createdDate: new Date().toISOString(),
+      status: '',
+      burialSociety: '',
+    };
 
-    // const addressDto = {
-    //   streetName: clientDto.streetName,
-    //   suburb: clientDto.suburb,
-    //   city: clientDto.city,
-    //   postalCode: clientDto.postalCode,
-    // };
+    const payloadToSend = {
+      ...clientDto
+    };
 
-    // const payloadToSend = {
-    //   client: {
-    //     ...clientDto,
-    //     address: addressDto, // Add AddressDto object here
-    //   },
-    // };
+    console.log('Final Payload to Send:', JSON.stringify(payloadToSend, null, 2));
 
-    // console.log('Payload to Send:', payloadToSend);
-
-    // // Save the client using the ClientService
-    // this.clientService.saveClient(payloadToSend).subscribe({
-    //   next: (response) => {
-    //     console.log('Client saved successfully:', response);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error saving client:', error);
-    //   }
-    // });
+    // Save the client using the ClientService
+    this.clientService.saveClient(payloadToSend).subscribe({
+      next: (response) => {
+        console.log('Client saved successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error saving client:', error);
+      }
+    });
   }
 
   // Method to calculate age based on date of birth

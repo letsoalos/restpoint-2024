@@ -1,4 +1,3 @@
-import { BurialSociety } from './../../../../shared/models/client';
 import { Component, EventEmitter, inject, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';

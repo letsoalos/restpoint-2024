@@ -2,19 +2,19 @@ export type Client = {
   id: number;
   firstName: string;
   lastName: string;
-  title: string;
+  title: string | null;
   titleId: number;
   dateOfBirth: string;
   age: number;
-  documentType: string;
+  documentType: string | null;
   documentTypeId: number;
   identityNumber: string | null;
   passport: string | null;
-  ethnicity: string;
+  ethnicity: string | null;
   ethnicityId: number;
-  gender: string;
+  gender: string | null;
   genderId: number;
-  maritalStatus: string;
+  maritalStatus: string | null;
   maritalStatusId: number;
   phoneNumber: string;
   altNumber: string | null;
@@ -105,16 +105,29 @@ export type FamilyMember = {
 }
 
 export type PaymentHistory = {
-  id: number,
-  paymentDate: string,
-  totalAmountPaid: number,
-  referenceNumber: string,
-  description: string,
-  createdDate: string,
-  createdByUserId: number,
-  modifiedDate: Date,
-  modifiedByUserId: number,
-  client: string,
-  paymentMethod: string,
-  status: string
+  id: number;
+  paymentDate: string;
+  totalAmountPaid: number;
+  referenceNumber: string;
+  description: string;
+  createdDate: string;
+  createdByUserId: number;
+  modifiedDate: Date;
+  modifiedByUserId: number;
+  client: string;
+  paymentMethod: string;
+  status: string;
+}
+
+export type Branch = {
+  id: number;
+  name: string;
+  streetName: string;
+  suburb: string;
+  city: string;
+  code: string;
+  provinceId: number;
+  contactPersonId: number;
+  province: string | null;
+  contactPerson: string | null;
 }

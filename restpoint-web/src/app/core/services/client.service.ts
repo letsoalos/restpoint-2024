@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BurialSociety, Client, Title, EthnicityGroup, FamilyMember, Gender, MaritalStatus, PaymentHistory, Status } from '../../shared/models/client';
+import { BurialSociety, Client, Title, EthnicityGroup, FamilyMember, Gender, MaritalStatus, PaymentHistory, Status, Branch } from '../../shared/models/client';
 import { Pagination } from '../../shared/models/pagination';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -62,6 +62,10 @@ export class ClientService {
 
   getBurialSocieties() {
     return this.http.get<BurialSociety[]>(this.baseUrl + 'burialsocieties/burial-societies');
+  }
+
+  getBranchList() {
+    return this.http.get<Branch>(this.baseUrl + 'branch/branch-list');
   }
 
   getClient(id: number) {

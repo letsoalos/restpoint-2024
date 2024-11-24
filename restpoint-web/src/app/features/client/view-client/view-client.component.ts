@@ -74,7 +74,6 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
 
   private loadClientData(): void {
     this.loadClient();
-    this.loadMaritalStatus();
   }
 
   loadClient() {
@@ -107,13 +106,6 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
         this.paymentDataSource.sort = this.paymentSort;
       },
       error: error => console.log(error),
-    });
-  }
-
-  loadMaritalStatus() {
-    this.clientService.getMaritalStatus().subscribe({
-      next: maritalStatus => this.maritalStatus = maritalStatus,
-      error: error => console.log('Error fetching marital status:', error)
     });
   }
 }

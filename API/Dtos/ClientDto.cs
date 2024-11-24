@@ -51,9 +51,8 @@ public class ClientDto
     public int BranchId { get; set; }
     public string BurialSociety { get; set; } = string.Empty;
     public int? BurialSocietyId { get; set; }
-    [Required]
-    public required string ReferenceNumber { get; set; }
+    public string ReferenceNumber { get; set; } = string.Empty;
     public bool Consent { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
     public string? Branch { get; set; }
 }
