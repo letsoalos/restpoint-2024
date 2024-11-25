@@ -12,7 +12,7 @@ export class ClientService {
   baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
-  getClients(burialSocieties?: string[], clientStatues?: string[]) {
+  getClients(burialSocieties?: string[], clientStatues?: string[], branches?: string[]) {
     let params = new HttpParams();
 
     if (burialSocieties && burialSocieties.length > 0) {
@@ -21,6 +21,10 @@ export class ClientService {
 
     if (clientStatues && clientStatues.length > 0) {
       params = params.append('clientStatues', clientStatues.join(','));
+    }
+
+    if (branches && branches.length > 0) {
+      params = params.append('branches', branches.join(','));
     }
 
     return this.http.get<Pagination<Client>>(this.baseUrl + 'clients', { params });
@@ -65,7 +69,7 @@ export class ClientService {
   }
 
   getBranchList() {
-    return this.http.get<Branch>(this.baseUrl + 'branch/branch-list');
+    return this.http.get<Branch[]>(this.baseUrl + 'branch/branch-list');
   }
 
   getClient(id: number) {

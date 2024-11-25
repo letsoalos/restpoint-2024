@@ -10,3 +10,4 @@ D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\refint\Core.dll
 D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.pdb
 D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\ref\Core.dll
 D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.sourcelink.json
+D:\Sello\workspace\restpoint\Core\obj\Debug\net8.0\Core.csproj.AssemblyReference.cache

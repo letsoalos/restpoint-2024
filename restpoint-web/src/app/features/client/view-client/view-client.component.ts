@@ -43,7 +43,6 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
   displayedFamilyColumns: string[] = [
     'recordNumber',
     'firstName',
-    'lastName',
     'dateOfBirth',
     'age',
     'relationship',

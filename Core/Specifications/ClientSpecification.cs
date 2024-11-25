@@ -22,6 +22,7 @@ public class ClientSpecification : BaseSpecification<Client>
         string.IsNullOrEmpty(specParams.Search) || x.FirstName.ToLower().Contains(specParams.Search) ||
         (string.IsNullOrEmpty(specParams.Search) || x.LastName.ToLower().Contains(specParams.Search)) &&
         (specParams.BurialSocieties.Count == 0 || specParams.BurialSocieties.Contains(x.BurialSociety!.Name)) &&
+        (specParams.Branch.Count == 0 || specParams.Branch.Contains(x.Branch.Name)) &&
         (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name))
     )
     {

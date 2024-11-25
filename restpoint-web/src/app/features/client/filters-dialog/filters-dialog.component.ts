@@ -4,7 +4,7 @@ import { MatDivider } from '@angular/material/divider';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { BurialSociety, Status } from '../../../shared/models/client';
+import { Branch, BurialSociety, Status } from '../../../shared/models/client';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -29,21 +29,36 @@ export class FiltersDialogComponent implements OnInit {
   clientService = inject(ClientService);
   private dialogRef = inject(MatDialogRef<FiltersDialogComponent>);
   data = inject(MAT_DIALOG_DATA);
+
   burialSocieties: BurialSociety[] = [];
   clientStatuses: Status[] = [];
+  branches: Branch[] = [];
 
   selectedBurialSocities: string[] = this.data.selectedBurialSocities;
   selectedclientStatuses: string[] = this.data.selectedclientStatuses;
+  selectedBranches: string[] = this.data.selectedBranches;
 
   ngOnInit(): void {
-    this.loadBurialSocietis();
-    this.loadClientStatuses();
+    this.loadClientData();
   }
 
-  loadBurialSocietis() {
+  loadClientData() {
+    this.loadBurialSocieties();
+    this.loadClientStatuses();
+    this.loadBranches();
+  }
+
+  loadBurialSocieties() {
     this.clientService.getBurialSocieties().subscribe({
       next: (burialSocieties) => this.burialSocieties = burialSocieties,
       error: (error) => console.error('Error loading burial societies:', error)
+    });
+  }
+
+  loadBranches() {
+    this.clientService.getBranchList().subscribe({
+      next: (branches) => this.branches = branches,
+      error: (error) => console.error('Error loding branches:', error)
     });
   }
 
@@ -61,7 +76,8 @@ export class FiltersDialogComponent implements OnInit {
   applyFilters() {
     this.dialogRef.close({
       selectedBurialSocities: this.selectedBurialSocities,
-      selectedclientStatuses: this.selectedclientStatuses
+      selectedclientStatuses: this.selectedclientStatuses,
+      selectedBranches: this.selectedBranches
     })
   }
 }

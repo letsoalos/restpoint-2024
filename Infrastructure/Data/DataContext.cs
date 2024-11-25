@@ -1,11 +1,12 @@
 using System.Reflection;
 using Core.Enteties;
 using Core.Enteties._LookUps;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
-public class DataContext(DbContextOptions options) : DbContext(options)
+public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
 {
     public required DbSet<Address> Addresses { get; set; }
     public required DbSet<AssetType> AssetTypes { get; set; }

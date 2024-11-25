@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, OnInit, Output, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject } from 'rxjs';
+import { catchError, map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-details',
@@ -26,10 +26,10 @@ import { takeUntil } from 'rxjs/operators';
     CommonModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   templateUrl: './personal-details.component.html',
-  styleUrls: ['./personal-details.component.scss']
+  styleUrls: ['./personal-details.component.scss'],
 })
 export class PersonalDetailsComponent implements OnInit, OnDestroy {
   @Output() formData = new EventEmitter<any>();
@@ -44,6 +44,7 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
   titleList: Title | any;
   ethnicityGroupList: EthnicityGroup | any;
   maritalStatuses: Status | any;
+  isLoading = false;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -61,66 +62,61 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
 
   initializeForm(): void {
     this.form = this.fb.group({
-      firstName: [''],
-      lastName: [''],
-      titleId: [''],
-      maritalStatusId: [''],
-      dateOfBirth: [''],
-      documentTypeId: [''],
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      titleId: ['', Validators.required],
+      maritalStatusId: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      documentTypeId: ['', Validators.required],
       identityNumber: [''],
       passport: [''],
-      genderId: [''],
+      genderId: ['', Validators.required],
       age: [''],
       ethnicityId: [''],
       status: undefined,
-      burialSociety: undefined
+      burialSociety: undefined,
     });
   }
 
   private loadClientData(): void {
-    this.loadDocumentTypes();
-    this.loadMaritalStatus();
-    this.loadGenders();
-    this.loadTitles();
-    this.loadEthnicityGroups();
+    this.isLoading = true;
+
+    forkJoin({
+      documentTypes: this.loadDocumentTypes(),
+      maritalStatuses: this.clientService.getMaritalStatus(),
+      genderList: this.clientService.getGenderList(),
+      titleList: this.clientService.getTitles(),
+      ethnicityGroups: this.clientService.getEthnicityGroups(),
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: ({ documentTypes, maritalStatuses, genderList, titleList, ethnicityGroups }) => {
+          this.documentTypes = documentTypes;
+          this.maritalStatuses = maritalStatuses;
+          this.genderList = genderList;
+          this.titleList = titleList;
+          this.ethnicityGroupList = ethnicityGroups;
+
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error loading client data:', error);
+          this.isLoading = false;
+        },
+      });
   }
 
-  loadDocumentTypes() {
-    this.clientService.getDocumentTypes().subscribe({
-      next: (documentTypes: any) => {
-        this.documentTypes = Array.isArray(documentTypes)
+  private loadDocumentTypes() {
+    return this.clientService.getDocumentTypes().pipe(
+      map((documentTypes: any) =>
+        Array.isArray(documentTypes)
           ? documentTypes.filter(dt => dt.groupCode === 'IDPT')
-          : [];
-      },
-      error: error => console.log('Error fetching document types:', error)
-    });
-  }
-
-  private loadMaritalStatus(): void {
-    this.clientService.getMaritalStatus().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (maritalStatuses) => (this.maritalStatuses = maritalStatuses),
-      error: (error) => console.error('Error fetching marital status:', error)
-    });
-  }
-
-  private loadGenders(): void {
-    this.clientService.getGenderList().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (genderList) => (this.genderList = genderList),
-      error: (error) => console.error('Error fetching gender list:', error)
-    });
-  }
-
-  private loadTitles(): void {
-    this.clientService.getTitles().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (titleList) => (this.titleList = titleList),
-      error: (error) => console.error('Error fetching titles:', error)
-    });
-  }
-
-  private loadEthnicityGroups(): void {
-    this.clientService.getEthnicityGroups().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (ethnicityGroupList) => (this.ethnicityGroupList = ethnicityGroupList),
-      error: (error) => console.error('Error fetching ethnicity groups:', error)
-    });
+          : []
+      ),
+      catchError(error => {
+        console.error('Error fetching document types:', error);
+        return []; 
+      })
+    );
   }
 }

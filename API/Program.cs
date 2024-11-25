@@ -1,4 +1,5 @@
 using API.Middleware;
+using Core.Enteties;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,9 @@ builder.Services.AddDbContext<DataContext>(x =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddCors();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>()
+    .AddEntityFrameworkStores<DataContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +46,7 @@ if (app.Environment.IsDevelopment())
 // app.UseAuthorization();
 
 app.MapControllers();
+app.MapGroup("api").MapIdentityApi<AppUser>();
 
 app.UseMiddleware<ExceptionMiddleware>();
 

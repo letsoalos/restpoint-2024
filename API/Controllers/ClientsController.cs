@@ -42,7 +42,7 @@ public class ClientsController(IGenericRepository<Client> repo, IMapper mapper) 
 
         client.ReferenceNumber = GeneratedReferenceNumber();
         client.CreatedDate = DateTime.UtcNow;
-        client.StatusId = 10;
+        client.StatusId = 9;
 
         repo.Add(client);
 

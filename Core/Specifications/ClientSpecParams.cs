@@ -33,6 +33,16 @@ public class ClientSpecParams
         }
     }
 
+    private List<string> _branches = [];
+    public List<string> Branch
+    {
+        get => _branches;
+        set
+        {
+            _branches = value.SelectMany(x => x.Split(',', StringSplitOptions.RemoveEmptyEntries)).ToList();
+        }
+    }
+
     public string? Sort { get; set; }
 
     private string? _search;

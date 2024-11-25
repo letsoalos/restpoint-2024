@@ -53,6 +53,7 @@ export class ClientComponent implements OnInit {
 
   selectedBurialSocieties: string[] = [];
   selectedclientStatues: string[] = [];
+  selectedBranches: string[] = [];
   searchInput: string = '';
 
   displayedColumns: string[] = [
@@ -164,7 +165,8 @@ export class ClientComponent implements OnInit {
       disableClose: true,
       data: {
         selectedBurialSocieties: this.selectedBurialSocieties,
-        selectedclientStatues: this.selectedclientStatues
+        selectedclientStatues: this.selectedclientStatues,
+        selectedBranches: this.selectedBranches
       }
     });
 
@@ -173,16 +175,18 @@ export class ClientComponent implements OnInit {
         if (result) {
           this.selectedBurialSocieties = result.selectedBurialSocities || [];
           this.selectedclientStatues = result.selectedclientStatuses || [];
+          this.selectedBranches = result.selectedBranches || [];
 
           this.applyFilter();
 
-          this.clientService.getClients(this.selectedBurialSocieties, this.selectedclientStatues).subscribe({
+          this.clientService.getClients(this.selectedBurialSocieties, this.selectedclientStatues, this.selectedBranches).subscribe({
             next: (response) => {
               const allClients = response.data;
 
               this.dataSource.data = allClients.filter(client => {
                 const hasBurialSocietyFilter = this.selectedBurialSocieties.length > 0;
                 const hasStatusFilter = this.selectedclientStatues.length > 0;
+                const hastBranchesFilter = this.selectedBranches.length > 0;
 
                 // Check if the client matches any selected burial society
                 const matchesBurialSociety = client.burialSociety &&
@@ -196,6 +200,11 @@ export class ClientComponent implements OnInit {
                     status.trim().toLowerCase() === client.status.trim().toLowerCase()
                   );
 
+                const matchesBranches = client.branch &&
+                  this.selectedBranches.some(branch =>
+                    branch.trim().toLowerCase() === client.branch.trim().toLowerCase()
+                  );
+
                 // Apply the filtering logic based on which filters are selected
                 if (hasBurialSocietyFilter && hasStatusFilter) {
                   return matchesBurialSociety && matchesClientStatus;
@@ -205,6 +214,9 @@ export class ClientComponent implements OnInit {
                 }
                 else if (hasStatusFilter) {
                   return matchesClientStatus;
+                }
+                else if (hastBranchesFilter) {
+                  return matchesBranches;
                 }
                 else {
                   return true;

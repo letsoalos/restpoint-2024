@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, inject, ChangeDetectorRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var PDFViewerApplication: any;
 
@@ -64,7 +64,7 @@ export class ConsentFormComponent implements OnInit, AfterViewInit {
 
   initializeForm(): void {
     this.form = this.fb.group({
-      consent: [false]
+      consent: [false, [Validators.required]]
     });
   }
 }

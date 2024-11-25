@@ -33,7 +33,7 @@ export type Client = {
   burialSocietyId: number | null;
   consent: boolean;
   createdDate: string;
-  branch: string | null;
+  branch: string;
 }
 
 export type Gender = {

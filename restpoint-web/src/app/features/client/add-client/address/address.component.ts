@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -31,11 +31,11 @@ export class AddressComponent implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      streetName: [''],
-      suburb: [''],
-      city: [''],
-      postalCode: [''],
-      phoneNumber: [''],
+      streetName: ['', [Validators.required, Validators.maxLength(50)]],
+      suburb: ['', [Validators.required, Validators.maxLength(20)]],
+      city: ['', [Validators.required, Validators.maxLength(50)]],
+      postalCode: ['', [Validators.required, Validators.maxLength(10)]],
+      phoneNumber: ['', [Validators.required]],
       altNumber: [''],
       email: ['']
     });
