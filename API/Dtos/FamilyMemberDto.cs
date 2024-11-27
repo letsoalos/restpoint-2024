@@ -29,13 +29,14 @@ public class FamilyMemberDto
     [EmailAddress]
     public string? Email { get; set; }
     public bool IsBeneficiary { get; set; }
+    public DateTime CreatedDate { get; set; }
     public int CreatedByUserId { get; set; }
     public DateTime? ModifiedDate { get; set; }
     public int? ModifiedByUserId { get; set; }
 
 
-    public string Client { get; set; } = string.Empty;
-    public string Gender { get; set; } = string.Empty;
-    public string Relationship { get; set; } = string.Empty;
-    public string Status { get; set; } = string.Empty;
+    public string? Client { get; set; } = string.Empty;
+    public string? Gender { get; set; } = string.Empty;
+    public string? Relationship { get; set; } = string.Empty;
+    public string? Status { get; set; } = string.Empty;
 }

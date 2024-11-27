@@ -43,12 +43,9 @@ export class EditFamilyMemberComponent implements OnInit {
   genders: Gender | any;
   relationships: Relationship | any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log('Dialog data:', data);
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    console.log('Dialog data:', this.data);
     this.initializeForm();
     this.loadData();
   }
@@ -76,7 +73,6 @@ export class EditFamilyMemberComponent implements OnInit {
 
     // Patch form values with passed data
     if (this.data.familyMember) {
-      console.log('Patching form with data:', this.data.familyMember);
       this.form.patchValue(this.data.familyMember);
     } else {
       console.error('No family member data available');

@@ -102,6 +102,7 @@ export type FamilyMember = {
   gender: string | null,
   relationship: string | null,
   status: string | null;
+  StatusId: number
 }
 
 export type PaymentHistory = {

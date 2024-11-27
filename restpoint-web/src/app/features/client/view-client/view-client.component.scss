@@ -157,4 +157,15 @@ $green-color: green;
   }
 }
 
+.snack-success {
+  background-color: #4caf50 !important; // Green for success
+  color: white;
+}
+
+.snack-error {
+  background-color: #f44336 !important; // Red for error
+  color: white;
+}
+
+
 

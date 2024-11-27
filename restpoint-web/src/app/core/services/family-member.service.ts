@@ -27,6 +27,10 @@ export class FamilyMemberService {
     return this.http.put<FamilyMember>(this.baseUrl + `familymembers/${id}`, data);
   }
 
+  deleteFamilyMember(id: number, data: any) {
+    return this.http.put<FamilyMember>(this.baseUrl + `familymembers/${id}/delete`, {});
+  }
+
   saveFamilyMember(data: any) {
     return this.http.post<FamilyMember>(this.baseUrl + `familymembers`, data);
   }

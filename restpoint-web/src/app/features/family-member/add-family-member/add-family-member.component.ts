@@ -52,6 +52,8 @@ export class AddFamilyMemberComponent implements OnInit {
 
   initializeForm(): void {
     this.form = this.fb.group({
+      id: 0,
+      clientId: [this.data.clientId],
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       dateOfBirth: ['', [Validators.required]],
@@ -60,8 +62,15 @@ export class AddFamilyMemberComponent implements OnInit {
       email: [''],
       relationshipId: ['', [Validators.required]],
       age: [''],
-      clientId: [this.data.clientId],
-      isBeneficiary: [false]
+      modifiedDate: null,
+      createdDate: new Date().toISOString(),
+      isBeneficiary: [false],
+      createdByUserId: 1,
+      client: null,
+      gender: null,
+      relationship: null,
+      status: null,
+      statusId: 10
     });
   }
 

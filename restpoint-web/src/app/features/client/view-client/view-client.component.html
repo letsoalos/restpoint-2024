@@ -109,7 +109,8 @@
                         <mat-icon>edit</mat-icon>
                       </button>
                       <!-- Soft Delete Button -->
-                      <button mat-icon-button class="text-red-600 hover:text-red-800">
+                      <button mat-icon-button (click)="onDeleteFamilyMember(row)"
+                        class="text-red-600 hover:text-red-800">
                         <mat-icon>delete</mat-icon>
                       </button>
                     </td>

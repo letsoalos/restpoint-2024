@@ -16,7 +16,8 @@ public class FamilyMemberSpecification : BaseSpecification<FamilyMember>
         (string.IsNullOrEmpty(specParams.Search) || x.LastName.ToLower().Contains(specParams.Search)) &&
         (specParams.PhoneNumber.Count == 0 || specParams.PhoneNumber.Contains(x.PhoneNumber)) &&
         (specParams.Statuses.Count == 0 || specParams.Statuses.Contains(x.Status.Name)) &&
-        (!clientId.HasValue || x.ClientId == clientId)
+        (!clientId.HasValue || x.ClientId == clientId) &&
+        x.StatusId != 4
     )
     {
         ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);

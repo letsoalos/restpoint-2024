@@ -26,6 +26,9 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddFamilyMemberComponent } from '../../family-member/add-family-member/add-family-member.component';
 import { EditFamilyMemberComponent } from '../../family-member/edit-family-member/edit-family-member.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FamilyMemberService } from '../../../core/services/family-member.service';
+import { DeleteFamilyMemberComponent } from '../../family-member/delete-family-member/delete-family-member.component';
 
 @Component({
   selector: 'app-view-client',
@@ -47,8 +50,12 @@ import { EditFamilyMemberComponent } from '../../family-member/edit-family-membe
 export class ViewClientComponent implements OnInit, AfterViewInit {
   private clientService = inject(ClientService);
   private activatedRoute = inject(ActivatedRoute);
-  private dialog = inject(MatDialog); // Inject MatDialog to handle dialog opening
-  private router = inject(Router); // To handle route navigation if needed
+  private dialog = inject(MatDialog);
+  private familyMemberService = inject(FamilyMemberService);
+  router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+
+  familyMemberId!: number;
 
   @ViewChild('familyPaginator') familyPaginator!: MatPaginator;
   @ViewChild('familySort') familySort!: MatSort;
@@ -142,6 +149,9 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if (result) {
         this.loadFamilyMembers(+clientId);
+        this.snackBar.open('Family member added successfully!', '', {
+          duration: 3000
+        });
       }
     });
   }
@@ -152,8 +162,6 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       console.error('Client ID is missing!');
       return;
     }
-
-    console.log('Opening dialog with family member:', familyMember);
 
     this.dialog.open(EditFamilyMemberComponent, {
       data: {
@@ -166,7 +174,57 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(result => {
       if (result) {
         this.loadFamilyMembers(+clientId); // Reload data
+        this.snackBar.open('Family member updated successfully!', '', {
+          duration: 3000
+        });
       }
     });
+  }
+
+  onDeleteFamilyMember(familyMember: any): void {
+    if (familyMember?.id) {
+      this.openDeleteFamilyMemberDialog(familyMember.id, familyMember);
+    } else {
+      console.error('Family member ID is not available');
+    }
+  }
+
+  openDeleteFamilyMemberDialog(familyMemberId: number, familyMemberData: any): void {
+    const clientId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!clientId) {
+      console.error('Client ID is missing!');
+      return;
+    }
+
+    const dialogRef = this.dialog.open(DeleteFamilyMemberComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { familyMemberId, familyMemberData },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // If confirmed, delete the family member, passing both familyMemberId and clientId
+        this.deleteFamilyMember(familyMemberId, +clientId);
+        this.loadFamilyMembers(+clientId);
+        this.snackBar.open('Family member deleted successfully!', '', {
+          duration: 3000
+        });
+      } else {
+        console.log('Family member deletion was cancelled');
+      }
+    });
+  }
+
+  deleteFamilyMember(familyMemberId: number, clientId: number): void {
+    this.familyMemberService.deleteFamilyMember(familyMemberId, clientId).subscribe(
+      response => {
+        console.log('Family member deleted successfully:', response);
+        // Optionally, handle UI updates after deletion
+      },
+      error => {
+        console.error('Error deleting family member:', error);
+      }
+    );
   }
 }

@@ -85,4 +85,22 @@ public class FamilyMembersController(IGenericRepository<FamilyMember> repo, IMap
 
         return BadRequest("Problem updating the family member");
     }
+
+    [HttpPut("{id:int}/delete")]
+    public async Task<ActionResult> SoftDeleteEntity(int id)
+    {
+        var entity = await repo.GetByIdAsync(id);
+
+        if (entity == null)
+            return NotFound("Entity not found");
+
+        entity.StatusId = 4;
+        entity.ModifiedDate = DateTime.UtcNow;
+        entity.ModifiedByUserId = 1;
+
+        await repo.SoftDelete(entity);
+
+        return NoContent();
+    }
+
 }

@@ -13,6 +13,7 @@ public interface IGenericRepository<T> where T : BaseEntity
     void Add(T entinty);
     void Update(T entinty);
     void Remove(T entinty);
+    Task SoftDelete(T entity);
     Task<bool> SaveAllAsync();
     bool Exists(int id);
     Task<bool> ClientExist(string? identityNumber, string? passport);

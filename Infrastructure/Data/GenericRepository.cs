@@ -72,6 +72,12 @@ public class GenericRepository<T>(DataContext context) : IGenericRepository<T> w
         return await context.SaveChangesAsync() > 0;
     }
 
+    public async Task SoftDelete(T entity)
+    {
+        context.Set<T>().Update(entity);
+        await SaveAllAsync();
+    }
+
     public void Update(T entinty)
     {
         context.Set<T>().Attach(entinty);

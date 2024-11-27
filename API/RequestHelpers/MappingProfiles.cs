@@ -41,9 +41,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Gender, o => o.Ignore())
             .ForMember(d => d.Status, o => o.Ignore())
             .ForMember(d => d.Client, o => o.Ignore())
-            .ForMember(d => d.Relationship, o => o.Ignore())
-            .ForMember(d => d.Id, o => o.Ignore())
-            .ForMember(d => d.ClientId, o => o.Ignore());
+            .ForMember(d => d.Relationship, o => o.Ignore());
 
         CreateMap<PaymentHistory, PaymentHistoryDto>()
             .ForMember(d => d.Client, o => o.MapFrom(s => s.Client.FirstName))
