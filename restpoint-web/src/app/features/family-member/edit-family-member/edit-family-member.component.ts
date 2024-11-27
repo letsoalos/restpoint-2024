@@ -1,21 +1,21 @@
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FamilyMemberService } from '../../../core/services/family-member.service';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ClientService } from '../../../core/services/client.service';
+import { FamilyMemberService } from '../../../core/services/family-member.service';
+import { FamilyMember, Gender, Relationship } from '../../../shared/models/client';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { Gender, Relationship } from '../../../shared/models/client';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-add-family-member',
+  selector: 'app-edit-family-member',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,28 +30,33 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  templateUrl: './add-family-member.component.html',
-  styleUrls: ['./add-family-member.component.scss']
+  templateUrl: './edit-family-member.component.html',
+  styleUrl: './edit-family-member.component.scss'
 })
-export class AddFamilyMemberComponent implements OnInit {
-  private data = inject(MAT_DIALOG_DATA);
-  private dialogRef = inject(MatDialogRef<AddFamilyMemberComponent>);
+export class EditFamilyMemberComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<EditFamilyMemberComponent>);
   private fb = inject(FormBuilder);
   private familyMemberService = inject(FamilyMemberService);
   private clientService = inject(ClientService);
-
 
   form: FormGroup | any;
   genders: Gender | any;
   relationships: Relationship | any;
 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log('Dialog data:', data);
+  }
+
   ngOnInit(): void {
+    console.log('Dialog data:', this.data);
     this.initializeForm();
     this.loadData();
   }
 
   initializeForm(): void {
     this.form = this.fb.group({
+      id: [''],
+      clientId: [''],
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       dateOfBirth: ['', [Validators.required]],
@@ -60,10 +65,24 @@ export class AddFamilyMemberComponent implements OnInit {
       email: [''],
       relationshipId: ['', [Validators.required]],
       age: [''],
-      clientId: [this.data.clientId],
-      isBeneficiary: [false]
+      modifiedDate: new Date().toISOString(),
+      isBeneficiary: [false],
+      createdByUserId: [''],
+      client: null,
+      gender: null,
+      relationship: null,
+      status: null
     });
+
+    // Patch form values with passed data
+    if (this.data.familyMember) {
+      console.log('Patching form with data:', this.data.familyMember);
+      this.form.patchValue(this.data.familyMember);
+    } else {
+      console.error('No family member data available');
+    }
   }
+
 
   loadData(): void {
     forkJoin({
@@ -82,8 +101,19 @@ export class AddFamilyMemberComponent implements OnInit {
 
   save(): void {
     if (this.form.valid) {
-      this.familyMemberService.saveFamilyMember(this.form.value).subscribe({
+      const updatedData = {
+        ...this.form.value,
+        clientId: this.data.clientId
+      };
+
+      console.log('Payload to send:', updatedData);
+
+      const familyMemberId = updatedData.id;
+      console.log('Updating family member with ID:', familyMemberId);
+
+      this.familyMemberService.updateFamilyMember(familyMemberId, updatedData).subscribe({
         next: () => {
+          console.log('Family member updated successfully');
           this.dialogRef.close(true);
         },
         error: (error) => {
@@ -98,4 +128,5 @@ export class AddFamilyMemberComponent implements OnInit {
   cancel(): void {
     this.dialogRef.close(false);
   }
+
 }

@@ -39,4 +39,14 @@ public class FamilyMemberSpecification : BaseSpecification<FamilyMember>
                 break;
         }
     }
+
+    public FamilyMemberSpecification(int clientId, string firstName, string lastName, DateTime dateOfBirth)
+     : base(x =>
+         x.ClientId == clientId &&
+         x.FirstName.ToLower() == firstName.ToLower() &&
+         x.LastName.ToLower() == lastName.ToLower() &&
+         x.DateOfBirth.Date == dateOfBirth.Date)
+    {
+    }
+
 }

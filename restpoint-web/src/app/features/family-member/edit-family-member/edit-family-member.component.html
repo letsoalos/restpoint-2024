@@ -1,0 +1,72 @@
+<h2 mat-dialog-title class="text-title text-center">Update Family Member</h2>
+<div mat-dialog-content class="content">
+  <form [formGroup]="form">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="Ex. John">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Ex. Doe">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" placeholder="Ex. 32">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="genderId">
+          <mat-option *ngFor="let g of genders" [value]="g.id">{{ g.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Relationship</mat-label>
+        <mat-select formControlName="relationshipId">
+          <mat-option *ngFor="let r of relationships" [value]="r.id">{{ r.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" placeholder="Ex. 0812345676">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="Ex. aisha.khan@example.com">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="form-group">
+          <mat-checkbox formControlName="isBeneficiary">
+            Beneficiary
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div>
+  <mat-dialog-actions class="flex gap-4">
+    <button mat-flat-button mat-dialog-close class="backButtonCustomColor">
+      <mat-icon>cancel</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button (click)="save()" class="buttonCustomColor">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>

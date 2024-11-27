@@ -104,8 +104,9 @@
                     <th mat-header-cell *matHeaderCellDef>Action</th>
                     <td mat-cell *matCellDef="let row">
                       <!-- Edit Button -->
-                      <button mat-icon-button>
-                        <mat-icon color="primary">edit</mat-icon>
+                      <button mat-icon-button (click)="openUpdateFamilyMemberDialog(row.familyMemberId, row)"
+                        color="primary">
+                        <mat-icon>edit</mat-icon>
                       </button>
                       <!-- Soft Delete Button -->
                       <button mat-icon-button class="text-red-600 hover:text-red-800">

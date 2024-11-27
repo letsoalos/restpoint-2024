@@ -33,6 +33,18 @@ public class FamilyMembersController(IGenericRepository<FamilyMember> repo, IMap
     [HttpPost]
     public async Task<ActionResult<FamilyMemberDto>> CreateFamilyMember(FamilyMemberDto familyMemberDto)
     {
+        var spec = new FamilyMemberSpecification(
+            familyMemberDto.ClientId,
+            familyMemberDto.FirstName,
+            familyMemberDto.LastName,
+            familyMemberDto.DateOfBirth
+        );
+
+        var existingFamilyMember = await repo.GetEntityWithSpec(spec);
+
+        if (existingFamilyMember != null) return BadRequest("This family member already exists for the client.");
+
+
         var familyMember = mapper.Map<FamilyMember>(familyMemberDto);
 
         familyMember.CreatedDate = DateTime.UtcNow;
@@ -48,5 +60,29 @@ public class FamilyMembersController(IGenericRepository<FamilyMember> repo, IMap
         }
 
         return BadRequest("Problem creating family member");
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult> UpdateFamilyMember(int id, FamilyMemberDto familyMemberDto)
+    {
+        var existingFamilyMember = await repo.GetByIdAsync(id);
+
+        if (existingFamilyMember == null)
+            return NotFound("Family member not found");
+
+        mapper.Map(familyMemberDto, existingFamilyMember);
+
+        existingFamilyMember.StatusId = 10;
+        existingFamilyMember.ModifiedDate = DateTime.UtcNow;
+        existingFamilyMember.ModifiedByUserId = 1;
+
+        repo.Update(existingFamilyMember);
+
+        if (await repo.SaveAllAsync())
+        {
+            return NoContent();
+        }
+
+        return BadRequest("Problem updating the family member");
     }
 }

@@ -25,6 +25,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddFamilyMemberComponent } from '../../family-member/add-family-member/add-family-member.component';
+import { EditFamilyMemberComponent } from '../../family-member/edit-family-member/edit-family-member.component';
 
 @Component({
   selector: 'app-view-client',
@@ -140,10 +141,32 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       disableClose: true
     }).afterClosed().subscribe(result => {
       if (result) {
-        // Reload family members or handle success
-        this.loadFamilyMembers(+clientId);  // Optionally reload family members
+        this.loadFamilyMembers(+clientId);
       }
     });
   }
 
+  openUpdateFamilyMemberDialog(familyMemberId: number, familyMember: any): void {
+    const clientId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!clientId) {
+      console.error('Client ID is missing!');
+      return;
+    }
+
+    console.log('Opening dialog with family member:', familyMember);
+
+    this.dialog.open(EditFamilyMemberComponent, {
+      data: {
+        clientId: +clientId,
+        familyMember
+      },
+      width: '80%',
+      height: '70%',
+      disableClose: true
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.loadFamilyMembers(+clientId); // Reload data
+      }
+    });
+  }
 }
