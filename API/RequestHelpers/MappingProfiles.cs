@@ -28,8 +28,6 @@ public class MappingProfiles : Profile
             .ForMember(d => d.MaritalStatus, o => o.Ignore())
             .ForMember(d => d.BurialSociety, o => o.Ignore())
             .ForMember(d => d.Branch, o => o.Ignore());
-        // .ForMember(d => d.ReferenceNumber, o => o.MapFrom(s => s.ReferenceNumber))
-        // .ForMember(d => d.CreatedDate, o => o.MapFrom(s => DateTime.Now)); 
 
 
         CreateMap<FamilyMember, FamilyMemberDto>()
@@ -38,6 +36,12 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.Name))
             .ForMember(d => d.Relationship, o => o.MapFrom(s => s.Relationship.Name))
             .ForMember(d => d.Gender, o => o.MapFrom(s => s.Gender.Name));
+
+        CreateMap<FamilyMemberDto, FamilyMember>()
+            .ForMember(d => d.Gender, o => o.Ignore())
+            .ForMember(d => d.Status, o => o.Ignore())
+            .ForMember(d => d.Client, o => o.Ignore())
+            .ForMember(d => d.Relationship, o => o.Ignore());
 
         CreateMap<PaymentHistory, PaymentHistoryDto>()
             .ForMember(d => d.Client, o => o.MapFrom(s => s.Client.FirstName))

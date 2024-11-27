@@ -50,7 +50,7 @@
               <mat-icon>arrow_back</mat-icon> Back to Client List
             </button>
             <div class="spacer"></div> <!-- Spacer div to push the second button to the right -->
-            <button mat-flat-button routerLink="/family-member" class="buttonCustomColor">
+            <button mat-flat-button (click)="openAddFamilyMemberDialog()" class="buttonCustomColor">
               <mat-icon>add</mat-icon> Add Family Member
             </button>
           </mat-card-actions>

@@ -29,4 +29,24 @@ public class FamilyMembersController(IGenericRepository<FamilyMember> repo, IMap
 
         return Ok(mapper.Map<FamilyMember, FamilyMemberDto>(familyMember));
     }
+
+    [HttpPost]
+    public async Task<ActionResult<FamilyMemberDto>> CreateFamilyMember(FamilyMemberDto familyMemberDto)
+    {
+        var familyMember = mapper.Map<FamilyMember>(familyMemberDto);
+
+        familyMember.CreatedDate = DateTime.UtcNow;
+        familyMember.StatusId = 10;
+
+        repo.Add(familyMember);
+
+        if (await repo.SaveAllAsync())
+        {
+            var familyMemberToReturn = mapper.Map<FamilyMemberDto>(familyMember);
+
+            return CreatedAtAction("GetFamilyMember", new { id = familyMember.Id }, familyMemberToReturn);
+        }
+
+        return BadRequest("Problem creating family member");
+    }
 }

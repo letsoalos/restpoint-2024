@@ -98,10 +98,10 @@ export type FamilyMember = {
   modifiedDate: Date;
   modifiedByUserId: number;
   clientId: number;
-  client: string,
-  gender: string,
-  relationship: string,
-  status: string;
+  client: string | null,
+  gender: string | null,
+  relationship: string | null,
+  status: string | null;
 }
 
 export type PaymentHistory = {
@@ -130,4 +130,10 @@ export type Branch = {
   contactPersonId: number;
   province: string | null;
   contactPerson: string | null;
+}
+
+export type Relationship = {
+  id: number;
+  name: string;
+  description: string;
 }

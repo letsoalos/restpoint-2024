@@ -1,14 +1,30 @@
-import { Component, inject, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService } from '../../../core/services/client.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Client, FamilyMember, PaymentHistory, Status } from '../../../shared/models/client';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  Client,
+  FamilyMember,
+  PaymentHistory,
+  Status
+} from '../../../shared/models/client';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTableModule
+} from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AddFamilyMemberComponent } from '../../family-member/add-family-member/add-family-member.component';
 
 @Component({
   selector: 'app-view-client',
@@ -21,7 +37,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     RouterLink,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
   ],
   templateUrl: './view-client.component.html',
   styleUrls: ['./view-client.component.scss']
@@ -29,6 +46,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 export class ViewClientComponent implements OnInit, AfterViewInit {
   private clientService = inject(ClientService);
   private activatedRoute = inject(ActivatedRoute);
+  private dialog = inject(MatDialog); // Inject MatDialog to handle dialog opening
+  private router = inject(Router); // To handle route navigation if needed
 
   @ViewChild('familyPaginator') familyPaginator!: MatPaginator;
   @ViewChild('familySort') familySort!: MatSort;
@@ -66,9 +85,7 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.familyDataSource.paginator = this.familyPaginator;
-
     this.paymentDataSource.paginator = this.paymentPaginator;
-
   }
 
   private loadClientData(): void {
@@ -107,4 +124,26 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       error: error => console.log(error),
     });
   }
+
+  // Method to handle the route change or open dialog
+  openAddFamilyMemberDialog(): void {
+    const clientId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!clientId) {
+      console.error('Client ID is missing!');
+      return;
+    }
+
+    this.dialog.open(AddFamilyMemberComponent, {
+      data: { clientId: +clientId },
+      width: '80%',
+      height: '70%',
+      disableClose: true
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        // Reload family members or handle success
+        this.loadFamilyMembers(+clientId);  // Optionally reload family members
+      }
+    });
+  }
+
 }
