@@ -150,7 +150,13 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       if (result) {
         this.loadFamilyMembers(+clientId);
         this.snackBar.open('Family member added successfully!', '', {
-          duration: 3000
+          duration: 3000,
+          panelClass: ['snack-success']
+        });
+      } else {
+        this.snackBar.open('Failed to add family member.', '', {
+          duration: 3000,
+          panelClass: ['snack-error']
         });
       }
     });
@@ -175,7 +181,8 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       if (result) {
         this.loadFamilyMembers(+clientId); // Reload data
         this.snackBar.open('Family member updated successfully!', '', {
-          duration: 3000
+          duration: 3000,
+          panelClass: ['snack-success']
         });
       }
     });
@@ -208,7 +215,8 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
         this.deleteFamilyMember(familyMemberId, +clientId);
         this.loadFamilyMembers(+clientId);
         this.snackBar.open('Family member deleted successfully!', '', {
-          duration: 3000
+          duration: 3000,
+          panelClass: ['snack-success']
         });
       } else {
         console.log('Family member deletion was cancelled');
