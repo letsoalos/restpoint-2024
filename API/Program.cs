@@ -44,9 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseAuthorization();
 
-app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>();
 
 app.UseMiddleware<ExceptionMiddleware>();
@@ -54,6 +52,9 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
     .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 
 
 try

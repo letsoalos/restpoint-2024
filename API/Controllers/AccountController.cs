@@ -49,6 +49,10 @@ public class AccountController(SignInManager<AppUser> signInManager) : BaseApiCo
     [HttpGet("user-info")]
     public async Task<ActionResult> GetUserInfo()
     {
+        var cookies = Request.Cookies;
+        if (!cookies.ContainsKey(".AspNetCore.Identity.Application"))
+            return Unauthorized("Cookie not present");
+
         if (User.Identity?.IsAuthenticated == false) return NoContent();
 
         var user = await signInManager.UserManager.GetUserByEmailWithAddress(User);
@@ -62,7 +66,8 @@ public class AccountController(SignInManager<AppUser> signInManager) : BaseApiCo
         });
     }
 
-    [HttpGet]
+
+    [HttpGet("auth-status")]
     public ActionResult GetAuthState()
     {
         return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });

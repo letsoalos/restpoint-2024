@@ -7,6 +7,8 @@ import { AddClientComponent } from './features/client/add-client/add-client.comp
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { ServerErrorComponent } from './shared/components/server-error/server-error.component';
 import { AddFamilyMemberComponent } from './features/family-member/add-family-member/add-family-member.component';
+import { LoginComponent } from './features/account/login/login.component';
+import { RegisterComponent } from './features/account/register/register.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +17,8 @@ export const routes: Routes = [
   { path: 'client/:id', component: ViewClientComponent },
   { path: 'client/:id/add-family-member', component: AddFamilyMemberComponent },
   { path: 'family-member', component: FamilyMemberComponent },
+  { path: 'account/login', component: LoginComponent },
+  { path: 'account/register', component: RegisterComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },

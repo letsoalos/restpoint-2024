@@ -43,3 +43,24 @@ a {
     color: #B8860B
   }
 }
+
+header nav a[mat-button] {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Space between text and icon */
+  font-size: 16px; /* Adjust font size if needed */
+  text-transform: capitalize; /* Match text styling */
+  cursor: pointer;
+}
+
+header nav a[mat-button].active {
+  color: #B8860B; /* Active link color */
+}
+
+header nav a[mat-button] mat-icon {
+  font-size: 20px; /* Adjust icon size if needed */
+  line-height: 1; /* Ensure vertical centering */
+  vertical-align: middle; /* Align icon with text */
+}
+
+
