@@ -20,30 +20,69 @@
 }
 
 .delete-message {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 24px;
+  font-size: 1.1rem;
+  color: #616161;
+  margin-bottom: 20px;
+}
+
+.delete-message strong {
+  font-size: 1.2rem;
+  color: #f44336; /* Red for emphasis */
 }
 
 .delete-actions {
   display: flex;
+  justify-content: center;
   gap: 16px;
+  width: 100%;
+}
+
+.delete-button, .cancel-button {
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .delete-button {
-  font-weight: bold;
+  background-color: #d32f2f; /* Red */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c62828; /* Darker Red */
 }
 
 .cancel-button {
   color: #555;
 }
 
+.cancel-button:hover {
+  background-color: #e0e0e0; /* Light Gray */
+}
+
+.delete-button mat-icon,
+.cancel-button mat-icon {
+  margin-right: 8px; /* Add space between icon and text */
+}
+
 .snack-success {
-  background-color: #4caf50; // Green for success
+  background-color: #4caf50; /* Green for success */
   color: white;
 }
 
 .snack-error {
-  background-color: #f44336; // Red for error
+  background-color: #f44336; /* Red for error */
   color: white;
+}
+
+.mat-dialog-container {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

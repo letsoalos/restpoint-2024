@@ -1,5 +1,5 @@
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FamilyMemberService } from '../../../core/services/family-member.service';
 import { ClientService } from '../../../core/services/client.service';
@@ -11,8 +11,16 @@ import { MatIcon } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Gender, Relationship } from '../../../shared/models/client';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MAT_NATIVE_DATE_FORMATS,
+  MatNativeDateModule,
+  NativeDateAdapter
+} from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TextInputComponent } from "../../../shared/components/text-input/text-input.component";
 
 @Component({
   selector: 'app-add-family-member',
@@ -28,7 +36,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSelectModule,
     MatCheckbox,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    TextInputComponent
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-ZA' }
   ],
   templateUrl: './add-family-member.component.html',
   styleUrls: ['./add-family-member.component.scss']
@@ -44,6 +58,7 @@ export class AddFamilyMemberComponent implements OnInit {
   form: FormGroup | any;
   genders: Gender | any;
   relationships: Relationship | any;
+  validationErrors?: string[];
 
   ngOnInit(): void {
     this.initializeForm();
@@ -59,7 +74,7 @@ export class AddFamilyMemberComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       genderId: ['', [Validators.required]],
       phoneNumber: [''],
-      email: [''],
+      email: ['', Validators.email],
       relationshipId: ['', [Validators.required]],
       age: [''],
       modifiedDate: null,
@@ -95,16 +110,10 @@ export class AddFamilyMemberComponent implements OnInit {
         next: () => {
           this.dialogRef.close(true);
         },
-        error: (error) => {
-          console.error('Error saving family member:', error);
-        }
+        error: error => this.validationErrors = error
       });
     } else {
       console.error('Form is invalid');
     }
-  }
-
-  cancel(): void {
-    this.dialogRef.close(false);
   }
 }

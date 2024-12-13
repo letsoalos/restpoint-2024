@@ -147,13 +147,13 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
       height: '70%',
       disableClose: true
     }).afterClosed().subscribe(result => {
-      if (result) {
+      if (result === true) {
         this.loadFamilyMembers(+clientId);
         this.snackBar.open('Family member added successfully!', '', {
           duration: 3000,
           panelClass: ['snack-success']
         });
-      } else {
+      } else if (result === false) {
         this.snackBar.open('Failed to add family member.', '', {
           duration: 3000,
           panelClass: ['snack-error']
@@ -211,13 +211,7 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // If confirmed, delete the family member, passing both familyMemberId and clientId
         this.deleteFamilyMember(familyMemberId, +clientId);
-        this.loadFamilyMembers(+clientId);
-        this.snackBar.open('Family member deleted successfully!', '', {
-          duration: 3000,
-          panelClass: ['snack-success']
-        });
       } else {
         console.log('Family member deletion was cancelled');
       }
@@ -227,11 +221,17 @@ export class ViewClientComponent implements OnInit, AfterViewInit {
   deleteFamilyMember(familyMemberId: number, clientId: number): void {
     this.familyMemberService.deleteFamilyMember(familyMemberId, clientId).subscribe(
       response => {
-        console.log('Family member deleted successfully:', response);
-        // Optionally, handle UI updates after deletion
+        this.loadFamilyMembers(+clientId);
+        this.snackBar.open('Family member deleted successfully!', '', {
+          duration: 3000,
+          panelClass: ['snack-success']
+        });
       },
       error => {
-        console.error('Error deleting family member:', error);
+        this.snackBar.open('Failed to delete family member. Please try again.', '', {
+          duration: 3000,
+          panelClass: ['snack-error']
+        });
       }
     );
   }

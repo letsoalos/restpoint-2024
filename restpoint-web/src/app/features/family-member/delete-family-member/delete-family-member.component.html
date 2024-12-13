@@ -1,14 +1,15 @@
 <div class="delete-container">
   <h2 class="delete-title">Delete Family Member</h2>
   <p class="delete-message">
-    Are you sure you want to delete this family member? This action cannot be undone.
+    Are you sure you want to delete <strong>{{ firstName }} {{ lastName }}</strong>? This action cannot be undone.
   </p>
   <div class="delete-actions">
-    <button mat-raised-button (click)="confirmDelete()" color="warn" class="delete-button">
-      Delete
+    <button mat-raised-button (click)="confirmDelete()" color="warn" class="delete-button"
+      matTooltip="Confirm deletion">
+      <mat-icon>delete</mat-icon> Delete
     </button>
-    <button mat-button (click)="cancelDelete()" class="cancel-button">
-      Cancel
+    <button mat-button (click)="cancelDelete()" class="cancel-button" matTooltip="Cancel action">
+      <mat-icon>cancel</mat-icon> Cancel
     </button>
   </div>
 </div>

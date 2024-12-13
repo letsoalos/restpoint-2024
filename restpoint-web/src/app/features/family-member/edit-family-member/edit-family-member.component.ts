@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ClientService } from '../../../core/services/client.service';
 import { FamilyMemberService } from '../../../core/services/family-member.service';
-import { FamilyMember, Gender, Relationship } from '../../../shared/models/client';
+import { Gender, Relationship } from '../../../shared/models/client';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -79,7 +79,6 @@ export class EditFamilyMemberComponent implements OnInit {
     }
   }
 
-
   loadData(): void {
     forkJoin({
       genders: this.clientService.getGenderList(),
@@ -101,8 +100,6 @@ export class EditFamilyMemberComponent implements OnInit {
         ...this.form.value,
         clientId: this.data.clientId
       };
-
-      console.log('Payload to send:', updatedData);
 
       const familyMemberId = updatedData.id;
       console.log('Updating family member with ID:', familyMemberId);

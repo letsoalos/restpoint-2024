@@ -23,46 +23,53 @@
 }
 
 button {
-  display: flex; /* Ensure flex display in buttons */
-  align-items: center; /* Vertically center icon and text */
-  justify-content: center; /* Horizontally center content */
-  flex: 1; /* Makes buttons take equal space, optional */
-  padding: 8px 16px; /* Padding for better click area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 8px 16px;
 }
 
 .buttonCustomColor {
-  background-color: #424242 !important; /* A lighter shade of yellow/gold */
-  color: white; /* Text color */
-  border-radius: 0 8px 8px 0; /* Rounded on the left side */
-  display: flex; /* Ensure flex display in buttons */
-  align-items: center; /* Vertically center icon and text */
-  justify-content: center; /* Horizontally center content */
-  padding: 8px 16px; /* Padding for better click area */
+  background-color: #424242 !important; /* Default background */
+  color: white; /* Default text color */
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
 }
 
+.buttonCustomColor:disabled {
+  background-color: #9e9e9e !important; /* Disabled state background */
+  color: #bdbdbd !important; /* Disabled state text color */
+  cursor: not-allowed; /* Visual indication of disabled state */
+}
+
+
 .backButtonCustomColor {
-  background-color: #E53935; /* A slightly lighter red */
-  color: white; /* Text color */
-  border-radius: 8px 0 0 8px; /* Rounded on the right side */
-  display: flex; /* Ensure flex display in buttons */
-  align-items: center; /* Vertically center icon and text */
-  justify-content: center; /* Horizontally center content */
-  padding: 8px 16px; /* Padding for better click area */
+  background-color: #E53935;
+  color: white;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
 }
 
 .mat-icon {
-  margin-right: 8px; /* Add space between the icon and the text */
+  margin-right: 8px;
 }
 
 .mat-dialog-actions {
-  display: flex; /* Ensure flex display */
-  justify-content: space-between; /* Space out the buttons */
-  align-items: center; /* Vertically align items to the center */
-  gap: 0; /* No gap needed between buttons */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
 }
 
 ::ng-deep .mat-datepicker-content {
-  z-index: 1000; /* Ensure it's on top of other elements */
+  z-index: 1000;
 }
 
 
